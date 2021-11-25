@@ -1,34 +1,48 @@
-<h2>Questions</h2>
+<h2 i18n>Questions</h2>
 <form>
-  <div *ngFor="let question of questions" class='card question-badge' style="width: 90%; min-width: 400px;">
-    <div class='card-body'>
+  <div *ngFor="let question of questions; let questionIndex=index;" class='card question-badge' style="width: 90%; min-width: 400px;">
+    <div class='card-body' *ngIf="questionIndex==currentQuestionIndex">
       <p class='card-title question'>{{question.question}}</p>
       <ul class='list-group'>
         <li class='list-group-item'>
           <div class="form-check">
-            <input class="form-check-input" type="radio" value="1"/>
+            <input  class="form-check-input" type="radio" value="1"
+                    [checked]="question.answer==1" (change)="onSelectionChange(questionIndex, 1)"/>
             <label class='form-check-label'>{{question.option1}}</label>
           </div>
         </li>
         <li class='list-group-item'>
           <div class="form-check">
-            <input class="form-check-input" type="radio" value="2"/>
+            <input  class="form-check-input" type="radio" value="2"
+                    [checked]="question.answer==1" (change)="onSelectionChange(questionIndex, 2)"/>
             <label class='form-check-label'>{{question.option2}}</label>
           </div>
         </li>
         <li class='list-group-item'>
           <div class="form-check">
-            <input class="form-check-input" type="radio" value="3"/>
+            <input  class="form-check-input" type="radio" value="3"
+                    [checked]="question.answer==1" (change)="onSelectionChange(questionIndex, 3)"/>
             <label class='form-check-label'>{{question.option3}}</label>
           </div>
         </li>
         <li class='list-group-item'>
           <div class="form-check">
-            <input class="form-check-input" type="radio" value="4"/>
+            <input  class="form-check-input" type="radio" value="4"
+                    [checked]="question.answer==1" (change)="onSelectionChange(questionIndex, 4)"/>
             <label class='form-check-label'>{{question.option4}}</label>
           </div>
         </li>
       </ul>
     </div>
   </div>
+
+  <button type="button" class="btn btn-secondary" style="float: left;"
+          *ngIf="currentQuestionIndex>0"
+          (click)="goToPreviusQuestion()" i18n>Previous</button>
+  <button type="button" class="btn btn-primary" style="float: right;"
+          *ngIf="currentQuestionIndex<questions.length-1"
+          (click)="goToNextQuestion()" i18n>Next</button>
+  <button type="button" class="btn btn-primary" style="float: right;"
+          *ngIf="currentQuestionIndex==questions.length-1"
+          (click)="completeQuestion()" i18n>Complete</button>
 </form>
