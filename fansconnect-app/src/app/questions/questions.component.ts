@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { QuestionService } from '../question.service';
 import { QUESTIONS } from './mock-questions';
 import { Question } from './question';
 
@@ -13,10 +14,29 @@ export class QuestionsComponent implements OnInit {
   currentQuestionIndex: number = 0;
   questions: Question[] = [];
 
-  constructor() { }
+  constructor(
+    private questionService: QuestionService
+  ) { }
 
   ngOnInit(): void {
-    this.questions = QUESTIONS;
+    //this.questions = QUESTIONS;
+    console.log("questions init");
+    this.questionService.getQuestions(1).subscribe(
+      e => {
+        for(var i=0; i<e.length; i++){
+          this.questions.push({
+            questionId: e[i].questionId,
+            question: e[i].question,
+            option1: e[i].option1,
+            option2: e[i].option2,
+            option3: e[i].option3,
+            option4: e[i].option4,
+            questionType: e[i].questionType,
+            answer: 0
+          });
+        };
+      }
+    );
   }
 
   goToPreviusQuestion():void{

@@ -1,4 +1,4 @@
-<h2 i18n>Questions</h2>
+<h2 i18n>常識題</h2>
 <form>
   <div *ngFor="let question of questions; let questionIndex=index;" class='card question-badge' style="width: 90%; min-width: 400px;">
     <div class='card-body' *ngIf="questionIndex==currentQuestionIndex">
@@ -38,11 +38,11 @@
 
   <button type="button" class="btn btn-secondary" style="float: left;"
           *ngIf="currentQuestionIndex>0"
-          (click)="goToPreviusQuestion()" i18n>Previous</button>
+          (click)="goToPreviusQuestion()" i18n>上一題</button>
   <button type="button" class="btn btn-primary" style="float: right;"
           *ngIf="currentQuestionIndex<questions.length-1"
-          (click)="goToNextQuestion()" i18n>Next</button>
+          (click)="goToNextQuestion()" i18n>下一題</button>
   <button type="button" class="btn btn-primary" style="float: right;"
           *ngIf="currentQuestionIndex==questions.length-1"
-          (click)="completeQuestion()" i18n>Complete</button>
+          (click)="completeQuestion()" i18n>完成</button>
 </form>

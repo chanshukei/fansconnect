@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { QuestionsComponent } from './questions/questions.component';
+import { HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { QuestionsComponent } from './questions/questions.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     RouterModule.forRoot([
       {path: 'questions', component: QuestionsComponent}
