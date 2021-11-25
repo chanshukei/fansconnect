@@ -1,34 +1,45 @@
 <h2 i18n>常識題</h2>
 <form>
-  <div *ngFor="let question of questions; let questionIndex=index;" class='card question-badge' style="width: 90%; min-width: 400px;">
-    <div class='card-body' *ngIf="questionIndex==currentQuestionIndex">
-      <p class='card-title question'>{{question.question}}</p>
+
+  <div class='card' style="width: 90%; min-width: 300px;" *ngIf="isCompleted">
+    <div class='card-body'>
+      <p class='card-title' *ngIf="correctAnswerCount==questions.length">你全答對了</p>
+      <p class='card-title' *ngIf="correctAnswerCount<questions.length">
+        你答對了 {{correctAnswerCount}} / {{questions.length}} 題
+      </p>
+    </div>
+  </div>
+
+  <div  *ngFor="let question of questions; let questionIndex=index;"
+        class='card question-badge' style="width: 90%; min-width: 300px;">
+    <div class='card-body' *ngIf="questionIndex==currentQuestionIndex && !isCompleted">
+      <p class='card-title question'>{{currentQuestionIndex+1}}. {{question.question}}</p>
       <ul class='list-group'>
         <li class='list-group-item'>
           <div class="form-check">
             <input  class="form-check-input" type="radio" value="1"
-                    [checked]="question.answer==1" (change)="onSelectionChange(questionIndex, 1)"/>
+                    [checked]="question.selectedOption==1" (change)="onSelectionChange(questionIndex, 1)"/>
             <label class='form-check-label'>{{question.option1}}</label>
           </div>
         </li>
         <li class='list-group-item'>
           <div class="form-check">
             <input  class="form-check-input" type="radio" value="2"
-                    [checked]="question.answer==1" (change)="onSelectionChange(questionIndex, 2)"/>
+                    [checked]="question.selectedOption==2" (change)="onSelectionChange(questionIndex, 2)"/>
             <label class='form-check-label'>{{question.option2}}</label>
           </div>
         </li>
         <li class='list-group-item'>
           <div class="form-check">
             <input  class="form-check-input" type="radio" value="3"
-                    [checked]="question.answer==1" (change)="onSelectionChange(questionIndex, 3)"/>
+                    [checked]="question.selectedOption==3" (change)="onSelectionChange(questionIndex, 3)"/>
             <label class='form-check-label'>{{question.option3}}</label>
           </div>
         </li>
         <li class='list-group-item'>
           <div class="form-check">
             <input  class="form-check-input" type="radio" value="4"
-                    [checked]="question.answer==1" (change)="onSelectionChange(questionIndex, 4)"/>
+                    [checked]="question.selectedOption==4" (change)="onSelectionChange(questionIndex, 4)"/>
             <label class='form-check-label'>{{question.option4}}</label>
           </div>
         </li>
@@ -37,12 +48,14 @@
   </div>
 
   <button type="button" class="btn btn-secondary" style="float: left;"
-          *ngIf="currentQuestionIndex>0"
+          *ngIf="currentQuestionIndex>0 && !isCompleted"
           (click)="goToPreviusQuestion()" i18n>上一題</button>
   <button type="button" class="btn btn-primary" style="float: right;"
-          *ngIf="currentQuestionIndex<questions.length-1"
+          *ngIf="currentQuestionIndex<questions.length-1 && !isCompleted"
+          [disabled]="questions[currentQuestionIndex].selectedOption==0"
           (click)="goToNextQuestion()" i18n>下一題</button>
   <button type="button" class="btn btn-primary" style="float: right;"
-          *ngIf="currentQuestionIndex==questions.length-1"
+          *ngIf="currentQuestionIndex==questions.length-1 && !isCompleted"
+          [disabled]="questions[currentQuestionIndex].selectedOption==0"
           (click)="completeQuestion()" i18n>完成</button>
 </form>

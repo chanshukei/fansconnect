@@ -10,9 +10,11 @@ import { Question } from './question';
 })
 export class QuestionsComponent implements OnInit {
 
+  isCompleted: boolean = false;
   idolId: number = 0;
   currentQuestionIndex: number = 0;
   questions: Question[] = [];
+  correctAnswerCount: number = 0;
 
   constructor(
     private questionService: QuestionService
@@ -32,7 +34,8 @@ export class QuestionsComponent implements OnInit {
             option3: e[i].option3,
             option4: e[i].option4,
             questionType: e[i].questionType,
-            answer: 0
+            answer: e[i].answer,
+            selectedOption: 0
           });
         };
       }
@@ -54,20 +57,17 @@ export class QuestionsComponent implements OnInit {
   }
 
   onSelectionChange(questionIndex: number, inputAnswer: number): void{
-    this.questions[questionIndex].answer = inputAnswer;
+    this.questions[questionIndex].selectedOption = inputAnswer;
   }
 
   completeQuestion(): void{
-    /*
-    this.questionService.getQuestionResult(this.username.value, this.password.value).subscribe(
-      event => {
-        var loginResult = event[0];
-        console.log("LoginResult: "+ loginResult.userId + "/" + loginResult.result);
-        window.sessionStorage.setItem("userId", loginResult.userId);
-        this.router.navigate(['../dashboard'], {relativeTo: this.route});
+    this.correctAnswerCount = 0;
+    for(var i=0; i<this.questions.length; i++){
+      if(this.questions[i].answer == this.questions[i].selectedOption){
+        this.correctAnswerCount += 1;
       }
-    );
-    */
+    }
+    this.isCompleted = true;
   }
 
 }
