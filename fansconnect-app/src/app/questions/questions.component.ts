@@ -29,10 +29,10 @@ export class QuestionsComponent implements OnInit {
           this.questions.push({
             questionId: e[i].questionId,
             question: e[i].question,
-            option1: e[i].option1,
-            option2: e[i].option2,
             option3: e[i].option3,
             option4: e[i].option4,
+            option1: e[i].option1,
+            option2: e[i].option2,
             questionType: e[i].questionType,
             answer: e[i].answer,
             selectedOption: 0
