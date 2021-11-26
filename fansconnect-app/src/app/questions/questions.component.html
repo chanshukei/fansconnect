@@ -4,9 +4,15 @@
   <div class='card' style="width: 90%; min-width: 300px;" *ngIf="isCompleted">
     <div class='card-body'>
       <p class='card-title' *ngIf="correctAnswerCount==questions.length">你全答對了</p>
+      <video class="card-img-bottom" width="320" height="480" autoplay="autoplay" *ngIf="correctAnswerCount==questions.length">
+        <source src="/assets/2017066186870262094.MP4">
+      </video>
       <p class='card-title' *ngIf="correctAnswerCount<questions.length">
         你答對了 {{correctAnswerCount}} / {{questions.length}} 題
       </p>
+      <video class="card-img-bottom" width="320" height="480" autoplay="autoplay" *ngIf="correctAnswerCount<questions.length">
+        <source src="/assets/RPReplay-Final1637659349.mov">
+      </video>
     </div>
   </div>
 
