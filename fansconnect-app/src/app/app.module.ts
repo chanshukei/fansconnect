@@ -14,10 +14,7 @@ import { HttpClientModule} from '@angular/common/http';
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule,
-    RouterModule.forRoot([
-      {path: 'questions', component: QuestionsComponent}
-    ]),
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
