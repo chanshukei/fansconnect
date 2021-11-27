@@ -15,6 +15,9 @@
       </video>
     </div>
   </div>
+  <button type="button" class="btn btn-light" style="float: right;"
+          *ngIf="isCompleted"
+          (click)="backToMenu()" i18n>返回主頁</button>
 
   <div  *ngFor="let question of questions; let questionIndex=index;"
         class='card question-badge' style="width: 90%; min-width: 300px;">
@@ -53,15 +56,16 @@
     </div>
   </div>
 
-  <button type="button" class="btn btn-secondary" style="float: left;"
+  <button type="button" class="btn btn-light" style="float: left;"
           *ngIf="currentQuestionIndex>0 && !isCompleted"
           (click)="goToPreviusQuestion()" i18n>上一題</button>
-  <button type="button" class="btn btn-primary" style="float: right;"
+  <button type="button" class="btn btn-light" style="float: right;"
           *ngIf="currentQuestionIndex<questions.length-1 && !isCompleted"
           [disabled]="questions[currentQuestionIndex].selectedOption==0"
           (click)="goToNextQuestion()" i18n>下一題</button>
-  <button type="button" class="btn btn-primary" style="float: right;"
+  <button type="button" class="btn btn-light" style="float: right;"
           *ngIf="currentQuestionIndex==questions.length-1 && !isCompleted"
           [disabled]="questions[currentQuestionIndex].selectedOption==0"
           (click)="completeQuestion()" i18n>完成</button>
+
 </form>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../event.service';
 import { Event } from './event';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-events',
@@ -12,11 +13,13 @@ export class EventsComponent implements OnInit {
   events: Event[] = [];
 
   constructor(
-    private eventService: EventService
+    private eventService: EventService,
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   backToMenu(): void{
-
+    this.router.navigate(['../home'], {relativeTo: this.route});
   }
 
   ngOnInit(): void {

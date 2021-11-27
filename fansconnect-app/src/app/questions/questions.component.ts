@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { QuestionService } from '../question.service';
 import { QUESTIONS } from './mock-questions';
 import { Question } from './question';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-questions',
@@ -17,8 +18,14 @@ export class QuestionsComponent implements OnInit {
   correctAnswerCount: number = 0;
 
   constructor(
-    private questionService: QuestionService
+    private questionService: QuestionService,
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
+
+  backToMenu(): void{
+    this.router.navigate(['../home'], {relativeTo: this.route});
+  }
 
   ngOnInit(): void {
     //this.questions = QUESTIONS;
