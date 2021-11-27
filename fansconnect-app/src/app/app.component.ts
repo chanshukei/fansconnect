@@ -7,7 +7,7 @@ import { IdolService } from './idol.service';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
-  title = 'FANS Connect';
+  title = '';
 
   constructor(
     private idolService: IdolService
