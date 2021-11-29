@@ -15,6 +15,10 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  goToPhotoBattle(): void{
+    this.router.navigate(['../photobattle'], {relativeTo: this.route});
+  }
+
   goToQuestions(): void{
     this.router.navigate(['../questions'], {relativeTo: this.route});
   }

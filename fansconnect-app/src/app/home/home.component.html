@@ -1,14 +1,30 @@
 <div class="container">
   <div class="row">
-    <button type="button" (click)="goToQuestions()" class="btn btn-light">
-      <img src="../../assets/icons/quiz.png"/>
-      <span>常識題</span>
-    </button>
+    <div class="col col-md-12" style="text-align: center;">
+      <img style="width: 200px;" src="../assets/icons/logo.jpg"/>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col col-md-6">
+      <button type="button" (click)="goToPhotoBattle()" class="btn btn-light">
+        <img src="../../assets/icons/battle.png"/>
+        <span>圖片榜</span>
+      </button>
+    </div>
+    <div class="col col-md-6">
+      <button type="button" (click)="goToQuestions()" class="btn btn-light">
+        <img src="../../assets/icons/quiz.png"/>
+        <span>常識題</span>
+      </button>
+    </div>
   </div>
   <div class="row">
-    <button type="button" (click)="goToEvents()" class="btn btn-light">
-      <img src="../../assets/icons/calendar.png"/>
-      <span>事件簿</span>
-    </button>
+    <div class="col col-md-6">
+      <button type="button" (click)="goToEvents()" class="btn btn-light">
+        <img src="../../assets/icons/calendar.png"/>
+        <span>事件簿</span>
+      </button>
+    </div>
   </div>
 </div>

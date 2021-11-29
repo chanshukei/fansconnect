@@ -1,0 +1,27 @@
+<form>
+  <div *ngIf="!isUpload">
+    <div *ngFor="let photoBattle of photoBattles; let battleIndex=index;"
+          class='card' style="width: 90%; min-width: 300px; margin-bottom: 5px;">
+      <div class='card-body'>
+        <h2 class='card-title'>
+          &lt;{{photoBattle.battleName}}&gt;
+        </h2>
+        <p class='card-text'>{{photoBattle.battleDescription}}</p>
+        <a [routerLink]="" (click)="showUploadDialog()">你可提供更好的圖片</a>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isUpload">
+    <h2>上載到圖片榜</h2>
+    <div class="photo-container">
+      <input type="file" id="image_input" (change)="onFileSelected($event)" accept="image/png, image/jpeg">
+      <div id="display_image"><img style="max-width: 100%;" [src]="filePath"></div>
+   </div>
+    <button type="button" class="btn btn-light">取消</button>
+    <button type="button" class="btn btn-light">完成</button>
+  </div>
+
+  <button type="button" class="btn btn-light" style="float: right;"
+          (click)="backToMenu()" i18n>返回主頁</button>
+</form>
