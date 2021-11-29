@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { PhotoBattle } from './photobattle/photobattle';
+import { Photo } from './photobattle/photo';
 
 
 @Injectable({
@@ -14,6 +15,28 @@ export class PhotoService {
 
   constructor(private http: HttpClient) {}
 
+  addLike(photoId: number):void{
+    var apiUrl = this.photoApi.concat("/like/", photoId.toString(), "?");
+    this.http.post(
+      apiUrl, {}
+    ).subscribe(
+      data => {
+      }
+    )
+  }
+
+  addPhoto(photo: Photo):void{
+    var apiUrl = this.photoApi.concat("/photo/", photo.battleId.toString(), "?");
+    console.log(photo);
+    this.http.post<Photo>(
+      apiUrl,
+      photo
+    ).subscribe(
+      data => {
+      }
+    )
+  }
+
   getPhotobattles(idolId: number): Observable<PhotoBattle[]>{
     var apiUrl = this.photoApi.concat(
       "/photoBattles/", idolId.toString(),
@@ -21,6 +44,16 @@ export class PhotoService {
     console.log(apiUrl);
     return this.http.get<PhotoBattle[]>(apiUrl).pipe(
       catchError(this.handleError<PhotoBattle[]>("Get Photo Battle", []))
+    );
+  }
+
+  getPhotos(battleId: number): Observable<Photo[]>{
+    var apiUrl = this.photoApi.concat(
+      "/photos/", battleId.toString(),
+      "?code=1BB9pHCk5ddOLVKf77DydiGnZTbO9bYc2YIykj55Ou6YEjbM6KF8DA==");
+    console.log(apiUrl);
+    return this.http.get<Photo[]>(apiUrl).pipe(
+      catchError(this.handleError<Photo[]>("Get Photo Battle", []))
     );
   }
 

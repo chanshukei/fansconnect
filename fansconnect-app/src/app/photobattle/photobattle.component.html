@@ -1,5 +1,5 @@
 <form>
-  <div *ngIf="!isUpload">
+  <div *ngIf="!isUpload && !isComplete">
     <div *ngFor="let photoBattle of photoBattles; let battleIndex=index;"
           class='card' style="width: 90%; min-width: 300px; margin-bottom: 5px;">
       <div class='card-body'>
@@ -7,19 +7,37 @@
           &lt;{{photoBattle.battleName}}&gt;
         </h2>
         <p class='card-text'>{{photoBattle.battleDescription}}</p>
-        <a [routerLink]="" (click)="showUploadDialog()">你可提供更好的圖片</a>
+
+        <div *ngFor="let photo of photos; let photoIndex=index;"
+            class='card' style="width: 90%; min-width: 300px; margin-bottom: 5px;">
+          <div class='card-body'>
+            <div class="card-title" style="font-weight: bold;">
+              {{photoIndex+1}}{{photoIndex%10==0?'st':(photoIndex%10==1?'nd':(photoIndex%10==2?'rd':'th'))}}
+            </div>
+            <img style="width: 100%; border-radius: 5px; margin: 0px" [src]="photo.imageContent" />
+            <div class="card-text">
+              <button class="btn btn-light" style="margin:0; width: 100%" (click)="addLike(photo.photoId)">{{photo.likeCount}} Like</button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
+    <a [routerLink]="" (click)="showUploadDialog()">你可提供更好的圖片</a>
   </div>
 
-  <div *ngIf="isUpload">
+  <div *ngIf="isUpload && !isComplete">
     <h2>上載到圖片榜</h2>
     <div class="photo-container">
       <input type="file" id="image_input" (change)="onFileSelected($event)" accept="image/png, image/jpeg">
       <div id="display_image"><img style="max-width: 100%;" [src]="filePath"></div>
    </div>
     <button type="button" class="btn btn-light">取消</button>
-    <button type="button" class="btn btn-light">完成</button>
+    <button type="button" class="btn btn-light" (click)="completeUpload()">完成</button>
+  </div>
+
+  <div *ngIf="isComplete">
+    <h2 *ngIf="currentBattle>0">多謝參與&lt;{{getCurrentPhotoBattleName()}}&gt;的投票</h2>
   </div>
 
   <button type="button" class="btn btn-light" style="float: right;"
