@@ -14,9 +14,10 @@
             <div class="card-title" style="font-weight: bold;">
               {{photoIndex+1}}{{photoIndex%10==0?'st':(photoIndex%10==1?'nd':(photoIndex%10==2?'rd':'th'))}}
             </div>
-            <img style="width: 100%; border-radius: 5px; margin: 0px" [src]="photo.imageContent" />
+            <img *ngIf="photo.imageContent==''" src="../../assets/icons/loading.gif" />
+            <img *ngIf="photo.imageContent!=''" style="max-width:400px; width: 100%; border-radius: 5px; margin: 0px" [src]="photo.imageContent" />
             <div class="card-text">
-              <button class="btn btn-light" style="margin:0; width: 100%" (click)="addLike(photo.photoId)">{{photo.likeCount}} Like</button>
+              <button class="btn btn-light" style="margin:0; max-width: 100%" (click)="addLike(photo.photoId)">{{photo.likeCount}} Like</button>
             </div>
           </div>
         </div>
