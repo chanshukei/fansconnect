@@ -96,16 +96,30 @@ export class PhotobattleComponent implements OnInit {
   }
 
   refreshPhotos(): void{
-    this.photoService.getPhotos(this.currentBattle).subscribe(
+    this.photoService.getPhotosLite(this.currentBattle).subscribe(
       e => {
         for(var i=0; i<e.length; i++){
           var e2: Photo = {
             battleId: e[i].battleId,
             photoId: e[i].photoId,
-            imageContent: e[i].imageContent,
-            likeCount: e[i].likeCount
+            likeCount: e[i].likeCount,
+            imageContent: ''
           };
           this.photos.push(e2);
+          console.log('get photolite: '+e2.photoId);
+
+          this.photoService.getPhoto(e2.photoId).subscribe(
+            e => {
+              if(e.length > 0){
+                for(var j=0; j<this.photos.length; j++){
+                  if(this.photos[j].photoId==e[0].photoId){
+                    this.photos[j].imageContent = e[0].imageContent;
+                  }
+                }
+              }
+            }
+          );
+
         }
       }
     );

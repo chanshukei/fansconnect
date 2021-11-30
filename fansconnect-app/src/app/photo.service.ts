@@ -47,13 +47,23 @@ export class PhotoService {
     );
   }
 
-  getPhotos(battleId: number): Observable<Photo[]>{
+  getPhotosLite(battleId: number): Observable<Photo[]>{
     var apiUrl = this.photoApi.concat(
-      "/photos/", battleId.toString(),
-      "?code=1BB9pHCk5ddOLVKf77DydiGnZTbO9bYc2YIykj55Ou6YEjbM6KF8DA==");
-    console.log(apiUrl);
+      "/photosLite/", battleId.toString(),
+      "?code=GHbiByBbMC1NAvlViJiBUraHMBpLcCDuagPhByWy5Bn57aALqg6vnw==");
+    //console.log(apiUrl);
     return this.http.get<Photo[]>(apiUrl).pipe(
-      catchError(this.handleError<Photo[]>("Get Photo Battle", []))
+      catchError(this.handleError<Photo[]>("Get Photos Lite", []))
+    );
+  }
+
+  getPhoto(photoId: number): Observable<Photo[]>{
+    var apiUrl = this.photoApi.concat(
+      "/photo/", photoId.toString(),
+      "?code=/j4zfnG3pckZSSDcDq98M2Fotd7siSJmXBiEjLpDPHOXojpgpwxPKQ==");
+    //console.log(apiUrl);
+    return this.http.get<Photo[]>(apiUrl).pipe(
+      catchError(this.handleError<Photo[]>("Get Photo", []))
     );
   }
 
