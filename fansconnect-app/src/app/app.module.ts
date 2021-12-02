@@ -8,6 +8,8 @@ import { HttpClientModule} from '@angular/common/http';
 import { EventsComponent } from './events/events.component';
 import { HomeComponent } from './home/home.component';
 import { PhotobattleComponent } from './photobattle/photobattle.component';
+import { EventfansComponent } from './eventfans/eventfans.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,12 +17,14 @@ import { PhotobattleComponent } from './photobattle/photobattle.component';
     QuestionsComponent,
     EventsComponent,
     HomeComponent,
-    PhotobattleComponent
+    PhotobattleComponent,
+    EventfansComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

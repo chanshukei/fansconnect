@@ -22,6 +22,10 @@ export class EventsComponent implements OnInit {
     this.router.navigate(['../home'], {relativeTo: this.route});
   }
 
+  goToEventFans(): void{
+    this.router.navigate(['../eventfans'], {relativeTo: this.route});
+  }
+
   ngOnInit(): void {
     console.log("events init");
     this.eventService.getEvents(1).subscribe(
