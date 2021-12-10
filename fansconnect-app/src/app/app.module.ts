@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { PhotobattleComponent } from './photobattle/photobattle.component';
 import { EventfansComponent } from './eventfans/eventfans.component';
 import { FormsModule } from '@angular/forms';
+import { SupportitemComponent } from './supportitem/supportitem.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { FormsModule } from '@angular/forms';
     EventsComponent,
     HomeComponent,
     PhotobattleComponent,
-    EventfansComponent
+    EventfansComponent,
+    SupportitemComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,158 @@
+<h2 i18n>應援表</h2>
+<form>
+  <div *ngIf="pagemode=='list'">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">應援項目名稱</th>
+          <th scope="col">製成日期</th>
+          <th scope="col">製作數量</th>
+          <th scope="col">參與人數</th>
+          <th scope="col">應援日期</th>
+          <th scope="col">應援時間</th>
+          <th scope="col">應援地點</th>
+          <th scope="col">收入日期</th>
+          <th scope="col">收入總額</th>
+          <th scope="col">支出日期</th>
+          <th scope="col">支出總額</th>
+          <th scope="col">其他資訊</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of supportItems; let itemIndex=index;">
+          <td>{{item.itemName}}</td>
+          <td>{{item.completeDate | date}}</td>
+          <td>{{item.itemCount}}</td>
+          <td>{{item.fansCount}}</td>
+          <td>{{item.releaseDate | date}}</td>
+          <td>{{item.releaseTime}}</td>
+          <td>{{item.releaseLocation}}</td>
+          <td>{{item.incomeDate | date}}</td>
+          <td>{{item.income}}</td>
+          <td>{{item.paymentDate | date}}</td>
+          <td>{{item.payment}}</td>
+          <td>{{item.itemDescription}}</td>
+          <td><button *ngIf="verificationCode!=''" class="btn btn-dark" style="float: right;" (click)="startEdit(item)">修改</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <button type="button" class="btn btn-light" style="float: left;"
+            *ngIf="verificationCode!=''"
+            (click)="addItem()" i18n>新增應援</button>
+  </div>
+  <div class='card' style="width: 90%; min-width: 400px; margin-bottom: 5px;" *ngIf="pagemode=='edit'">
+    <div class='card-body'>
+      <h3 class="card-title">編制應援項目</h3>
+      <div class="container">
+
+        <div class="row" *ngIf="alertMessage!=''">
+          <div class="col col-md-10">
+            <div class="alert alert-danger" role="alert">
+              {{alertMessage}}
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class='col col-md-4'><label class="form-label">應援項目名稱</label></div>
+          <div class="col col-md-6">
+            <input type="text" name="itemName" class="form-control" maxlength="50" [(ngModel)]="editSupportItem.itemName"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class='col col-md-4'><label class="form-label">製成日期</label></div>
+          <div class="col col-md-6">
+            <input  type="date" name="completeDate" class="form-control"
+                    [ngModel]="editSupportItem.completeDate | date:'yyyy-MM-dd'"
+                    (ngModelChange)="editSupportItem.completeDate = $event"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class='col col-md-4'><label class="form-label">製作數量</label></div>
+          <div class="col col-md-6">
+            <input type="number" name="itemCount" class="form-control" maxlength="4" [(ngModel)]="editSupportItem.itemCount"/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class='col col-md-4'><label class="form-label">參與人數</label></div>
+          <div class="col col-md-6">
+            <input type="number" name="fansCount" class="form-control" maxlength="5" [(ngModel)]="editSupportItem.fansCount"/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class='col col-md-4'><label class="form-label">應援日期</label></div>
+          <div class="col col-md-6">
+            <input  type="date" name="releaseDate" class="form-control"
+                    [ngModel]="editSupportItem.releaseDate | date:'yyyy-MM-dd'"
+                    (ngModelChange)="editSupportItem.releaseDate = $event"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class='col col-md-4'><label class="form-label">應援時間</label></div>
+          <div class="col col-md-6">
+            <input type="text" name="releaseTime" class="form-control" maxlength="20" [(ngModel)]="editSupportItem.releaseTime"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class='col col-md-4'><label class="form-label">應援地點</label></div>
+          <div class="col col-md-6">
+            <input type="text" name="releaseLocation" class="form-control" maxlength="20" [(ngModel)]="editSupportItem.releaseLocation"/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class='col col-md-4'><label class="form-label">收入日期</label></div>
+          <div class="col col-md-6">
+            <input  type="date" name="incomeDate" class="form-control"
+                    [ngModel]="editSupportItem.incomeDate | date:'yyyy-MM-dd'"
+                    (ngModelChange)="editSupportItem.incomeDate = $event"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class='col col-md-4'><label class="form-label">收入總額</label></div>
+          <div class="col col-md-6">
+            <input type="text" name="income" class="form-control" maxlength="9" [(ngModel)]="editSupportItem.income"/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class='col col-md-4'><label class="form-label">支出日期</label></div>
+          <div class="col col-md-6">
+            <input  type="date" name="paymentDate" class="form-control"
+                    [ngModel]="editSupportItem.paymentDate | date:'yyyy-MM-dd'"
+                    (ngModelChange)="editSupportItem.paymentDate = $event"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class='col col-md-4'><label class="form-label">支出總額</label></div>
+          <div class="col col-md-6">
+            <input type="text" name="payment" class="form-control" maxlength="9" [(ngModel)]="editSupportItem.payment"/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class='col col-md-4'><label class="form-label">其他資訊</label></div>
+          <div class="col col-md-6">
+            <textarea name="itemDescription" class="form-control" maxlength="50" [(ngModel)]="editSupportItem.itemDescription"></textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col col-md-12">
+            <button type="button" class="btn btn-dark" style="float: left;" (click)="cancelEdit()" i18n>取消</button>
+            <button type="button" class="btn btn-dark" style="float: right;" (click)="completeEdit()" i18n>完成</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-light" style="float: left;"
+          *ngIf="verificationCode==''"
+          (click)="gotoLogin()" i18n>登入</button>
+  <button type="button" class="btn btn-light" style="float: right;"
+          (click)="backToHome()" i18n>返回主頁</button>
+</form>
