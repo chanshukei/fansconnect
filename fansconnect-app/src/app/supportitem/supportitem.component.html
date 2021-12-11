@@ -4,36 +4,39 @@
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">應援項目名稱</th>
-          <th scope="col">製成日期</th>
+          <th scope="col">應援項目</th>
+          <!-- th scope="col">製成日期</th>
           <th scope="col">製作數量</th>
-          <th scope="col">參與人數</th>
-          <th scope="col">應援日期</th>
-          <th scope="col">應援時間</th>
+          <th scope="col">參與人數</th -->
+          <th style="min-width: 100px;" scope="col">應援日期</th>
+          <!-- th scope="col">應援時間</th -->
           <th scope="col">應援地點</th>
-          <th scope="col">收入日期</th>
-          <th scope="col">收入總額</th>
+          <!-- th scope="col">收入日期</th>
+          < th scope="col">收入總額</th>
           <th scope="col">支出日期</th>
-          <th scope="col">支出總額</th>
+          <th scope="col">支出總額</th -->
           <th scope="col">其他資訊</th>
-          <th scope="col"></th>
+          <!-- th scope="col"></th -->
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of supportItems; let itemIndex=index;">
-          <td>{{item.itemName}}</td>
-          <td>{{item.completeDate | date}}</td>
+          <td>{{item.itemName}} [{{item.supportType}}]</td>
+          <!-- td>{{item.completeDate | date}}</td>
           <td>{{item.itemCount}}</td>
-          <td>{{item.fansCount}}</td>
-          <td>{{item.releaseDate | date}}</td>
-          <td>{{item.releaseTime}}</td>
-          <td>{{item.releaseLocation}}</td>
-          <td>{{item.incomeDate | date}}</td>
+          <td>{{item.fansCount}}</td -->
+          <td>{{item.releaseDate | date:'yyyy-MM-dd'}}</td>
+          <!-- td>{{item.releaseTime}}</td -->
+          <td>
+              <a *ngIf="item.coord!=''" target="blank" [href]="'http://www.google.com/maps/place/' + item.coord">{{item.releaseLocation}}</a>
+              <span *ngIf="item.coord==''">{{item.releaseLocation}}</span>
+          </td>
+          <!-- td>{{item.incomeDate | date}}</td>
           <td>{{item.income}}</td>
           <td>{{item.paymentDate | date}}</td>
-          <td>{{item.payment}}</td>
+          <td>{{item.payment}}</td -->
           <td>{{item.itemDescription}}</td>
-          <td><button *ngIf="verificationCode!=''" class="btn btn-dark" style="float: right;" (click)="startEdit(item)">修改</button></td>
+          <!-- td><button *ngIf="verificationCode!=''" class="btn btn-dark" style="float: right;" (click)="startEdit(item)">修改</button></td -->
         </tr>
       </tbody>
     </table>
@@ -150,9 +153,9 @@
     </div>
   </div>
 
-  <button type="button" class="btn btn-light" style="float: left;"
+  <!-- button type="button" class="btn btn-light" style="float: left;"
           *ngIf="verificationCode==''"
-          (click)="gotoLogin()" i18n>登入</button>
+          (click)="gotoLogin()" i18n>登入</button -->
   <button type="button" class="btn btn-light" style="float: right;"
           (click)="backToHome()" i18n>返回主頁</button>
 </form>

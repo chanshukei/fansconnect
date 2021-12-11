@@ -30,7 +30,8 @@ export class SupportitemComponent implements OnInit {
     imageContent: '',
     fansCount: 0,
     itemCount: 0,
-    releaseLocation: ''
+    releaseLocation: '',
+    coord: ''
   };
 
   startEdit(item: SupportItem): void{
@@ -50,7 +51,8 @@ export class SupportitemComponent implements OnInit {
       imageContent: item.imageContent,
       fansCount: item.fansCount,
       itemCount: item.itemCount,
-      releaseLocation: item.releaseLocation
+      releaseLocation: item.releaseLocation,
+      coord: item.coord
     };
 
     this.pagemode = 'edit';
@@ -73,7 +75,8 @@ export class SupportitemComponent implements OnInit {
       imageContent: '',
       fansCount: 0,
       itemCount: 0,
-      releaseLocation: ''
+      releaseLocation: '',
+      coord: ''
     };
     this.pagemode = 'list';
   }
@@ -124,7 +127,8 @@ export class SupportitemComponent implements OnInit {
       imageContent: '',
       fansCount: 0,
       itemCount: 0,
-      releaseLocation: ''
+      releaseLocation: '',
+      coord: ''
     };
   }
 
@@ -162,7 +166,8 @@ export class SupportitemComponent implements OnInit {
             fansCount: e[i].fansCount,
             itemCount: e[i].itemCount,
             imageContent: '',
-            supportType: ''
+            supportType: e[i].supportType,
+            coord: e[i].coord
           };
           this.supportItems.push(e2);
         };

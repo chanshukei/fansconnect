@@ -15,4 +15,5 @@ export interface SupportItem {
   imageContent: string;
   itemDescription:string;
   fansCount: number;
+  coord: string;
 }
