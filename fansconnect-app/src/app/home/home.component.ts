@@ -30,4 +30,8 @@ export class HomeComponent implements OnInit {
   goToEvents(): void{
     this.router.navigate(['../events'], {relativeTo: this.route});
   }
+
+  goToIncome(): void{
+    this.router.navigate(['../income'], {relativeTo: this.route});
+  }
 }

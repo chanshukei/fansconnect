@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { Event } from './events/event';
 import { EventFans } from './eventfans/eventfans';
+import { Income } from './income/income';
 
 
 @Injectable({
@@ -24,6 +25,14 @@ export class EventService {
       data => {
       }
     )
+  }
+
+  addIncome(income: Income): Observable<Income>{
+    var apiUrl = this.eventApi.concat("/addincome/", income.idolId.toString(), "?");
+    return this.http.post<Income>(
+      apiUrl,
+      income
+    );
   }
 
   getEventFanss(idolId: number): Observable<EventFans[]>{

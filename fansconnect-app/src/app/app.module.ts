@@ -12,6 +12,7 @@ import { EventfansComponent } from './eventfans/eventfans.component';
 import { FormsModule } from '@angular/forms';
 import { SupportitemComponent } from './supportitem/supportitem.component';
 import { LoginComponent } from './login/login.component';
+import { IncomeComponent } from './income/income.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { LoginComponent } from './login/login.component';
     PhotobattleComponent,
     EventfansComponent,
     SupportitemComponent,
-    LoginComponent
+    LoginComponent,
+    IncomeComponent
   ],
   imports: [
     BrowserModule,
