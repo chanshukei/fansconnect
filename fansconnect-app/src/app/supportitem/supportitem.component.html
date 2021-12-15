@@ -1,4 +1,11 @@
-<h2 i18n>應援表</h2>
+<h2 i18n>
+  應援表
+  <span style="font-size: 12pt">
+    [<a href="javascript: return false;" (click)="gotoMap()">轉為地圖</a>]
+  </span>
+</h2>
+
+
 <form>
   <div *ngIf="pagemode=='list'">
     <table class="table">

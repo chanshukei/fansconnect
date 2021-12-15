@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { SupportitemComponent } from './supportitem/supportitem.component';
 import { LoginComponent } from './login/login.component';
 import { IncomeComponent } from './income/income.component';
+import { MapComponent } from './map/map.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { IncomeComponent } from './income/income.component';
     EventfansComponent,
     SupportitemComponent,
     LoginComponent,
-    IncomeComponent
+    IncomeComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,

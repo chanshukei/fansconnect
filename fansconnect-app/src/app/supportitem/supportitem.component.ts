@@ -105,6 +105,10 @@ export class SupportitemComponent implements OnInit {
     this.router.navigate(['../home'], {relativeTo: this.route});
   }
 
+  gotoMap(): void{
+    this.router.navigate(['../map'], {relativeTo: this.route});
+  }
+
   gotoLogin(): void{
     this.router.navigate(['../login'], {relativeTo: this.route});
   }
