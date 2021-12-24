@@ -25,7 +25,8 @@ export class IncomeComponent implements OnInit {
     answer4: '',
     answer5: '',
     imageContent: '',
-    idolId: 0
+    idolId: 0,
+    createDate: new Date()
   }
 
   backToMenu(): void{
@@ -89,7 +90,8 @@ export class IncomeComponent implements OnInit {
       answer4: '',
       answer5: '',
       imageContent: '',
-      idolId: 0
+      idolId: 0,
+      createDate: new Date()
     }
   }
 

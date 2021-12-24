@@ -14,6 +14,8 @@ import { SupportitemComponent } from './supportitem/supportitem.component';
 import { LoginComponent } from './login/login.component';
 import { IncomeComponent } from './income/income.component';
 import { MapComponent } from './map/map.component';
+import { NgChartsModule } from 'ng2-charts';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -26,13 +28,15 @@ import { MapComponent } from './map/map.component';
     SupportitemComponent,
     LoginComponent,
     IncomeComponent,
-    MapComponent
+    MapComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    NgChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

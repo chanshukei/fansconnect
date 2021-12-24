@@ -34,4 +34,8 @@ export class HomeComponent implements OnInit {
   goToIncome(): void{
     this.router.navigate(['../income'], {relativeTo: this.route});
   }
+
+  goToDashboard(): void{
+    this.router.navigate(['../dashboard'], {relativeTo: this.route});
+  }
 }

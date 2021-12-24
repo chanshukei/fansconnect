@@ -10,4 +10,5 @@ export interface Income {
   answer5: string;
   imageContent: string;
   idolId: number;
+  createDate: Date;
 }

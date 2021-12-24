@@ -5,6 +5,7 @@ import { catchError, map } from 'rxjs/operators';
 import { Event } from './events/event';
 import { EventFans } from './eventfans/eventfans';
 import { Income } from './income/income';
+import { Expense } from './income/expense';
 
 
 @Injectable({
@@ -32,6 +33,26 @@ export class EventService {
     return this.http.post<Income>(
       apiUrl,
       income
+    );
+  }
+
+  getExpenses(idolId: number): Observable<Expense[]>{
+    var apiUrl = this.eventApi.concat(
+      "/expenses/", idolId.toString(),
+      "?code=IClNdGukZViaCAM/AWah3A4oqXPaIq78BFAJga6ah/JDyUFzvE4z5Q==");
+    console.log(apiUrl);
+    return this.http.get<Expense[]>(apiUrl).pipe(
+      catchError(this.handleError<Expense[]>("Get Expenses", []))
+    );
+  }
+
+  getIncomes(idolId: number): Observable<Income[]>{
+    var apiUrl = this.eventApi.concat(
+      "/incomes/", idolId.toString(),
+      "?code=t2mIu5VYeNWafrpgaz/UmXSyBnFhUza5xC12tbZu7aRkAdHsg32T2w==");
+    console.log(apiUrl);
+    return this.http.get<Income[]>(apiUrl).pipe(
+      catchError(this.handleError<Income[]>("Get Incomes", []))
     );
   }
 
