@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
       password: '',
       verificationCode: ''
     };
+    this.router.navigate(['../home'], {relativeTo: this.route});
   }
 
   completeEdit():void{

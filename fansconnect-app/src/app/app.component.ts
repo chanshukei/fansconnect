@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IdolService } from './idol.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +11,14 @@ export class AppComponent {
   title = '';
 
   constructor(
-    private idolService: IdolService
+    private idolService: IdolService,
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
+
+  gotoLogin(){
+    this.router.navigate(['../login'], {relativeTo: this.route});
+  }
 
   ngOnInit(): void {
     console.log("idol init");
