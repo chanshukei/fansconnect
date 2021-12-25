@@ -1,5 +1,5 @@
 export interface UserModel {
-  userid: string;
-  password: string;
-  verificationCode: string;
+  usernameEmail: string;
+  sessionId: string;
+  seessionExpireDatetime: Date;
 }

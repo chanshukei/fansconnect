@@ -38,4 +38,5 @@ export class HomeComponent implements OnInit {
   goToDashboard(): void{
     this.router.navigate(['../dashboard'], {relativeTo: this.route});
   }
+
 }

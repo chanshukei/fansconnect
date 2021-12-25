@@ -12,9 +12,9 @@ export class LoginComponent implements OnInit {
 
   alertMessage: string = "";
   user: UserModel = {
-    userid: '',
-    password: '',
-    verificationCode: ''
+    usernameEmail: '',
+    sessionId: '',
+    seessionExpireDatetime: new Date()
   }
 
   constructor(
@@ -23,31 +23,37 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute) {
   }
 
-  ngOnInit(): void {
-  }
-
-  cancelEdit():void{
-    this.user = {
-      userid: '',
-      password: '',
-      verificationCode: ''
-    };
-    this.router.navigate(['../home'], {relativeTo: this.route});
-  }
-
-  completeEdit():void{
+  public onSignIn(googleUser: gapi.auth2.GoogleUser) {
+    var profile:gapi.auth2.BasicProfile = googleUser.getBasicProfile();
+    console.log(profile);
+    this.user.usernameEmail = profile.getEmail();
     this.idolService.login(this.user).subscribe(
       data => {
         console.log(data);
-        window.sessionStorage.setItem("verificationCode", data.verificationCode);
-        this.router.navigate(['../supportitem'], {relativeTo: this.route});
+        window.sessionStorage.setItem("sessionId", data.sessionId);
+        this.router.navigate(['../home'], {relativeTo: this.route});
       },
       error => {
         console.error(error);
-        this.alertMessage = "登入失敗, 請檢查輸入的資料是否正確。";
-        window.sessionStorage.removeItem("verificationCode");
+        window.alert("登入失敗, 請檢查輸入的資料是否正確。");
+        window.sessionStorage.removeItem("sessionId");
       }
     );
+  };
+
+  ngOnInit(): void {
+    gapi.signin2.render('my-signin2', {
+      'scope': 'profile email',
+      'width': 240,
+      'height': 50,
+      'longtitle': true,
+      'theme': 'light',
+      'onsuccess': param => this.onSignIn(param)
+    });
+  }
+
+  cancelEdit():void{
+    this.router.navigate(['../home'], {relativeTo: this.route});
   }
 
 }
