@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { PhotoService } from '../photo.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PhotoBattle } from './photobattle';
@@ -21,8 +21,12 @@ export class PhotobattleComponent implements OnInit {
   constructor(
     private photoService: PhotoService,
     private router: Router,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+    private ngZone: NgZone) {
+      this.ngZone.run(()=>{
+        this.router.navigate(['../photobattle'], {relativeTo: this.route});
+      });
+    }
 
   onFileSelected(event: Event): void{
     var fileList = (event.target as HTMLInputElement).files??new Array();

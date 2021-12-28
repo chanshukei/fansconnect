@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { Smaterial } from './smaterial';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VideoService } from '../video.service';
@@ -87,8 +87,12 @@ export class SmaterialComponent implements OnInit {
   constructor(
     private videoService: VideoService,
     private router: Router,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+    private ngZone: NgZone) {
+      this.ngZone.run(()=>{
+        this.router.navigate(['../material'], {relativeTo: this.route});
+      });
+    }
 
   ngOnInit(): void {
     var usernameEmail = window.sessionStorage.getItem("usernameEmail");

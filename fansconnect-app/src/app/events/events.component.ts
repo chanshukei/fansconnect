@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { EventService } from '../event.service';
 import { Event } from './event';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,8 +15,12 @@ export class EventsComponent implements OnInit {
   constructor(
     private eventService: EventService,
     private router: Router,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+    private ngZone: NgZone) {
+      this.ngZone.run(()=>{
+        this.router.navigate(['../events'], {relativeTo: this.route});
+      });
+    }
 
   backToMenu(): void{
     this.router.navigate(['../home'], {relativeTo: this.route});

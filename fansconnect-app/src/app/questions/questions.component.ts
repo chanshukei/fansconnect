@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { QuestionService } from '../question.service';
 import { QUESTIONS } from './mock-questions';
 import { Question } from './question';
@@ -20,8 +20,12 @@ export class QuestionsComponent implements OnInit {
   constructor(
     private questionService: QuestionService,
     private router: Router,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+    private ngZone: NgZone) {
+      this.ngZone.run(()=>{
+        this.router.navigate(['../questions'], {relativeTo: this.route});
+      });
+    }
 
   backToMenu(): void{
     this.router.navigate(['../home'], {relativeTo: this.route});

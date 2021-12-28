@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { SupportitemService } from '../supportitem.service';
 import { SupportItem } from './supportitem';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -98,8 +98,12 @@ export class SupportitemComponent implements OnInit {
   constructor(
     private itemService: SupportitemService,
     private router: Router,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+    private ngZone: NgZone) {
+      this.ngZone.run(()=>{
+        this.router.navigate(['../supportitem'], {relativeTo: this.route});
+      });
+    }
 
   backToHome(): void{
     this.router.navigate(['../home'], {relativeTo: this.route});

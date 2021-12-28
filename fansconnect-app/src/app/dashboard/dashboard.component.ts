@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Chart } from 'chart.js';
 import { EventService } from '../event.service';
@@ -20,8 +20,16 @@ export class DashboardComponent implements OnInit {
   constructor(
     private eventService: EventService,
     private router: Router,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+    private ngZone: NgZone) {
+      this.ngZone.run(()=>{
+        this.router.navigate(['../dashboard'], {relativeTo: this.route});
+      });
+    }
+
+    backToHome(): void{
+      this.router.navigate(['../home'], {relativeTo: this.route});
+    }
 
   ngOnInit(): void {
     this.listResult();

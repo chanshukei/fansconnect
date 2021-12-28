@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from '../event.service';
 import { Income } from './income';
@@ -66,8 +66,12 @@ export class IncomeComponent implements OnInit {
   constructor(
     private eventService: EventService,
     private router: Router,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+    private ngZone: NgZone) {
+      this.ngZone.run(()=>{
+        this.router.navigate(['../income'], {relativeTo: this.route});
+      });
+    }
 
   ngOnInit(): void {
   }
