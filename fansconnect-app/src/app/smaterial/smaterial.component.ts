@@ -10,6 +10,7 @@ import { VideoService } from '../video.service';
 })
 export class SmaterialComponent implements OnInit {
 
+  isUploading: boolean = false;
   isLogon: boolean = false;
   pagemode: string = '';
   infoMessages: string[] = [];
@@ -112,6 +113,7 @@ export class SmaterialComponent implements OnInit {
   }
 
   reset(): void{
+    this.isUploading = false;
     this.editMaterial = {
       idolId: 0,
       materialId: 0,
@@ -138,11 +140,13 @@ export class SmaterialComponent implements OnInit {
       return;
     }
 
+    this.infoMessages = ["上載中..."];
+    this.isUploading = true;
     this.editMaterial.idolId = 1;
     this.videoService.addMaterial(this.editMaterial).subscribe(
       data => {
         this.reset();
-        this.infoMessages = ["上載成功"]
+        this.infoMessages = ["上載成功"];
         window.scrollTo(0, 0);
       }
     );
