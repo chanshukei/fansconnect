@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -8,11 +8,48 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
+  usernameEmail: string = '';
+  isLogon: boolean = false;
+
   constructor(
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private ngZone: NgZone) {
+      this.ngZone.run(()=>{
+        this.router.navigate(['../home'], {relativeTo: this.route});
+      });
+    }
 
   ngOnInit(): void {
+    this.initPage();
+  }
+
+  initPage(): void{
+    var usernameEmail = window.sessionStorage.getItem("usernameEmail");
+    var sessionId = window.sessionStorage.getItem("sessionId");
+    console.log(usernameEmail+':'+sessionId);
+    if(usernameEmail!='' && sessionId!='' && usernameEmail!=null && sessionId!=null){
+      this.isLogon = true;
+      this.usernameEmail = usernameEmail;
+    }else{
+      this.usernameEmail = '';
+      this.isLogon = false;
+    }
+  }
+
+  gotoLogin(){
+    this.router.navigate(['../login'], {relativeTo: this.route});
+  }
+
+  logout(){
+    window.sessionStorage.removeItem("usernameEmail");
+    window.sessionStorage.removeItem("sessionId");
+    this.isLogon = false;
+    this.usernameEmail = '';
+  }
+
+  goToMaterial(): void{
+    this.router.navigate(['../material'], {relativeTo: this.route});
   }
 
   goToSupport(): void{

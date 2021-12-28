@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IdolService } from '../idol.service';
 import { UserModel } from './usermodel';
@@ -25,11 +25,10 @@ export class LoginComponent implements OnInit {
 
   public onSignIn(googleUser: gapi.auth2.GoogleUser) {
     var profile:gapi.auth2.BasicProfile = googleUser.getBasicProfile();
-    console.log(profile);
     this.user.usernameEmail = profile.getEmail();
     this.idolService.login(this.user).subscribe(
       data => {
-        console.log(data);
+        window.sessionStorage.setItem("usernameEmail", data.usernameEmail);
         window.sessionStorage.setItem("sessionId", data.sessionId);
         this.router.navigate(['../home'], {relativeTo: this.route});
       },

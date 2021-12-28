@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { IncomeComponent } from './income/income.component';
 import { MapComponent } from './map/map.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { SmaterialComponent } from './smaterial/smaterial.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'income', component: IncomeComponent },
   { path: 'map', component: MapComponent },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'material', component: SmaterialComponent },
   { path: 'supportitem', component: SupportitemComponent }
 ];
 @NgModule({

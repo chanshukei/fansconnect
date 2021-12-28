@@ -1,3 +1,13 @@
+<div style="position: absolute; top: 0; left: 0; margin: 5px;">
+  <button *ngIf="!isLogon"
+  class="btn btn-dark"
+  type="button" (click)="gotoLogin()">登入</button>
+
+  <button *ngIf="isLogon"
+  class="btn btn-dark"
+  type="button" (click)="logout()">登出 [{{usernameEmail}}]</button>
+</div>
+
 <div class="container">
   <div class="row">
     <div class="col col-md-12" style="text-align: center;">
@@ -42,6 +52,10 @@
       </button>
     </div>
     <div class="col col-md-6">
+      <button type="button" (click)="goToMaterial()" class="btn btn-light">
+        <img src="../../assets/icons/material.png"/>
+        <span>回憶閣</span>
+      </button>
     </div>
   </div>
 

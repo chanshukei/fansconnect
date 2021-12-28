@@ -16,10 +16,6 @@ export class AppComponent {
     private route: ActivatedRoute
   ) { }
 
-  gotoLogin(){
-    this.router.navigate(['../login'], {relativeTo: this.route});
-  }
-
   ngOnInit(): void {
     console.log("idol init");
     this.idolService.getIdol(1).subscribe(
