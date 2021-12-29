@@ -11,6 +11,7 @@ import { IncomeComponent } from './income/income.component';
 import { MapComponent } from './map/map.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SmaterialComponent } from './smaterial/smaterial.component';
+import { ChatbotComponent } from './chatbot/chatbot.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'map', component: MapComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'material', component: SmaterialComponent },
+  { path: 'chatbot', component: ChatbotComponent },
   { path: 'supportitem', component: SupportitemComponent }
 ];
 @NgModule({

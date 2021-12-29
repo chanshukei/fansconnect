@@ -24,6 +24,15 @@ export class HomeComponent implements OnInit {
     this.initPage();
   }
 
+  chatbotLockCount: number = 3
+  gotoChatbot(): void{
+    this.chatbotLockCount -= 1;
+    console.log("unlock chatbot: "+this.chatbotLockCount);
+    if(this.chatbotLockCount<=0){
+      this.router.navigate(['../chatbot'], {relativeTo: this.route});
+    }
+  }
+
   initPage(): void{
     var usernameEmail = window.sessionStorage.getItem("usernameEmail");
     var sessionId = window.sessionStorage.getItem("sessionId");

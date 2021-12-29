@@ -17,6 +17,7 @@ import { MapComponent } from './map/map.component';
 import { NgChartsModule } from 'ng2-charts';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SmaterialComponent } from './smaterial/smaterial.component';
+import { ChatbotComponent } from './chatbot/chatbot.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { SmaterialComponent } from './smaterial/smaterial.component';
     IncomeComponent,
     MapComponent,
     DashboardComponent,
-    SmaterialComponent
+    SmaterialComponent,
+    ChatbotComponent
   ],
   imports: [
     BrowserModule,

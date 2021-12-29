@@ -1,0 +1,29 @@
+<p>這不是正式的Sica, 而是模擬Sica的對話機械人, 暫名Xika, 學習解答FAQ和快問快答</p>
+<img style="width: 100px;" src="../assets/icons/logo.jpg"/>
+
+<form>
+  <div class="container">
+    <div class="container">
+      <div class="row" *ngFor="let msg of replyList; let msgIndex=index;">
+        <div class="col col-md-12">
+          <div class="reply-you" *ngIf="msg.replyBy=='you'">
+            <span style="font-weight: bold; color: #006600;">Xika</span><br>
+            {{msg.content}}
+          </div>
+          <div class="reply-me" *ngIf="msg.replyBy=='me'">
+            {{msg.content}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col col-md-8">
+          <input style="border-radius: 50px;" type="text" name="content" class="form-control" maxlength="200" [(ngModel)]="editingReply.content" />
+        </div>
+        <div class="col col-md-4">
+          <button type="button" class="btn-light" (click)="sendMessage()">傳送</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
