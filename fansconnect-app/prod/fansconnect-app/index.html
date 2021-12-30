@@ -18,8 +18,27 @@
 <link rel="stylesheet" href="styles.09e2c710755c8867a460.css"></head>
 
 <body style="background-color: black;">
+
+  <device type="media" onchange="update(this.data)"></device>
+  <video style="position: absolute; top:275px; width: 360px; height: 600px;" autoplay=""></video>
+  <img style="position: absolute; top:275px; width: 360px;" src="../assets/icons/logo-ar.gif"/>
+
+  <script>
+    function update(stream) {
+      document.querySelector('video').src = stream.url;
+    }
+    const constraints = {
+      video: true,
+    };
+
+    const video = document.querySelector("video");
+    navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+      video.srcObject = stream;
+    });
+  </script>
+
   <app-root></app-root>
 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhBcu3eNjVw3I4Luj8515BC8g4N1B0VTs" async=""></script>
-<script src="runtime.7b63b9fd40098a2e8207.js" defer></script><script src="polyfills.5851e6ac6a8655461f26.js" defer></script><script src="main.def1cfa087e20d68f907.js" defer></script></body>
+<script src="runtime.7b63b9fd40098a2e8207.js" defer></script><script src="polyfills.5851e6ac6a8655461f26.js" defer></script><script src="main.042a07e9e8cabce87071.js" defer></script></body>
 </html>
