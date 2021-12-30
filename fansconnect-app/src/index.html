@@ -21,24 +21,6 @@
 
 <body style="background-color: black;">
 
-  <device type="media" onchange="update(this.data)"></device>
-  <video style="position: absolute; top:275px; width: 360px; height: 600px;" autoplay></video>
-  <img style="position: absolute; top:275px; width: 360px;" src="../assets/icons/logo-ar.gif"/>
-
-  <script>
-    function update(stream) {
-      document.querySelector('video').src = stream.url;
-    }
-    const constraints = {
-      video: true,
-    };
-
-    const video = document.querySelector("video");
-    navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
-      video.srcObject = stream;
-    });
-  </script>
-
   <app-root></app-root>
 
   <script
