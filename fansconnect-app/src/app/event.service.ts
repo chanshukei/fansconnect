@@ -6,6 +6,7 @@ import { Event } from './events/event';
 import { EventFans } from './eventfans/eventfans';
 import { Income } from './income/income';
 import { Expense } from './income/expense';
+import { Sform } from './luckydraw/income';
 
 
 @Injectable({
@@ -26,6 +27,14 @@ export class EventService {
       data => {
       }
     )
+  }
+
+  addForm(sform: Sform): Observable<Sform>{
+    var apiUrl = this.eventApi.concat("/addform/", sform.idolId.toString(), "?");
+    return this.http.post<Sform>(
+      apiUrl,
+      sform
+    );
   }
 
   addIncome(income: Income): Observable<Income>{

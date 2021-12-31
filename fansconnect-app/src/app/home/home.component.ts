@@ -24,6 +24,10 @@ export class HomeComponent implements OnInit {
     this.initPage();
   }
 
+  gotoLuckyDraw():void{
+    this.router.navigate(['../luckydraw'], {relativeTo: this.route});
+  }
+
   chatbotLockCount: number = 3
   gotoChatbot(): void{
     this.chatbotLockCount -= 1;

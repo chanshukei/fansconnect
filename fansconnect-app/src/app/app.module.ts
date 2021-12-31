@@ -18,6 +18,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SmaterialComponent } from './smaterial/smaterial.component';
 import { ChatbotComponent } from './chatbot/chatbot.component';
+import { LuckydrawComponent } from './luckydraw/luckydraw.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ChatbotComponent } from './chatbot/chatbot.component';
     MapComponent,
     DashboardComponent,
     SmaterialComponent,
-    ChatbotComponent
+    ChatbotComponent,
+    LuckydrawComponent
   ],
   imports: [
     BrowserModule,

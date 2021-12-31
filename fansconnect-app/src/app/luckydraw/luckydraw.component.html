@@ -1,0 +1,96 @@
+<h2 i18n>Sica號1:76巴士模型抽獎</h2>
+<p>開始日期: 今日流會公佈</p>
+<p>截止日期: 2022年1月10日</p>
+<p>抽獎及公佈日期: 2022年1月11日</p>
+<p>大獎(1名): 價值港幣約$1700的獨家訂造的Sica號1:76巴士模型</p>
+<p>細獎(10名): 神秘的巴士小模型</p>
+
+<p>第一步: Follow Sica 何洛瑤 Instagram (<a target="_blank" href="https://www.instagram.com/j.sicasi/">@j.sicasi</a>)</p>
+<p>第二步: 到Sica fans club的Instagram的巴士模型抽獎post留言(<a target="_blank" href="https://www.instagram.com/sica.todayflowclub/">IG post連結</a>) Tag三位朋友</p>
+<p>第三步: 填寫以下參加表格之後提交。</p>
+
+<div class="container">
+  <div class="row" *ngFor="let msg of alertMessages; let msgIndex=index;">
+    <div class="col col-md-10">
+      <div class="alert alert-danger" role="alert">
+        {{msg}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngFor="let msg of infoMessages; let msgIndex=index;">
+    <div class="col col-md-10">
+      <div class="alert alert-info" role="alert">
+        {{msg}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<form>
+  <div *ngIf="!isComplete" class='card' style="width: 90%; min-width: 300px; margin-bottom: 5px;">
+    <div class='card-body'>
+      <h3 class="card-title">參加表格</h3>
+      <div class="container">
+        <div class="row">
+          <div class='col col-md-4'>
+            <label class="form-label">你的Instagram 用戶名稱<span class="required">*</span></label>
+          </div>
+          <div class="col col-md-6">
+            <input type="text" maxlength="100" name="igId" class="form-control" [(ngModel)]="editForm.igId"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class='col col-md-4'><label class="form-label">以下哪一個是你參加今次抽獎的原因？</label></div>
+          <div class="col col-md-6">
+            <ul class='list-group'>
+              <li class='list-group-item'>
+                <div class="form-check">
+                  <input  class="form-check-input" type="checkbox" value="#1"
+                  [checked]="isChecked('#1')" (change)="onSelectionChange('#1')"/>
+                  <label class='form-check-label'>喜歡Sica</label>
+                </div>
+              </li>
+              <li class='list-group-item'>
+                <div class="form-check">
+                  <input  class="form-check-input" type="checkbox" value="#2"
+                  [checked]="isChecked('#2')" (change)="onSelectionChange('#2')"/>
+                  <label class='form-check-label'>喜歡巴士</label>
+                </div>
+              </li>
+              <li class='list-group-item'>
+                <div class="form-check">
+                  <input  class="form-check-input" type="checkbox" value="#3"
+                  [checked]="isChecked('#3')" (change)="onSelectionChange('#3')"/>
+                  <label class='form-check-label'>喜歡投資</label>
+                </div>
+              </li>
+              <li class='list-group-item'>
+                <div class="form-check">
+                  <input  class="form-check-input" type="checkbox" value="#4"
+                  [checked]="isChecked('#4')" (change)="onSelectionChange('#4')"/>
+                  <label class='form-check-label'>
+                    其他：
+                    <input  type="text" name="answer2" class="form-control" maxlength="100"
+                            [disabled]="!isChecked('#4')"
+                            [(ngModel)]="editForm.answer2"/>
+                  </label>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col col-md-12">
+            <button type="button" class="btn btn-dark" style="float: left;" (click)="cancelEdit()" i18n>取消</button>
+            <button type="button" class="btn btn-dark" style="float: right;" (click)="completeEdit()">完成</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-light" style="float: right;"
+          (click)="backToMenu()" i18n>返回主頁</button>
+</form>
