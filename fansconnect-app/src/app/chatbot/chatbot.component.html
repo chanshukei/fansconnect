@@ -8,7 +8,11 @@
         <div class="col col-md-12">
           <div class="reply-you" *ngIf="msg.replyBy=='you'">
             <span style="font-weight: bold; color: #006600;">Xika</span><br>
-            {{msg.content}}
+            <span *ngIf="msg.contentType=='txt'">{{msg.content}}</span>
+            <a *ngIf="msg.contentType=='link'" [href]="msg.content">{{msg.content}}</a>
+            <video *ngIf="msg.contentType=='video'" width="320" height="480" autoplay="autoplay">
+              <source [src]="'https://fansconnect-video.azurewebsites.net/api/material/'+msg.content+'?code=uDgPTLPYrxnoR/qibHvzVli/jsznTJTS7EXH0fVIIu8RhInTpdLa3g=='">
+            </video>
           </div>
           <div class="reply-me" *ngIf="msg.replyBy=='me'">
             {{msg.content}}

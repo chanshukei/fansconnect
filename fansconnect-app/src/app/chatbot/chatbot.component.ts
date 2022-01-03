@@ -64,10 +64,34 @@ export class ChatbotComponent implements OnInit {
             replyBy: "you",
             replyDatetime: new Date()
           };
+          if(e2.contentType == null || e2.contentType == ''){
+            e2.contentType = "txt";
+          }
+          if(e2.content.startsWith("http")){
+            e2.contentType = "link";
+          }
+
+          //content type
+          if(e2.content.startsWith("video:")){
+            e2.contentType = "video";
+            e2.content = e2.content.substring(6);
+          }else if(e2.content.startsWith("jsaction:")){
+            var jsfunc = e2.content.substring(9).split('|');
+            this.doJsAction(jsfunc);
+            continue;
+          }
           this.replyList.push(e2);
         };
       }
     );
+  }
+
+  doJsAction(jsfuns: string[]){
+    if('changeBackground' == jsfuns[0]){
+      setTimeout(function () {
+        document.body.style.backgroundColor = jsfuns[2];
+      }, Number(jsfuns[1]) * 1000);
+    }
   }
 
   sendMessage():void{
