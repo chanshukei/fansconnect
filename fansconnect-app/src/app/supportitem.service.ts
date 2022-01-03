@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { SupportItem } from './supportitem/supportitem';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Shopitem } from './shop-item-edit/shopitem';
+import { Order } from './shop/order';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +15,15 @@ export class SupportitemService {
 
   constructor(private http: HttpClient) {}
 
+  addOrder(order: Order): Observable<Order>{
+    var apiUrl = this.eventApi.concat("/order/", order.idolId.toString(), "?");
+    console.log(order);
+    return this.http.post<Order>(
+      apiUrl,
+      order
+    );
+  }
+
   getItems(idolId: number): Observable<SupportItem[]>{
     var apiUrl = this.eventApi.concat(
       "/items/", idolId.toString(),
@@ -20,6 +31,16 @@ export class SupportitemService {
     console.log(apiUrl);
     return this.http.get<SupportItem[]>(apiUrl).pipe(
       catchError(this.handleError<SupportItem[]>("Get Support Item", []))
+    );
+  }
+
+  getShopItems(idolId: number): Observable<Shopitem[]>{
+    var apiUrl = this.eventApi.concat(
+      "/shopitems/", idolId.toString(),
+      "?code=gY3gS52DMMJ8QUqAcRCtgfObruy9F0A6WuZghcaeOppC17PkB6CBQQ==");
+    console.log(apiUrl);
+    return this.http.get<Shopitem[]>(apiUrl).pipe(
+      catchError(this.handleError<Shopitem[]>("Get Shop Item", []))
     );
   }
 
@@ -38,4 +59,14 @@ export class SupportitemService {
       item
     );
   }
+
+  addShopItem(item: Shopitem): Observable<Shopitem>{
+    var apiUrl = this.eventApi.concat("/shopitem/", item.idolId.toString(), "?");
+    console.log(item);
+    return this.http.post<Shopitem>(
+      apiUrl,
+      item
+    );
+  }
+
 }

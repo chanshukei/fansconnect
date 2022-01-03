@@ -19,6 +19,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SmaterialComponent } from './smaterial/smaterial.component';
 import { ChatbotComponent } from './chatbot/chatbot.component';
 import { LuckydrawComponent } from './luckydraw/luckydraw.component';
+import { ShopComponent } from './shop/shop.component';
+import { ShopItemEditComponent } from './shop-item-edit/shop-item-edit.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { LuckydrawComponent } from './luckydraw/luckydraw.component';
     DashboardComponent,
     SmaterialComponent,
     ChatbotComponent,
-    LuckydrawComponent
+    LuckydrawComponent,
+    ShopComponent,
+    ShopItemEditComponent
   ],
   imports: [
     BrowserModule,

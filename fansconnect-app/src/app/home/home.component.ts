@@ -28,6 +28,10 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['../luckydraw'], {relativeTo: this.route});
   }
 
+  gotoShop():void{
+    this.router.navigate(['../shop'], {relativeTo: this.route});
+  }
+
   chatbotLockCount: number = 3
   gotoChatbot(): void{
     this.chatbotLockCount -= 1;
