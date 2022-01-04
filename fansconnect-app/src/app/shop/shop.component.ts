@@ -54,7 +54,7 @@ export class ShopComponent implements OnInit {
     loadAccessRight(roleId :string): void{
       this.idolService.checkAccessRight(1, roleId).subscribe(
         e => {
-          this.adminAccessRight = true;
+          this.adminAccessRight = e.length>0;
         }
       );
     }

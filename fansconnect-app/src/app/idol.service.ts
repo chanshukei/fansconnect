@@ -34,6 +34,7 @@ export class IdolService {
       seessionExpireDatetime: new Date(),
       roleId: roleId
     };
+    console.log(user);
     return this.http.post<UserModel[]>(
       apiUrl,
       user
