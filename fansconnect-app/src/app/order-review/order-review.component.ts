@@ -18,6 +18,11 @@ export class OrderReviewComponent implements OnInit {
   };
 
   orders: Order[] = [];
+  orderlineSummary: Map<string, Orderline> = new Map();
+
+  getSummaryArray(): Orderline[]{
+    return Array.from(this.orderlineSummary.values());
+  }
 
   listOrders(): void{
     this.itemService.getOrders(1).subscribe(
@@ -55,6 +60,23 @@ export class OrderReviewComponent implements OnInit {
             itemName: e[i].itemName,
           };
           order.orderlines.push(e2);
+
+          //init summary
+          var summary:Orderline = this.orderlineSummary.get(e2.itemName)??{
+            lineId: 0,
+            price: 0,
+            totalAmount: 0,
+            itemId: e2.itemId,
+            itemName: e2.itemName,
+            itemCount: 0
+          };
+          //add new item
+          if(!this.orderlineSummary.has(e2.itemName)){
+            this.orderlineSummary.set(e2.itemName, summary);
+          }
+          //update count
+          summary.totalAmount += e2.totalAmount;
+          summary.itemCount += e2.itemCount;
         };
       }
     );
