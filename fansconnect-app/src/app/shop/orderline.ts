@@ -4,4 +4,5 @@ export interface Orderline {
   price: number;
   totalAmount: number;
   itemCount: number;
+  itemName: string;
 }

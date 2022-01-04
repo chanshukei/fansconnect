@@ -15,6 +15,7 @@ import { ChatbotComponent } from './chatbot/chatbot.component';
 import { LuckydrawComponent } from './luckydraw/luckydraw.component';
 import { ShopComponent } from './shop/shop.component';
 import { ShopItemEditComponent } from './shop-item-edit/shop-item-edit.component';
+import { OrderReviewComponent } from './order-review/order-review.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'luckydraw', component: LuckydrawComponent },
   { path: 'shop', component: ShopComponent },
   { path: 'shopItemEdit', component: ShopItemEditComponent },
+  { path: 'orderReview', component: OrderReviewComponent },
   { path: 'supportitem', component: SupportitemComponent }
 ];
 @NgModule({

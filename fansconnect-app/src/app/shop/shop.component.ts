@@ -1,5 +1,6 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IdolService } from '../idol.service';
 import { Shopitem } from '../shop-item-edit/shopitem';
 import { SupportitemService } from '../supportitem.service';
 import { Order } from './order';
@@ -30,8 +31,10 @@ export class ShopComponent implements OnInit {
   isUploading: boolean = false;
   infoMessages: string[] = [];
   alertMessages: string[] = [];
+  adminAccessRight: boolean = false;
 
   constructor(
+    private idolService: IdolService,
     private itemService: SupportitemService,
     private router: Router,
     private route: ActivatedRoute,
@@ -39,12 +42,25 @@ export class ShopComponent implements OnInit {
       this.ngZone.run(()=>{
         var usernameEmail = window.sessionStorage.getItem("usernameEmail");
         var sessionId = window.sessionStorage.getItem("sessionId");
+        this.loadAccessRight('admin');
         if(usernameEmail!='' && sessionId!='' && usernameEmail!=null && sessionId!=null){
           this.router.navigate(['../shop'], {relativeTo: this.route});
         }else{
           this.router.navigate(['../login'], {relativeTo: this.route});
         }
       });
+    }
+
+    loadAccessRight(roleId :string): void{
+      this.idolService.checkAccessRight(1, roleId).subscribe(
+        e => {
+          this.adminAccessRight = true;
+        }
+      );
+    }
+
+    backToReview(): void{
+      this.router.navigate(['../orderReview'], {relativeTo: this.route});
     }
 
     completeEdit(): void{
@@ -158,7 +174,8 @@ export class ShopComponent implements OnInit {
             lineId: 0,
             price: item.price,
             totalAmount: 0,
-            itemCount: amt
+            itemCount: amt,
+            itemName: ''
           };
           ol.totalAmount = ol.price * ol.itemCount;
           this.orderlines.push(ol);

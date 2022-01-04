@@ -14,7 +14,8 @@ export class LoginComponent implements OnInit {
   user: UserModel = {
     usernameEmail: '',
     sessionId: '',
-    seessionExpireDatetime: new Date()
+    seessionExpireDatetime: new Date(),
+    roleId: ''
   }
 
   constructor(

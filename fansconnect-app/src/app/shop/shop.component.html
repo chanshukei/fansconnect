@@ -1,4 +1,11 @@
 <h2 style="display: inline-block;" i18n>應援市集</h2>
+
+<div style="position: absolute; top: 0; right: 0;">
+  <button type="button" class="btn btn-light"
+          *ngIf="adminAccessRight"
+          (click)="backToReview()" i18n>查閱銷售紀錄</button>
+</div>
+
 <h3>所有收益一律扣除成本後, 全數用作往後的應援谷/活動日常運作, 詳情可查閱[能量圖]。</h3>
 <form>
 

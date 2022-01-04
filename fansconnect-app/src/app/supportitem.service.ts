@@ -5,6 +5,8 @@ import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Shopitem } from './shop-item-edit/shopitem';
 import { Order } from './shop/order';
+import { UserModel } from './login/usermodel';
+import { Orderline } from './shop/orderline';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +14,7 @@ import { Order } from './shop/order';
 export class SupportitemService {
 
   private eventApi: string = "https://fansconnect-idol.azurewebsites.net/api";
+  //private localEventApi: string = "http://localhost:7071/api";
 
   constructor(private http: HttpClient) {}
 
@@ -21,6 +24,34 @@ export class SupportitemService {
     return this.http.post<Order>(
       apiUrl,
       order
+    );
+  }
+
+  getOrderlines(orderId: string): Observable<Orderline[]>{
+    var apiUrl = this.eventApi.concat(
+      "/orderlines/", orderId.toString(),
+      "?code=zSlD7g/44S4LmrVdNQjTnunIrr3GCB5B3KaRZxFoWtnVp3hJWWPsLQ==");
+      return this.http.get<Orderline[]>(apiUrl).pipe(
+        catchError(this.handleError<Orderline[]>("Get Orderlines", []))
+      );
+  }
+
+  getOrders(idolId: number): Observable<Order[]>{
+    var apiUrl = this.eventApi.concat(
+      "/orders/", idolId.toString(),
+      "?code=GFL9kG8/dzL6UzaQkWMznXcSReHJvT4yhQWGx4A1VmuKrwmFZRMGpQ==");
+    var usernameEmail = window.sessionStorage.getItem("usernameEmail");
+    var sessionId = window.sessionStorage.getItem("sessionId");
+    var user: UserModel = {
+      usernameEmail: usernameEmail??'',
+      sessionId: sessionId??'',
+      seessionExpireDatetime: new Date(),
+      roleId: ''
+    };
+    console.log(user);
+    return this.http.post<Order[]>(
+      apiUrl,
+      user
     );
   }
 

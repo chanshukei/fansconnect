@@ -21,6 +21,8 @@ import { ChatbotComponent } from './chatbot/chatbot.component';
 import { LuckydrawComponent } from './luckydraw/luckydraw.component';
 import { ShopComponent } from './shop/shop.component';
 import { ShopItemEditComponent } from './shop-item-edit/shop-item-edit.component';
+import { OrderReviewComponent } from './order-review/order-review.component';
+import { OrderFilter } from './order-review/orderfilter';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { ShopItemEditComponent } from './shop-item-edit/shop-item-edit.component
     ChatbotComponent,
     LuckydrawComponent,
     ShopComponent,
-    ShopItemEditComponent
+    ShopItemEditComponent,
+    OrderReviewComponent,
+    OrderFilter
   ],
   imports: [
     BrowserModule,

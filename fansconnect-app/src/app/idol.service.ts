@@ -22,6 +22,24 @@ export class IdolService {
     );
   }
 
+  checkAccessRight(idolId: number, roleId: string): Observable<UserModel[]>{
+    var apiUrl = this.questionApi.concat(
+      "/accessright/", idolId.toString(),
+      "?code=4EpBmUTcwJVaAzkt1s4sHb4vjcTVLtou9qFRqxmeQ8BqPTLWqlE5Cw==");
+    var usernameEmail = window.sessionStorage.getItem("usernameEmail");
+    var sessionId = window.sessionStorage.getItem("sessionId");
+    var user: UserModel = {
+      usernameEmail: usernameEmail??'',
+      sessionId: sessionId??'',
+      seessionExpireDatetime: new Date(),
+      roleId: roleId
+    };
+    return this.http.post<UserModel[]>(
+      apiUrl,
+      user
+    );
+  }
+
   getIdol(idolId: number): Observable<Idol[]>{
     var apiUrl = this.questionApi.concat(
       "/idol/", idolId.toString(),

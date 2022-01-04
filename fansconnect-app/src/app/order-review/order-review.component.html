@@ -1,0 +1,35 @@
+<h2 style="display: inline-block;" i18n>應援市集 - 銷售紀錄</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">日期</th>
+      <th scope="col">
+        會員<br>
+        <input class="search-filter" type="text" name="filterCreateBy" [(ngModel)]="filterargs.createBy">
+      </th>
+      <th scope="col">
+        應援物<br>
+        <input class="search-filter" type="text" name="filterItemName" [(ngModel)]="filterargs.itemName">
+      </th>
+      <th scope="col">總數</th>
+      <th scope="col">圖片證明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let order of orders | orderfilter:filterargs">
+      <td>{{order.createDate | date:'yyyy-MM-dd hh:mm'}}</td>
+      <td>{{order.createBy}}</td>
+      <td>
+        <ul class="list-group">
+          <li class='list-group-item' *ngFor="let line of order.orderlines">
+            {{line.itemName}} ${{line.price}} x {{line.itemCount}}
+          </li>
+        </ul>
+      </td>
+      <td>${{getTotalAmount(order)}}</td>
+      <a  target="_blank"
+      href='{{ "https://fansconnect-idol.azurewebsites.net/api/orderimage/" + order.orderId + "?code=shj0Rkq93vQ0jHmV8Z8alfUCcQrHdysOaZBw0od/8yD4/chO3LwAyg=="}}'>下載</a>
+    </tr>
+  </tbody>
+</table>
