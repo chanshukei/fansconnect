@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class SupportitemComponent implements OnInit {
 
+  isLoading: boolean = false;
   pagemode: string = 'list'
   alertMessage: string = ''
   verificationCode: string = ''
@@ -148,6 +149,7 @@ export class SupportitemComponent implements OnInit {
   }
 
   listResult(): void{
+    this.isLoading = true;
     this.itemService.getItems(1).subscribe(
       e => {
         for(var i=0; i<e.length; i++){
@@ -179,6 +181,7 @@ export class SupportitemComponent implements OnInit {
           };
           this.supportItems.push(e2);
         };
+        this.isLoading = false;
       }
     );
   }

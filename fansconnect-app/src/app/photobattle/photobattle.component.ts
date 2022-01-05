@@ -11,6 +11,7 @@ import { Photo } from './photo';
 })
 export class PhotobattleComponent implements OnInit {
 
+  isLoading: boolean = false;
   isComplete: boolean = false;
   isUpload: boolean = false;
   currentBattle: number = 0;
@@ -67,6 +68,7 @@ export class PhotobattleComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("events init");
+    this.isLoading = true;
     this.photoService.getPhotobattles(1).subscribe(
       e => {
         for(var i=0; i<e.length; i++){
@@ -81,6 +83,8 @@ export class PhotobattleComponent implements OnInit {
         }
         this.currentBattle = this.photoBattles[0].battleId;
         this.refreshPhotos();
+
+        this.isLoading = false;
       }
     );
   }
@@ -100,6 +104,7 @@ export class PhotobattleComponent implements OnInit {
   }
 
   refreshPhotos(): void{
+    this.isLoading = true;
     this.photoService.getPhotosLite(this.currentBattle).subscribe(
       e => {
         for(var i=0; i<e.length; i++){
@@ -123,8 +128,9 @@ export class PhotobattleComponent implements OnInit {
               }
             }
           );
-
         }
+
+        this.isLoading = false;
       }
     );
   }

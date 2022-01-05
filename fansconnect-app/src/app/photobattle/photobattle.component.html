@@ -1,3 +1,7 @@
+<div class="loadingDiv" *ngIf="isLoading" style="background-image: url('../assets/icons/three mo_02.gif')">
+  &nbsp;
+</div>
+
 <form>
   <div *ngIf="!isUpload && !isComplete">
     <div *ngFor="let photoBattle of photoBattles; let battleIndex=index;"

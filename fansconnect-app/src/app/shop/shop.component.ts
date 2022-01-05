@@ -13,6 +13,8 @@ import { Orderline } from './orderline';
 })
 export class ShopComponent implements OnInit {
 
+  isLoading: boolean = false;
+
   editOrder: Order = {
     idolId: 1,
     orderId: '',
@@ -203,6 +205,8 @@ export class ShopComponent implements OnInit {
   }
 
   listResult():void{
+    this.isLoading = true;
+
     this.itemService.getShopItems(1).subscribe(
       e => {
         for(var i=0; i<e.length; i++){
@@ -223,6 +227,8 @@ export class ShopComponent implements OnInit {
           };
           this.items.push(e2);
         };
+
+        this.isLoading = false;
       }
     );
   }

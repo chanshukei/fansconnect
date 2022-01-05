@@ -10,6 +10,7 @@ import { VideoService } from '../video.service';
 })
 export class SmaterialComponent implements OnInit {
 
+  isLoading: boolean = false;
   isUploading: boolean = false;
   isLogon: boolean = false;
   pagemode: string = '';
@@ -37,7 +38,7 @@ export class SmaterialComponent implements OnInit {
 
   listResult(): void{
     this.items = [];
-
+    this.isLoading = true;
     this.videoService.getMaterials(1).subscribe(
       e => {
         for(var i=0; i<e.length; i++){
@@ -55,6 +56,7 @@ export class SmaterialComponent implements OnInit {
           };
           this.items.push(e2);
         };
+        this.isLoading = false;
       }
     );
   }

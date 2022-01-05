@@ -10,6 +10,8 @@ import { Reply } from './reply';
 })
 export class ChatbotComponent implements OnInit {
 
+  isLoading: boolean = false;
+
   editingReply: Reply = {
     idolId: 1,
     content: '',
@@ -41,6 +43,8 @@ export class ChatbotComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    this.isLoading = true;
+
     var firstMessage: Reply = {
       idolId: 1,
       content: '你好',
@@ -49,6 +53,8 @@ export class ChatbotComponent implements OnInit {
       replyDatetime: new Date()
     };
     this.askForReply(firstMessage);
+
+    this.isLoading = false;
   }
 
   askForReply(reply2: Reply):void{

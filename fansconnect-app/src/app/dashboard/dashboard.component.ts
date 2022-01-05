@@ -12,6 +12,7 @@ import { Income } from '../income/income';
 })
 export class DashboardComponent implements OnInit {
 
+  isLoading: boolean = true;
   total: number = 0;
   expenses: Expense[] = [];
   incomes: Income[] = [];
@@ -55,6 +56,7 @@ export class DashboardComponent implements OnInit {
   }
 
   listResult(): void{
+    this.isLoading = true;
     this.eventService.getIncomes(1).subscribe(
       e => {
         for(var i=0; i<e.length; i++){
@@ -82,6 +84,8 @@ export class DashboardComponent implements OnInit {
         //pie
         this.createChart1();
         this.createChart2();
+
+        this.isLoading = false;
       }
     );
   }

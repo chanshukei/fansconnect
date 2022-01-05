@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class EventfansComponent implements OnInit {
 
+  isLoading: boolean = false;
   abc: string = '';
 
   eventfanss: EventFans[] = [];
@@ -56,6 +57,7 @@ export class EventfansComponent implements OnInit {
   }
 
   refreshEventFans(): void{
+    this.isLoading = true;
     this.eventService.getEventFanss(1).subscribe(
       e => {
         this.eventfanss.length = 0;
@@ -71,6 +73,8 @@ export class EventfansComponent implements OnInit {
           };
           this.eventfanss.push(e2);
         };
+
+        this.isLoading = false;
       }
     );
   }

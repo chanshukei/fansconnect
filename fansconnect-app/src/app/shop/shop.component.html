@@ -1,5 +1,9 @@
 <h2 style="display: inline-block;" i18n>應援市集</h2>
 
+<div class="loadingDiv" *ngIf="isLoading" style="background-image: url('../assets/icons/three mo_02.gif')">
+  &nbsp;
+</div>
+
 <div style="position: absolute; top: 0; right: 0;">
   <button type="button" class="btn btn-light"
           *ngIf="adminAccessRight"

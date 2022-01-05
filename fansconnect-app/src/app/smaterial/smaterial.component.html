@@ -1,5 +1,9 @@
 <h2 i18n>回憶閣</h2>
 
+<div class="loadingDiv" *ngIf="isLoading" style="background-image: url('../assets/icons/three mo_02.gif')">
+  &nbsp;
+</div>
+
 <div style="margin: 5px; float: right;" *ngIf="this.pagemode=='list' && this.isLogon ">
   <button type="button" class="btn-light" (click)="gotoUpload()">上載你有關Sica的記憶</button>
 </div>

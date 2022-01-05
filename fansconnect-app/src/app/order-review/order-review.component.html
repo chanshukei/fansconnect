@@ -1,5 +1,9 @@
 <h2 style="display: inline-block;" i18n>應援市集 - 銷售紀錄</h2>
 
+<div class="loadingDiv" *ngIf="isLoading" style="background-image: url('../assets/icons/three mo_02.gif')">
+  &nbsp;
+</div>
+
 <table class="table">
   <thead>
     <tr>
@@ -51,3 +55,6 @@
     </tr>
   </tbody>
 </table>
+
+<button type="button" class="btn btn-light" style="float: right;"
+(click)="backToMenu()" i18n>返回主頁</button>

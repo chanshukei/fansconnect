@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class EventsComponent implements OnInit {
 
+  isLoading: boolean = false;
   events: Event[] = [];
 
   constructor(
@@ -32,6 +33,7 @@ export class EventsComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("events init");
+    this.isLoading = true;
     this.eventService.getEvents(1).subscribe(
       e => {
         for(var i=0; i<e.length; i++){
@@ -49,6 +51,8 @@ export class EventsComponent implements OnInit {
           };
           this.events.push(e2);
         };
+
+        this.isLoading = false;
       }
     );
   }

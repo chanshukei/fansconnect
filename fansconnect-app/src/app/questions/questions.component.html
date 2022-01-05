@@ -1,4 +1,9 @@
 <h2 i18n>常識題</h2>
+
+<div class="loadingDiv" *ngIf="isLoading" style="background-image: url('../assets/icons/three mo_02.gif')">
+  &nbsp;
+</div>
+
 <form>
 
   <div class='card' style="width: 90%; min-width: 300px;" *ngIf="isCompleted">
@@ -69,3 +74,7 @@
           (click)="completeQuestion()" i18n>完成</button>
 
 </form>
+
+<br><br><br>
+<button type="button" class="btn btn-light" style="float: right;"
+(click)="backToMenu()" i18n>返回主頁</button>

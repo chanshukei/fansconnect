@@ -1,4 +1,9 @@
 <h2 i18n>事件簿 - 車力巨人之野史</h2>
+
+<div class="loadingDiv" *ngIf="isLoading" style="background-image: url('../assets/icons/three mo_02.gif')">
+  &nbsp;
+</div>
+
 <h3>以下內容由艾倫葉卡提供,雖然真確性成疑,但話題卻十分爆炸!</h3>
 <form>
   <div  *ngFor="let eventfans of eventfanss; let eventIndex=index;"

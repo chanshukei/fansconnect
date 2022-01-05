@@ -1,4 +1,9 @@
 <h2 style="display: inline-block;" i18n>事件簿</h2>
+
+<div class="loadingDiv" *ngIf="isLoading" style="background-image: url('../assets/icons/three mo_02.gif')">
+  &nbsp;
+</div>
+
 <button type="button" class="btn btn-light" style="float: right;" (click)="goToEventFans()" i18n>車力巨人之野史</button>
 <form>
   <div  *ngFor="let event of events; let eventIndex=index;"

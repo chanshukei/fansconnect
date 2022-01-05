@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class QuestionsComponent implements OnInit {
 
+  isLoading: boolean = false;
   isCompleted: boolean = false;
   idolId: number = 0;
   currentQuestionIndex: number = 0;
@@ -34,6 +35,7 @@ export class QuestionsComponent implements OnInit {
   ngOnInit(): void {
     //this.questions = QUESTIONS;
     console.log("questions init");
+    this.isLoading = true;
     this.questionService.getQuestions(1).subscribe(
       e => {
         for(var i=0; i<e.length; i++){
@@ -49,6 +51,7 @@ export class QuestionsComponent implements OnInit {
             selectedOption: 0
           });
         };
+        this.isLoading = false;
       }
     );
   }

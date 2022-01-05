@@ -17,6 +17,7 @@ export class OrderReviewComponent implements OnInit {
     itemName: ''
   };
 
+  isLoading: boolean = false;
   orders: Order[] = [];
   orderlineSummary: Map<string, Orderline> = new Map();
 
@@ -25,6 +26,7 @@ export class OrderReviewComponent implements OnInit {
   }
 
   listOrders(): void{
+    this.isLoading = true;
     this.itemService.getOrders(1).subscribe(
       e => {
         for(var i=0; i<e.length; i++){
@@ -42,6 +44,8 @@ export class OrderReviewComponent implements OnInit {
           this.listOrderlines(e2);
           this.orders.push(e2);
         };
+
+        this.isLoading = false;
       }
     );
   }
@@ -111,4 +115,7 @@ export class OrderReviewComponent implements OnInit {
     this.listOrders();
   }
 
+  backToMenu(): void{
+    this.router.navigate(['../home'], {relativeTo: this.route});
+  }
 }
