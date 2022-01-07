@@ -16,6 +16,10 @@ import { LuckydrawComponent } from './luckydraw/luckydraw.component';
 import { ShopComponent } from './shop/shop.component';
 import { ShopItemEditComponent } from './shop-item-edit/shop-item-edit.component';
 import { OrderReviewComponent } from './order-review/order-review.component';
+import { GameBattleComponent } from './game-battle/game-battle.component';
+import { GameCreationComponent } from './game-creation/game-creation.component';
+import { SicardStoreComponent } from './sicard-store/sicard-store.component';
+import { MyorderReviewComponent } from './myorder-review/myorder-review.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -33,7 +37,11 @@ const routes: Routes = [
   { path: 'luckydraw', component: LuckydrawComponent },
   { path: 'shop', component: ShopComponent },
   { path: 'shopItemEdit', component: ShopItemEditComponent },
+  { path: 'myorderReview', component: MyorderReviewComponent },
   { path: 'orderReview', component: OrderReviewComponent },
+  { path: 'game-battle', component: GameBattleComponent },
+  { path: 'game-creation', component: GameCreationComponent },
+  { path: 'sicard-store', component: SicardStoreComponent },
   { path: 'supportitem', component: SupportitemComponent }
 ];
 @NgModule({

@@ -61,6 +61,10 @@ export class ShopComponent implements OnInit {
       );
     }
 
+    backToMyOrders(): void{
+      this.router.navigate(['../myorderReview'], {relativeTo: this.route});
+    }
+
     backToReview(): void{
       this.router.navigate(['../orderReview'], {relativeTo: this.route});
     }

@@ -23,6 +23,10 @@ import { ShopComponent } from './shop/shop.component';
 import { ShopItemEditComponent } from './shop-item-edit/shop-item-edit.component';
 import { OrderReviewComponent } from './order-review/order-review.component';
 import { OrderFilter } from './order-review/orderfilter';
+import { GameBattleComponent } from './game-battle/game-battle.component';
+import { GameCreationComponent } from './game-creation/game-creation.component';
+import { SicardStoreComponent } from './sicard-store/sicard-store.component';
+import { MyorderReviewComponent } from './myorder-review/myorder-review.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +47,11 @@ import { OrderFilter } from './order-review/orderfilter';
     ShopComponent,
     ShopItemEditComponent,
     OrderReviewComponent,
-    OrderFilter
+    OrderFilter,
+    GameBattleComponent,
+    GameCreationComponent,
+    SicardStoreComponent,
+    MyorderReviewComponent
   ],
   imports: [
     BrowserModule,

@@ -36,6 +36,25 @@ export class SupportitemService {
       );
   }
 
+  getMyOrders(idolId: number): Observable<Order[]>{
+    var apiUrl = this.eventApi.concat(
+      "/myorders/", idolId.toString(),
+      "?code=/cT6tf0KJhp5aOuV8cYXyEdXC6SwIDhWtLazJyoaXnbevH3lVRUWjw==");
+    var usernameEmail = window.sessionStorage.getItem("usernameEmail");
+    var sessionId = window.sessionStorage.getItem("sessionId");
+    var user: UserModel = {
+      usernameEmail: usernameEmail??'',
+      sessionId: sessionId??'',
+      seessionExpireDatetime: new Date(),
+      roleId: ''
+    };
+    console.log(user);
+    return this.http.post<Order[]>(
+      apiUrl,
+      user
+    );
+  }
+
   getOrders(idolId: number): Observable<Order[]>{
     var apiUrl = this.eventApi.concat(
       "/orders/", idolId.toString(),
