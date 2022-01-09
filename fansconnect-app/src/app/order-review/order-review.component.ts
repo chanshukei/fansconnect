@@ -17,6 +17,7 @@ export class OrderReviewComponent implements OnInit {
     itemName: ''
   };
 
+  isShowImage: boolean = false;
   isLoading: boolean = false;
   orders: Order[] = [];
   orderlineSummary: Map<string, Orderline> = new Map();

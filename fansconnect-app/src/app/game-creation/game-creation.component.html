@@ -1,4 +1,9 @@
 <h2 i18n>製造新卡</h2>
+
+<div class="loadingDiv" *ngIf="isLoading" style="background-image: url('../assets/icons/three mo_02.gif')">
+  &nbsp;
+</div>
+
 <form>
 
   <div class="container">
@@ -23,10 +28,10 @@
     <li class="nav-item">
       <a [class]="getNavItemClass('card')" (click)="changeTab('card')">SiCard詳情</a>
     </li>
-    <li class="nav-item">
+    <li *ngIf="editCardId!=''" class="nav-item">
       <a [class]="getNavItemClass('charactor')" (click)="changeTab('charactor')">角色資料</a>
     </li>
-    <li class="nav-item">
+    <li *ngIf="editCardId!=''" class="nav-item">
       <a [class]="getNavItemClass('skill')" (click)="changeTab('skill')">技能資料</a>
     </li>
   </ul>
@@ -152,22 +157,22 @@
       </thead>
       <tbody>
         <tr>
-          <td><input type="text"></td>
-          <td><input type="text"></td>
-          <td><input type="number"></td>
-          <td><input type="text"></td>
+          <td><input type="text" name="skillName0" [(ngModel)]="editSkills[0].skillName"></td>
+          <td><input type="text" name="skillDescription0" [(ngModel)]="editSkills[0].skillDescription"></td>
+          <td><input type="number" name="power0" [(ngModel)]="editSkills[0].power"></td>
+          <td><input type="text" name="effect0" [(ngModel)]="editSkills[0].effect"></td>
         </tr>
         <tr>
-          <td><input type="text"></td>
-          <td><input type="text"></td>
-          <td><input type="number"></td>
-          <td><input type="text"></td>
+          <td><input type="text" name="skillName1" [(ngModel)]="editSkills[1].skillName"></td>
+          <td><input type="text" name="skillDescription1" [(ngModel)]="editSkills[1].skillDescription"></td>
+          <td><input type="number" name="power1" [(ngModel)]="editSkills[1].power"></td>
+          <td><input type="text" name="effect1" [(ngModel)]="editSkills[1].effect"></td>
         </tr>
         <tr>
-          <td><input type="text"></td>
-          <td><input type="text"></td>
-          <td><input type="number"></td>
-          <td><input type="text"></td>
+          <td><input type="text" name="skillName2" [(ngModel)]="editSkills[2].skillName"></td>
+          <td><input type="text" name="skillDescription2" [(ngModel)]="editSkills[2].skillDescription"></td>
+          <td><input type="number" name="power2" [(ngModel)]="editSkills[2].power"></td>
+          <td><input type="text" name="effect2" [(ngModel)]="editSkills[2].effect"></td>
         </tr>
       </tbody>
     </table>
@@ -175,4 +180,4 @@
 </div>
 
 <button type="button" class="btn btn-light" style="float: right;"
-(click)="backToMenu()" i18n>返回主頁</button>
+(click)="backToMenu()" i18n>返回SiCard庫</button>

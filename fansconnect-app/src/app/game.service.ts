@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { SiCard } from './game-creation/sicard';
 import { SiCharactor } from './game-creation/sicharactor';
+import { SiSkill } from './game-creation/siskill';
 
 @Injectable({
   providedIn: 'root'
@@ -23,13 +24,32 @@ export class GameService  {
     );
   }
 
-
   addSiCard(order: SiCard): Observable<SiCard>{
     var apiUrl = this.eventApi.concat("/sicard/", order.idolId.toString(), "?");
     console.log(order);
     return this.http.post<SiCard>(
       apiUrl,
       order
+    );
+  }
+
+  getSiSkills(cardId: string): Observable<SiSkill[]>{
+    var apiUrl = this.eventApi.concat(
+      "/siskills/", cardId,
+      "?code=HAa6mzCrhJYwp6xDg3LyTJxWHPcjnDwUt/6vTQyqmAHAFdm2FaUQkQ==");
+    console.log(apiUrl);
+    return this.http.get<SiSkill[]>(apiUrl).pipe(
+      catchError(this.handleError<SiSkill[]>("Get SiSkill", []))
+    );
+  }
+
+  getSiCharactor(cardId: string): Observable<SiCharactor[]>{
+    var apiUrl = this.eventApi.concat(
+      "/sicharactor/", cardId,
+      "?code=TSa8CMdSzNjGAsR3h2YIYq1CW8zUy83giKNMNBfsiW8xfP/xKvpwKA==");
+    console.log(apiUrl);
+    return this.http.get<SiCharactor[]>(apiUrl).pipe(
+      catchError(this.handleError<SiCharactor[]>("Get SiCharactor", []))
     );
   }
 

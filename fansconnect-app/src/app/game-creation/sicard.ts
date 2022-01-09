@@ -1,3 +1,5 @@
+import { SiSkill } from "./siskill";
+
 export interface SiCard {
   idolId: number;
   cardId: string;
@@ -12,4 +14,5 @@ export interface SiCard {
   cardType: string;
   cardRare: number;
   status: string;
+  skills: SiSkill[];
 }

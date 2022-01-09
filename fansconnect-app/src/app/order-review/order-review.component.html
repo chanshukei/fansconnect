@@ -4,7 +4,7 @@
   &nbsp;
 </div>
 
-<table class="table">
+<table class="table table-striped">
   <thead>
     <tr>
       <th scope="col">日期</th>
@@ -17,7 +17,15 @@
         <input class="search-filter" type="text" name="filterItemName" [(ngModel)]="filterargs.itemName">
       </th>
       <th scope="col">總金額</th>
-      <th scope="col">圖片證明</th>
+      <th scope="col">
+        圖片證明<br>
+        <div class="form-check form-switch" style="font-size: 10pt; float: right;">
+          <input class="form-check-input" type="checkbox" name="filterImage" [(ngModel)]="isShowImage" id="flexCheckDefault">
+          <label class="form-check-label" for="flexCheckDefault">
+            顯示圖片
+          </label>
+        </div>
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -25,15 +33,25 @@
       <td>{{order.createDate | date:'yyyy-MM-dd hh:mm'}}</td>
       <td>{{order.createBy}}</td>
       <td>
-        <ul class="list-group">
-          <li class='list-group-item' *ngFor="let line of order.orderlines">
+        <ul class="list-group" style="background: none;">
+          <li class='list-group-item' style="background: none;" *ngFor="let line of order.orderlines">
             {{line.itemName}} ${{line.price}} x {{line.itemCount}}
           </li>
         </ul>
       </td>
       <td>${{getTotalAmount(order)}}</td>
-      <a  target="_blank"
-      href='{{ "https://fansconnect-idol.azurewebsites.net/api/orderimage/" + order.orderId + "?code=shj0Rkq93vQ0jHmV8Z8alfUCcQrHdysOaZBw0od/8yD4/chO3LwAyg=="}}'>下載</a>
+      <td>
+        <a  *ngIf="isShowImage"
+            target="_blank"
+            href='{{ "https://fansconnect-idol.azurewebsites.net/api/orderimage/" + order.orderId + "?code=shj0Rkq93vQ0jHmV8Z8alfUCcQrHdysOaZBw0od/8yD4/chO3LwAyg=="}}'>
+          <img  style="max-width: 300px; border: 1px solid #000000; margin: 5px; border-radius: 5px;"
+                src='{{ "https://fansconnect-idol.azurewebsites.net/api/orderimage/" + order.orderId + "?code=shj0Rkq93vQ0jHmV8Z8alfUCcQrHdysOaZBw0od/8yD4/chO3LwAyg=="}}'>
+        </a>
+        <a  *ngIf="!isShowImage"
+            style="font-size: 10pt;"
+            target="_blank"
+            href='{{ "https://fansconnect-idol.azurewebsites.net/api/orderimage/" + order.orderId + "?code=shj0Rkq93vQ0jHmV8Z8alfUCcQrHdysOaZBw0od/8yD4/chO3LwAyg=="}}'>下載</a>
+      </td>
     </tr>
   </tbody>
 </table>
