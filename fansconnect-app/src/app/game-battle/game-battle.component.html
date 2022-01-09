@@ -1,1 +1,16 @@
-<p>game-battle works!</p>
+<div class='fullscreenBg' style="background-image: url('../assets/icons/sicard-bg.png')">
+  <div class="monsterStatusBar">
+    <div class="monsterStatus" *ngFor="let monster of monsters">
+      {{monster.cardName}}
+    </div>
+  </div>
+
+  <div class="locationBg" style="background-image: url('../assets/location/africa.png');">
+    <div class="monstersRow">
+      <div class="monster" *ngFor="let monster of monsters">
+        <img  class="monster-image"
+              [src]="'https://fansconnect-game.azurewebsites.net/api/sicardimage/'+monster.cardId+'?code=miMufIBJZhw3ByaH16D5Dc/8bBGv2RAPDzWnfEyuimnzW9sz5av7OA=='">
+      </div>
+    </div>
+  </div>
+</div>

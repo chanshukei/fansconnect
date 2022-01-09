@@ -17,7 +17,6 @@ export class AppComponent {
   ) { }
 
   ngOnInit(): void {
-    console.log("idol init");
     this.idolService.getIdol(1).subscribe(
       e => {
         if(e.length>0){

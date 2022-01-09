@@ -60,6 +60,11 @@ export class ChatbotComponent implements OnInit {
   askForReply(reply2: Reply):void{
     this.replyList.push(reply2);
 
+    if(reply2.content.toLowerCase()=='上上下下左右左右baba'){
+      this.router.navigate(['../game-battle'], {relativeTo: this.route});
+      return;
+    }
+
     this.questionService.askForReply(reply2).subscribe(
       e => {
         for(var i=0; i<e.length; i++){
