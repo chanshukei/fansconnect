@@ -1,7 +1,14 @@
+<div class="loadingDiv" *ngIf="isLoading" style="background-image: url('../assets/icons/three mo_02.gif')">
+  &nbsp;
+</div>
+
 <div class='fullscreenBg' style="background-image: url('../assets/icons/sicard-bg.png')">
   <div class="monsterStatusBar">
     <div class="monsterStatus" *ngFor="let monster of monsters">
-      {{monster.cardName}}
+      <p style="font-size: 12pt;">{{monster.card[0].cardName}}</p>
+      <p>HP&nbsp;{{monster.hp}}/{{monster.charactor[0].hp}}</p>
+      <p>SP&nbsp;{{monster.sp}}/{{monster.charactor[0].sp}}</p>
+      <p>ATT&nbsp;{{monster.att}}&nbsp;DEF&nbsp;{{monster.def}}</p>
     </div>
   </div>
 
@@ -12,5 +19,9 @@
               [src]="'https://fansconnect-game.azurewebsites.net/api/sicardimage/'+monster.cardId+'?code=miMufIBJZhw3ByaH16D5Dc/8bBGv2RAPDzWnfEyuimnzW9sz5av7OA=='">
       </div>
     </div>
+  </div>
+
+  <div class="playerPanel">
+
   </div>
 </div>

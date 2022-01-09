@@ -1,7 +1,9 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SiCard } from '../game-creation/sicard';
+import { SiCharactor } from '../game-creation/sicharactor';
 import { GameService } from '../game.service';
+import { Monster } from './monster';
 import { StageMonster } from './stage-monster';
 
 @Component({
@@ -16,10 +18,13 @@ export class GameBattleComponent implements OnInit {
     {
       stageUid: 0,
       cardId: '26a9d305-c077-4347-9780-5b321fd2f642',
-      monsterCount: 1
+      monsterCount: 3
     }
   ];
-  monsters: SiCard[] = [];
+
+  monsters: Monster[] =[];
+  monsterCards: Map<string, SiCard> = new Map<string, SiCard>();
+  monsterCharactors: Map<string, SiCharactor> = new Map<string, SiCharactor>();
 
   constructor(
     private gameService: GameService,
@@ -50,6 +55,51 @@ export class GameBattleComponent implements OnInit {
     return 0;
   }
 
+  createMonsters(cardId: string): void{
+    var card = this.monsterCards.get(cardId);
+    var charactor = this.monsterCharactors.get(cardId);
+    if(card!=null && charactor!=null){
+      var monsterCount = this.getMonsterCount(cardId);
+      for(var i=0; i<monsterCount; i++){
+        var monster: Monster = {
+          card: [card],
+          charactor: [charactor],
+          hp: charactor.hp,
+          sp: charactor.sp,
+          att: charactor.att,
+          def: charactor.def,
+          cardId: cardId
+        };
+        this.monsters.push(monster);
+      }
+    }
+  }
+
+  loadSiSkills(cardId:string): void{
+    this.createMonsters(cardId);
+  }
+
+  loadSiCharactor(cardId: string): void {
+    this.isLoading = true;
+    this.gameService.getSiCharactor(cardId).subscribe(
+      e => {
+        if(e.length==1){
+          var sichar: SiCharactor = {
+            cardId: e[0].cardId,
+            hp: e[0].hp,
+            sp: e[0].sp,
+            att: e[0].att,
+            def: e[0].def,
+            charactorId: e[0].charactorId
+          };
+          this.monsterCharactors.set(cardId, sichar);
+          this.loadSiSkills(cardId);
+        };
+        this.isLoading = false;
+      }
+    );
+  }
+
   ngOnInit(): void {
     this.isLoading = true;
 
@@ -73,10 +123,10 @@ export class GameBattleComponent implements OnInit {
             status: e[0].status,
             skills: []
           };
-          //this.loadSiCharactor(e2.cardId);
-          //this.loadSiSkills(e2);
-          var monsterCount = this.getMonsterCount(e[0].cardId);
-          this.monsters.push(card);
+          this.monsterCards.set(card.cardId, card);
+
+          //step 2
+          this.loadSiCharactor(card.cardId);
           this.isLoading = false;
         }
       );
