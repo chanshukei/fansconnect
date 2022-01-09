@@ -39,7 +39,8 @@
       <div class='card-body'>
         <p class='card-title'>{{item.itemName}}</p>
         <p class='card-title' *ngIf="item.filePath!=''">
-          <img src='{{ "https://fansconnect-idol.azurewebsites.net/api/shopimage/" + item.itemId + "?code=NYMr/MS73CVCycagYJmwTYYSGwo864LGSgCo0dlcJ3TdWqQLmp18sQ=="}}'>
+          <img  style="border-radius: 20px; max-width: 400px;"
+                src='{{ "https://fansconnect-idol.azurewebsites.net/api/shopimage/" + item.itemId + "?code=NYMr/MS73CVCycagYJmwTYYSGwo864LGSgCo0dlcJ3TdWqQLmp18sQ=="}}'>
         </p>
         <p class='card-text'>{{item.itemDescription}}</p>
         <p class='card-text'>${{item.price}}</p>
