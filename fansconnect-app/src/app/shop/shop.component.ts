@@ -24,7 +24,8 @@ export class ShopComponent implements OnInit {
     fileType: '',
     createDate: new Date(),
     createBy: '',
-    orderlines: []
+    orderlines: [],
+    remarks: ''
   };
 
   pagemode: string = 'shop';
@@ -124,7 +125,8 @@ export class ShopComponent implements OnInit {
         fileType: '',
         createDate: new Date(),
         createBy: '',
-        orderlines: []
+        orderlines: [],
+        remarks: ''
       };
       this.orderlines = [];
       this.pagemode = "shop";

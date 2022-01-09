@@ -34,7 +34,8 @@ export class MyorderReviewComponent implements OnInit {
             fileContent: '',
             fileName: '',
             filePath: '',
-            fileType: ''
+            fileType: '',
+            remarks: e[i].remarks
           };
           this.listOrderlines(e2);
           this.orders.push(e2);

@@ -10,4 +10,5 @@ export interface Order {
   createDate: Date;
   createBy: string;
   idolId: number;
+  remarks: string;
 }

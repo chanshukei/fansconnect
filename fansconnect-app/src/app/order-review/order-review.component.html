@@ -37,6 +37,9 @@
           <li class='list-group-item' style="background: none;" *ngFor="let line of order.orderlines">
             {{line.itemName}} ${{line.price}} x {{line.itemCount}}
           </li>
+          <li class='list-group-item' *ngIf="order.remarks!='' && order.remarks!=null">
+            {{order.remarks}}
+          </li>
         </ul>
       </td>
       <td>${{getTotalAmount(order)}}</td>
