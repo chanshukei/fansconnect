@@ -6,7 +6,14 @@
 
 <button type="button" class="btn btn-light" style="float: right;" (click)="goToEventFans()" i18n>車力巨人之野史</button>
 <form>
-  <div  *ngFor="let event of events; let eventIndex=index;"
+  <div>
+      <select class="form-input" name="selectedYearmonth" [(ngModel)]="selectedYearmonth">
+        <option value="all">所有月份</option>
+        <option *ngFor="let ym of yearmonths">{{ym}}</option>
+      </select>
+  </div>
+
+  <div  *ngFor="let event of events | eventfilter:selectedYearmonth"
         class='card' style="width: 90%; min-width: 300px; margin-bottom: 5px;">
     <div class='card-body'>
       <p class='card-title'>{{event.eventDate | date}} {{event.eventTime}}</p>

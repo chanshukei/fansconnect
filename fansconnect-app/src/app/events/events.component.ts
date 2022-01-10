@@ -10,6 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class EventsComponent implements OnInit {
 
+  selectedYearmonth: string = 'all';
+  yearmonths: string[] = [];
   isLoading: boolean = false;
   events: Event[] = [];
 
@@ -49,6 +51,12 @@ export class EventsComponent implements OnInit {
             videoNamesList: e[i].videoNames.split(','),
             videoUrlsList: e[i].videoUrls.split(',')
           };
+
+          var yearmonth = (e2.eventDate.toString()).substring(0, 7);
+          if(this.yearmonths.length==0 || this.yearmonths[this.yearmonths.length-1]!=yearmonth){
+            this.yearmonths.push(yearmonth);
+          }
+
           this.events.push(e2);
         };
 
