@@ -10,8 +10,18 @@ import { Sform } from './income';
 })
 export class LuckydrawComponent implements OnInit {
 
-  smallResults: string[] = [];
-  bigResult: string = '';
+  smallResults: string[] = [
+    'kk.knc.1208_jazz_sonto_mirror',
+    'bobo197497050',
+    'mcheung8',
+    'ryanson_dream',
+    'tungtungcher',
+    'hrjh.cc',
+    'ingrid327',
+    'faithy._.c',
+    'james.lpy_529',
+    'lovesica2021forever'];
+  bigResult: string = 'tszlonxx';
 
   isComplete: boolean = false;
   answer1s: string[] = [];
