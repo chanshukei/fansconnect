@@ -4,6 +4,7 @@ import { SiCard } from '../game-creation/sicard';
 import { SiCharactor } from '../game-creation/sicharactor';
 import { GameService } from '../game.service';
 import { Monster } from './monster';
+import { Player } from './player';
 import { StageMonster } from './stage-monster';
 
 @Component({
@@ -13,6 +14,7 @@ import { StageMonster } from './stage-monster';
 })
 export class GameBattleComponent implements OnInit {
 
+  activePlayer: number = 0;
   isLoading: boolean = false;
   stageMonsters: StageMonster[] = [
     {
@@ -21,6 +23,18 @@ export class GameBattleComponent implements OnInit {
       monsterCount: 3
     }
   ];
+
+  players: Player[] = [{
+    cardId: '66d7c238-73e4-4d0b-a58b-6ed60356a8ed',
+    card: [],
+    charactor: [],
+    hp: 0,
+    sp: 0,
+    att: 0,
+    def: 0
+  }];
+  playerCards: Map<string, SiCard> = new Map<string, SiCard>();
+  playerCharactors: Map<string, SiCharactor> = new Map<string, SiCharactor>();
 
   monsters: Monster[] =[];
   monsterCards: Map<string, SiCard> = new Map<string, SiCard>();
@@ -55,6 +69,23 @@ export class GameBattleComponent implements OnInit {
     return 0;
   }
 
+  createPlayers(cardId: string): void{
+    var card = this.playerCards.get(cardId);
+    var charactor = this.playerCharactors.get(cardId);
+    if(card!=null && charactor!=null){
+      var player: Player = {
+        card: [card],
+        charactor: [charactor],
+        hp: charactor.hp,
+        sp: charactor.sp,
+        att: charactor.att,
+        def: charactor.def,
+        cardId: cardId
+      };
+      this.players[0] = player;
+    }
+  }
+
   createMonsters(cardId: string): void{
     var card = this.monsterCards.get(cardId);
     var charactor = this.monsterCharactors.get(cardId);
@@ -75,11 +106,15 @@ export class GameBattleComponent implements OnInit {
     }
   }
 
-  loadSiSkills(cardId:string): void{
-    this.createMonsters(cardId);
+  loadSiSkills(cardId:string, ctype: string): void{
+    if(ctype=='M'){
+      this.createMonsters(cardId);
+    }else if(ctype=='P'){
+      this.createPlayers(cardId);
+    }
   }
 
-  loadSiCharactor(cardId: string): void {
+  loadSiCharactor(cardId: string, ctype: string): void {
     this.isLoading = true;
     this.gameService.getSiCharactor(cardId).subscribe(
       e => {
@@ -92,8 +127,12 @@ export class GameBattleComponent implements OnInit {
             def: e[0].def,
             charactorId: e[0].charactorId
           };
-          this.monsterCharactors.set(cardId, sichar);
-          this.loadSiSkills(cardId);
+          if(ctype == 'M'){
+            this.monsterCharactors.set(cardId, sichar);
+          }else if(ctype == 'P'){
+            this.playerCharactors.set(cardId, sichar);
+          }
+          this.loadSiSkills(cardId, ctype);
         };
         this.isLoading = false;
       }
@@ -103,6 +142,35 @@ export class GameBattleComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
 
+    //load players
+    for(var i=0; i<this.players.length; i++){
+      this.gameService.getSiCard(this.players[i].cardId).subscribe(
+        e => {
+          var card: SiCard = {
+            cardId: e[0].cardId,
+            cardName: e[0].cardName,
+            cardDescription: e[0].cardDescription,
+            cardType: e[0].cardType,
+            cardRare: e[0].cardRare,
+            fileContent: e[0].fileContent,
+            fileName: e[0].fileName,
+            filePath: e[0].filePath,
+            fileType: e[0].fileType,
+            idolId: e[0].idolId,
+            createDate: e[0].createDate,
+            createBy: e[0].createBy,
+            status: e[0].status,
+            skills: []
+          };
+          this.playerCards.set(card.cardId, card);
+
+          //step 2
+          this.loadSiCharactor(card.cardId, 'P');
+        }
+      );
+    }
+
+    //load monster
     for(var i=0; i<this.stageMonsters.length; i++){
 
       this.gameService.getSiCard(this.stageMonsters[i].cardId).subscribe(
@@ -126,11 +194,12 @@ export class GameBattleComponent implements OnInit {
           this.monsterCards.set(card.cardId, card);
 
           //step 2
-          this.loadSiCharactor(card.cardId);
+          this.loadSiCharactor(card.cardId, 'M');
           this.isLoading = false;
         }
       );
     }
+
   }
 
 }

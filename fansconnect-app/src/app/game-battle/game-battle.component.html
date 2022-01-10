@@ -21,7 +21,26 @@
     </div>
   </div>
 
-  <div class="playerPanel">
-
+  <div class="player-panel" *ngIf="players[activePlayer].card.length>0">
+    <p style="font-size: 12pt;">
+      HP{{players[activePlayer].hp}}/{{players[activePlayer].charactor[0].hp}}
+      SP{{players[activePlayer].sp}}/{{players[activePlayer].charactor[0].sp}}
+      ATT{{players[activePlayer].att}}
+      DEF{{players[activePlayer].def}}
+    </p>
+    <div class="player-status">
+      <div class="player-image-box">
+        <img  class="player-image"
+              [src]="'https://fansconnect-game.azurewebsites.net/api/sicardimage/'+players[activePlayer].cardId+'?code=miMufIBJZhw3ByaH16D5Dc/8bBGv2RAPDzWnfEyuimnzW9sz5av7OA=='">
+      </div>
+      <p style="font-size: 12pt;">{{players[activePlayer].card[0].cardName}}</p>
+    </div>
+    <div class='player-button-panel'>
+      <button type="button" class="btn btn-light">技能</button>
+      <button type="button" class="btn btn-light">零食</button><br>
+      <button type="button" class="btn btn-light">道具</button>
+      <button type="button" class="btn btn-light">裝備</button>
+    </div>
   </div>
+
 </div>
