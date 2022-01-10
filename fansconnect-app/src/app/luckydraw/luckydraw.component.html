@@ -1,4 +1,5 @@
-<h2 i18n>Sica號1:76巴士模型抽獎</h2>
+<h2 i18n>Sica號1:76巴士模型抽獎 (已截止)</h2>
+
 <p>開始日期: 今日流會公佈</p>
 <p>截止日期: 2022年1月10日</p>
 <p>抽獎及公佈日期: 2022年1月11日</p>
@@ -9,7 +10,7 @@
 <p>第二步: 到Sica fans club的Instagram的巴士模型抽獎post留言(<a target="_blank" href="https://www.instagram.com/sica.todayflowclub/">IG post連結</a>) Tag三位朋友</p>
 <p>第三步: 填寫以下參加表格之後提交。</p>
 
-<div class="container">
+<!-- div class="container">
   <div class="row" *ngFor="let msg of alertMessages; let msgIndex=index;">
     <div class="col col-md-10">
       <div class="alert alert-danger" role="alert">
@@ -25,9 +26,9 @@
       </div>
     </div>
   </div>
-</div>
+</div -->
 
-<form>
+<!-- form>
   <div *ngIf="!isComplete" class='card' style="width: 90%; min-width: 300px; margin-bottom: 5px;">
     <div class='card-body'>
       <h3 class="card-title">參加表格</h3>
@@ -93,4 +94,96 @@
 
   <button type="button" class="btn btn-light" style="float: right;"
           (click)="backToMenu()" i18n>返回主頁</button>
-</form>
+</form -->
+
+<br/>
+
+<h2>抽獎方式</h2>
+<p>總分最高10位可得細獎</p>
+<p>總分最低1位可得大獎</p>
+<div class="code">
+DELETE FROM dbo.luckydrawresult<br>
+DELETE FROM [dbo].[LuckyDraw]<br>
+<br>
+INSERT INTO [dbo].[LuckyDraw](<br>
+	[LuckyDrawId],<br>
+	[IgId],<br>
+	[IdolId])<br>
+SELECT DISTINCT 1, IGID, IDOLID FROM FORM;<br>
+<br>
+--Round 1<br>
+INSERT INTO dbo.LuckyDrawResult(<br>
+	Timeid,<br>
+	LuckyDrawItemId,<br>
+	Result<br>
+)<br>
+SELECT 1, ItemId,  ABS(CHECKSUM(NewId())) % 10000 FROM dbo.LuckyDraw<br>
+<br>
+SELECT TOP 10 Igid, result FROM (<br>
+	SELECT D.IgId, SUM(R.Result) Result FROM dbo.LuckyDrawResult R<br>
+	INNER JOIN dbo.LuckyDraw D ON R.LuckyDrawItemId=D.ItemId<br>
+	GROUP BY D.IGID<br>
+) rs1<br>
+ORDER BY Result DESC<br>
+SELECT TOP 1 Igid, result FROM (<br>
+	SELECT D.IgId, SUM(R.Result) Result FROM dbo.LuckyDrawResult R<br>
+	INNER JOIN dbo.LuckyDraw D ON R.LuckyDrawItemId=D.ItemId<br>
+	GROUP BY D.IGID<br>
+) rs1<br>
+ORDER BY Result ASC<br>
+<br>
+--Round 2<br>
+INSERT INTO dbo.LuckyDrawResult(<br>
+	Timeid,<br>
+	LuckyDrawItemId,<br>
+	Result<br>
+)<br>
+SELECT 2, ItemId,  ABS(CHECKSUM(NewId())) % 10000 FROM dbo.LuckyDraw<br>
+<br>
+SELECT TOP 10 Igid, result FROM (<br>
+	SELECT D.IgId, SUM(R.Result) Result FROM dbo.LuckyDrawResult R<br>
+	INNER JOIN dbo.LuckyDraw D ON R.LuckyDrawItemId=D.ItemId<br>
+	GROUP BY D.IGID<br>
+) rs1<br>
+ORDER BY Result DESC<br>
+SELECT TOP 1 Igid, result FROM (<br>
+	SELECT D.IgId, SUM(R.Result) Result FROM dbo.LuckyDrawResult R<br>
+	INNER JOIN dbo.LuckyDraw D ON R.LuckyDrawItemId=D.ItemId<br>
+	GROUP BY D.IGID<br>
+) rs1<br>
+ORDER BY Result ASC<br>
+<br>
+--Round 3<br>
+INSERT INTO dbo.LuckyDrawResult(<br>
+	Timeid,<br>
+	LuckyDrawItemId,<br>
+	Result<br>
+)<br>
+SELECT 3, ItemId,  ABS(CHECKSUM(NewId())) % 10000 FROM dbo.LuckyDraw<br>
+<br>
+SELECT TOP 10 Igid, result FROM (<br>
+	SELECT D.IgId, SUM(R.Result) Result FROM dbo.LuckyDrawResult R<br>
+	INNER JOIN dbo.LuckyDraw D ON R.LuckyDrawItemId=D.ItemId<br>
+	GROUP BY D.IGID<br>
+) rs1<br>
+ORDER BY Result DESC<br>
+<br>
+SELECT TOP 1 Igid, result FROM (<br>
+	SELECT D.IgId, SUM(R.Result) Result FROM dbo.LuckyDrawResult R<br>
+	INNER JOIN dbo.LuckyDraw D ON R.LuckyDrawItemId=D.ItemId<br>
+	GROUP BY D.IGID<br>
+) rs1<br>
+ORDER BY Result ASC<br>
+</div>
+
+<br/>
+
+<h2>抽獎結果</h2>
+<p>細獎:</p>
+<ul class="list-group">
+  <li *ngFor="let name of smallResults">
+    {{name}}
+  </li>
+</ul>
+<p>大獎:{{bigResult}}</p>
+<p>總分紙:<!-- a target="_blank" href='../assets/luckydraw/result.txt'>下載</a --></p>

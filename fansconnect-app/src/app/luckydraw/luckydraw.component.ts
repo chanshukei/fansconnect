@@ -10,6 +10,9 @@ import { Sform } from './income';
 })
 export class LuckydrawComponent implements OnInit {
 
+  smallResults: string[] = [];
+  bigResult: string = '';
+
   isComplete: boolean = false;
   answer1s: string[] = [];
   infoMessages: string[] = [];
