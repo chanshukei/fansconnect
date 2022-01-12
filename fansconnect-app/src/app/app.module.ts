@@ -28,6 +28,7 @@ import { GameCreationComponent } from './game-creation/game-creation.component';
 import { SicardStoreComponent } from './sicard-store/sicard-store.component';
 import { MyorderReviewComponent } from './myorder-review/myorder-review.component';
 import { EventFilter } from './events/eventfilter';
+import { GameStartComponent } from './game-start/game-start.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { EventFilter } from './events/eventfilter';
     GameBattleComponent,
     GameCreationComponent,
     SicardStoreComponent,
-    MyorderReviewComponent
+    MyorderReviewComponent,
+    GameStartComponent
   ],
   imports: [
     BrowserModule,

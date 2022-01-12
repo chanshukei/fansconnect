@@ -101,7 +101,8 @@ export class GameCreationComponent implements OnInit {
           skillName: '',
           skillDescription: '',
           power: 0,
-          effect: ''
+          effect: '',
+          sp: 0
         };
       }
     }
@@ -119,7 +120,8 @@ export class GameCreationComponent implements OnInit {
             skillName: e[i].skillName,
             skillDescription: e[i].skillDescription,
             power: e[i].power,
-            effect: e[i].effect
+            effect: e[i].effect,
+            sp: e[i].sp
           };
         };
         this.isLoading = false;

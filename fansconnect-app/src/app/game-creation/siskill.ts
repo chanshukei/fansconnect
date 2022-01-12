@@ -4,5 +4,6 @@ export interface SiSkill{
   skillName: string;
   skillDescription: string;
   power: number;
+  sp: number;
   effect: string;
 }

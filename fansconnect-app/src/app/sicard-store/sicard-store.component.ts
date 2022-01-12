@@ -103,7 +103,8 @@ export class SicardStoreComponent implements OnInit {
             skillName: e[i].skillName,
             skillDescription: e[i].skillDescription,
             power: e[i].power,
-            effect: e[i].effect
+            effect: e[i].effect,
+            sp: e[i].sp
           };
           skills.push(skill);
         };

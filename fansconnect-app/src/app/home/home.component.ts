@@ -65,6 +65,10 @@ export class HomeComponent implements OnInit {
     this.usernameEmail = '';
   }
 
+  gotoSicard(): void{
+    this.router.navigate(['../game-start'], {relativeTo: this.route});
+  }
+
   goToMaterial(): void{
     this.router.navigate(['../material'], {relativeTo: this.route});
   }
