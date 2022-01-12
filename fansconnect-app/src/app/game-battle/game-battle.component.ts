@@ -88,7 +88,11 @@ export class GameBattleComponent implements OnInit {
     });
   }
 
-  gotoNextStage(){
+  gotoHome(): void{
+    this.router.navigate(['../home'], {relativeTo: this.route});
+  }
+
+  gotoNextStage(): void{
     this.activeStage += 1;
     if(this.activeStage==2){
       this.stageMonsters = [
@@ -120,7 +124,15 @@ export class GameBattleComponent implements OnInit {
         }
       ];
     }else if(this.activeStage==5){
-      this.router.navigate(['../home'], {relativeTo: this.route});
+      this.stageMonsters = [
+        {
+          stageUid: 0,
+          cardId: '7cdd9d3f-dfcd-420f-a207-d4870f7ae125',
+          monsterCount: 1
+        }
+      ];
+    }else if(this.activeStage==6){
+      this.gameMode = "finish";
     }
 
     //init mosters

@@ -23,6 +23,16 @@
   </div>
 </div>
 
+<div class="loadingDiv" style="background-image: url('../assets/icons/three mo_02.gif')" *ngIf="gameMode=='finish'">
+  &nbsp;
+  <div class="victoryBg" style="background-image: url('../assets/icons/sicard-bg.png')">
+    <p style="font-size: 16pt;">我真係恭喜你!</p>
+    <p style="font-size: 16pt;">你成功通過了所有關。</p>
+    <p style="font-size: 16pt;">請耐心等候正式版。</p>
+    <button type="button" class="btn btn-light" style="font-size: 16pt;" (click)="gotoHome()">返回目錄</button>
+  </div>
+</div>
+
 <div class='fullscreenBg' style="background-image: url('../assets/icons/sicard-bg.png')" *ngIf="gameMode==''">
   <div class="monsterStatusBar">
     <div  *ngFor="let monster of monsters"
