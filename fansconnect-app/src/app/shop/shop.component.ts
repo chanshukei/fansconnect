@@ -231,6 +231,7 @@ export class ShopComponent implements OnInit {
             fileType: e[i].fileType,
             idolId: e[i].idolId
           };
+          //e2.itemDescription = e2.itemDescription.replace(/\n/g, "<br />");
           this.items.push(e2);
         };
 
