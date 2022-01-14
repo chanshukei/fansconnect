@@ -75,10 +75,29 @@ export class MapComponent implements OnInit {
         var c = i.coord.split(',');
         this.markers.push({
           lat: parseFloat(c[0].trim()),
-          lng: parseFloat(c[1].trim())
+          lng: parseFloat(c[1].trim()),
+          type: i.supportType
         });
       }
     });
+
+    const icons: Record<string, { icon: string }> = {
+      '應援茶飲店': {
+        icon: "../../assets/icons/drink.png",
+      },
+      '應援店': {
+        icon: "../../assets/icons/food.png",
+      },
+      '應援書店': {
+        icon: "../../assets/icons/book.png",
+      },
+      '應援玩店': {
+        icon: "../../assets/icons/game.png",
+      },
+      '海外應援店': {
+        icon: "../../assets/icons/marker.png",
+      }
+    };
 
     var map: google.maps.Map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
       center: this.markers[0],
@@ -86,9 +105,11 @@ export class MapComponent implements OnInit {
     });
 
     this.markers.forEach( marker => {
+      console.log(marker.type);
       new google.maps.Marker({
         position: marker,
         map: map,
+        icon: icons[marker.type].icon
       });
     });
 
