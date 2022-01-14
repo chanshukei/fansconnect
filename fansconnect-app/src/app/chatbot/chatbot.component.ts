@@ -61,7 +61,7 @@ export class ChatbotComponent implements OnInit {
     this.replyList.push(reply2);
 
     if(reply2.content.toLowerCase()=='上上下下左右左右baba'){
-      this.router.navigate(['../game-battle'], {relativeTo: this.route});
+      this.router.navigate(['../sicard-game-start'], {relativeTo: this.route});
       return;
     }
 

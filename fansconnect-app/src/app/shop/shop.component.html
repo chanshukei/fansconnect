@@ -42,7 +42,7 @@
           <img  style="border-radius: 20px; width: 100%; max-width: 500px;"
                 src='{{ "https://fansconnect-idol.azurewebsites.net/api/shopimage/" + item.itemId + "?code=NYMr/MS73CVCycagYJmwTYYSGwo864LGSgCo0dlcJ3TdWqQLmp18sQ=="}}'>
         </p>
-        <p style="font-size: 10pt;" [innerText]="item.itemDescription"></p>
+        <p style="font-size: 12pt;" [innerText]="item.itemDescription"></p>
         <p class='card-text'>${{item.price}}</p>
         <p class='card-text' style="float: right;">
           <button class="btn btn-dark" type="button" (click)="changeOrder(item.itemId, -1)">-</button>

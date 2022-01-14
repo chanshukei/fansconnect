@@ -21,6 +21,7 @@ import { GameCreationComponent } from './game-creation/game-creation.component';
 import { SicardStoreComponent } from './sicard-store/sicard-store.component';
 import { MyorderReviewComponent } from './myorder-review/myorder-review.component';
 import { GameStartComponent } from './game-start/game-start.component';
+import { SicardGameStartComponent } from './sicard-game-start/sicard-game-start.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -41,6 +42,7 @@ const routes: Routes = [
   { path: 'myorderReview', component: MyorderReviewComponent },
   { path: 'orderReview', component: OrderReviewComponent },
   { path: 'game-battle', component: GameBattleComponent },
+  { path: 'sicard-game-start', component: SicardGameStartComponent },
   { path: 'game-start', component: GameStartComponent },
   { path: 'game-creation', component: GameCreationComponent },
   { path: 'sicard-store', component: SicardStoreComponent },
