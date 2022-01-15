@@ -24,6 +24,10 @@ export class HomeComponent implements OnInit {
     this.initPage();
   }
 
+  gotoSupportItemForm():void{
+    this.router.navigate(['../support-item-form'], {relativeTo: this.route});
+  }
+
   gotoLuckyDraw():void{
     this.router.navigate(['../luckydraw'], {relativeTo: this.route});
   }

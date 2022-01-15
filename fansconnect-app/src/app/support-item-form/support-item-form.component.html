@@ -36,7 +36,43 @@
           </li>
         </ul>
       </h3>
-      <div class="container">
+
+      <div *ngIf="currentTab=='case'">
+        <p>由於合作應援的店鋪超過20間, 而且應援店種類眾多, 如以下分類:</p>
+        <ul>
+          <li><img src="../../assets/icons/yolica.png" />&nbsp;YOLICA (Yoyo, Alice, Sica 合作應援)</li>
+          <li><img src="../../assets/icons/drink.png" />&nbsp;應援茶飲店</li>
+          <li><img src="../../assets/icons/food.png" />&nbsp;應援店</li>
+          <li><img src="../../assets/icons/book.png" />&nbsp;應援書店</li>
+          <li><img src="../../assets/icons/game.png" />&nbsp;應援玩店</li>
+          <li><img src="../../assets/icons/marker.png" />&nbsp;海外應援店</li>
+        </ul>
+      </div>
+
+      <div *ngIf="currentTab=='money'">
+        <p>直至現時, 眾籌總數為 ${{total}}</p>
+        <div>
+          <h3>每日能量總表</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">日期</th>
+                <th scope="col">項目</th>
+                <th scope="col">金額</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of incomeSummarys;">
+                <td>{{item.createDate | date:'yyyy-MM-dd'}}</td>
+                <td>眾籌</td>
+                <td>${{item.amount}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div *ngIf="currentTab=='form'" class="container">
         <div class="row">
           <div class='col col-md-4'>
             <label class="form-label">貴公司名稱<span class="required">*</span></label>
@@ -114,6 +150,7 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
 
