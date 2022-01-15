@@ -96,6 +96,9 @@ export class MapComponent implements OnInit {
       },
       '海外應援店': {
         icon: "../../assets/icons/marker.png",
+      },
+      'YOLICA': {
+        icon: "../../assets/icons/yolica.png",
       }
     };
 
