@@ -30,6 +30,7 @@ import { MyorderReviewComponent } from './myorder-review/myorder-review.componen
 import { EventFilter } from './events/eventfilter';
 import { GameStartComponent } from './game-start/game-start.component';
 import { SicardGameStartComponent } from './sicard-game-start/sicard-game-start.component';
+import { SupportItemFormComponent } from './support-item-form/support-item-form.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { SicardGameStartComponent } from './sicard-game-start/sicard-game-start.
     SicardStoreComponent,
     MyorderReviewComponent,
     GameStartComponent,
-    SicardGameStartComponent
+    SicardGameStartComponent,
+    SupportItemFormComponent
   ],
   imports: [
     BrowserModule,

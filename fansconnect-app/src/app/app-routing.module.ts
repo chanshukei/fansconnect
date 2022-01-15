@@ -22,6 +22,7 @@ import { SicardStoreComponent } from './sicard-store/sicard-store.component';
 import { MyorderReviewComponent } from './myorder-review/myorder-review.component';
 import { GameStartComponent } from './game-start/game-start.component';
 import { SicardGameStartComponent } from './sicard-game-start/sicard-game-start.component';
+import { SupportItemFormComponent } from './support-item-form/support-item-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -46,7 +47,8 @@ const routes: Routes = [
   { path: 'game-start', component: GameStartComponent },
   { path: 'game-creation', component: GameCreationComponent },
   { path: 'sicard-store', component: SicardStoreComponent },
-  { path: 'supportitem', component: SupportitemComponent }
+  { path: 'supportitem', component: SupportitemComponent },
+  { path: 'support-item-form', component: SupportItemFormComponent }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

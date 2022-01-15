@@ -1,0 +1,122 @@
+<h2 i18n>Sica新應援店報名表格</h2>
+
+<p>今日流會在此誠意邀請貴公司參與是次應援活動, 請完成以下表格, 感謝</p>
+
+<div class="container">
+  <div class="row" *ngFor="let msg of alertMessages; let msgIndex=index;">
+    <div class="col col-md-10">
+      <div class="alert alert-danger" role="alert">
+        {{msg}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngFor="let msg of infoMessages; let msgIndex=index;">
+    <div class="col col-md-10">
+      <div class="alert alert-info" role="alert">
+        {{msg}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<form>
+  <div *ngIf="!isComplete" class='card' style="width: 90%; min-width: 300px; margin-bottom: 5px;">
+    <div class='card-body'>
+      <h3 class="card-title">
+        <ul class="nav">
+          <li class="nav-item">
+            <a [class]="getNavItemClass('form')" (click)="changeTab('form')">參加表格</a>
+          </li>
+          <li class="nav-item">
+            <a [class]="getNavItemClass('money')" (click)="changeTab('money')">過往眾籌</a>
+          </li>
+          <li class="nav-item">
+            <a [class]="getNavItemClass('case')" (click)="changeTab('case')">合作個案</a>
+          </li>
+        </ul>
+      </h3>
+      <div class="container">
+        <div class="row">
+          <div class='col col-md-4'>
+            <label class="form-label">貴公司名稱<span class="required">*</span></label>
+          </div>
+          <div class="col col-md-8">
+            <input type="text" maxlength="50" name="itemName" class="form-control" [(ngModel)]="editForm.itemName"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class='col col-md-4'>
+            <label class="form-label">貴公司地址<span class="required">*</span></label>
+          </div>
+          <div class="col col-md-8">
+            <input type="text" maxlength="100" name="releaseLocation" class="form-control" [(ngModel)]="editForm.releaseLocation"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class='col col-md-4'>
+            <label class="form-label">閣下Signal / Whatsapp聯絡電話<span class="required">*</span></label>
+          </div>
+          <div class="col col-md-8">
+            <input type="text" maxlength="10" name="contactNo" class="form-control" [(ngModel)]="editForm.contactNo"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class='col col-md-4'>
+            <label class="form-label">貴公司店鋪類型 (eg. 台式飲品, 咖啡店 )<span class="required">*</span></label>
+          </div>
+          <div class="col col-md-8">
+            <input type="text" maxlength="100" name="supportType" class="form-control" [(ngModel)]="editForm.supportType"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class='col col-md-4'>
+            <label class="form-label">應援物擺放時間<span class="required">*</span></label>
+          </div>
+          <div class="col col-md-8">
+            <select type="text" maxlength="100" name="supportPeriod" class="form-control" [(ngModel)]="editForm.supportPeriod">
+              <option value="一至兩星期">一至兩星期</option>
+              <option value="三至七星期">三至七星期</option>
+              <option value="八星期或以上">八星期或以上</option>
+              <option value="其他">其他</option>
+            </select>
+            <input type="text" maxlength="50" [disabled]="editForm.supportPeriod!='其他'" name="answer1" [(ngModel)]="editForm.answer1"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class='col col-md-4'>
+            <label class="form-label">拿應援物前是否必須消費？<span class="required">*</span></label>
+          </div>
+          <div class="col col-md-8">
+            <div class="form-check">
+              <input  class="form-check-input" type="radio" name="isPaid" id="flexRadioDefault1"
+                      [checked]="editForm.isPaid=='Y'"
+                      value="Y" (click)="updateIsPaid('Y')">
+              <label class="form-check-label" for="flexRadioDefault1">
+                是
+              </label>
+            </div>
+            <div class="form-check">
+              <input  class="form-check-input" type="radio" name="isPaid" id="flexRadioDefault2"
+                      [checked]="editForm.isPaid=='N'"
+                      value="N" (click)="updateIsPaid('N')">
+              <label class="form-check-label" for="flexRadioDefault2">
+                不是
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col col-md-12">
+            <button type="button" class="btn btn-dark" style="float: left;" (click)="cancelEdit()" i18n>取消</button>
+            <button type="button" class="btn btn-dark" style="float: right;" (click)="completeEdit()">完成</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-light" style="float: right;"
+          (click)="backToMenu()" i18n>返回主頁</button>
+</form>
