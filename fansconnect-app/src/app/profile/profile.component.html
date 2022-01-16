@@ -1,0 +1,101 @@
+<h2 i18n>Sica World 會員資料</h2>
+
+<div class="container">
+  <div class="row" *ngFor="let msg of alertMessages; let msgIndex=index;">
+    <div class="col col-md-10">
+      <div class="alert alert-danger" role="alert">
+        {{msg}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngFor="let msg of infoMessages; let msgIndex=index;">
+    <div class="col col-md-10">
+      <div class="alert alert-info" role="alert">
+        {{msg}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<form>
+  <div class='card' style="width: 90%; min-width: 300px; margin-bottom: 5px;">
+    <div class='card-body'>
+      <h3 class="card-title">
+        會員資料
+      </h3>
+
+      <div class="container">
+        <div class="row">
+          <div class='col col-md-4'>
+            <label class="form-label">活躍地區</label>
+          </div>
+          <div class="col col-md-8">
+            <select name="location" class="form-control" [(ngModel)]="editForm.location">
+              <option value="HKG">港島</option>
+              <option value="KLN">九龍</option>
+              <option value="NTE">新界東</option>
+              <option value="NTW">新界西</option>
+              <option value="ISL">離島</option>
+              <option value="TW">台灣</option>
+              <option value="JAP">日本</option>
+              <option value="UK">英國</option>
+              <option value="EUR">其他歐洲地區</option>
+              <option value="CAN">加拿大</option>
+              <option value="OTH">其他地區</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class='col col-md-4'>
+            <label class="form-label">地址<span class="required">*</span></label>
+          </div>
+          <div class="col col-md-8">
+            <input  type="text" maxlength="300" name="address" class="form-control"
+                    [(ngModel)]="editForm.address"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class='col col-md-4'>
+            <label class="form-label">性別</label>
+          </div>
+          <div class="col col-md-8">
+            <select name="gender" class="form-control" [(ngModel)]="editForm.gender">
+              <option value="M">男</option>
+              <option value="F">女</option>
+              <option value="O">其他</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class='col col-md-4'>
+            <label class="form-label">出生年份</label>
+          </div>
+          <div class="col col-md-8">
+            <select name="bornyear" class="form-control" [(ngModel)]="editForm.bornyear">
+              <option value="Y60">1969之前</option>
+              <option value="Y70">1970 - 1979</option>
+              <option value="Y80">1980 - 1989</option>
+              <option value="Y90">1990 - 1999</option>
+              <option value="Y00">2000 - 2009</option>
+              <option value="Y10">2010 - 2019</option>
+              <option value="Y20">2020 - 2029</option>
+              <option value="Y30">2030之後</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col col-md-12">
+            <button type="button" class="btn btn-dark" style="float: left;" (click)="cancelEdit()" i18n>取消</button>
+            <button type="button" class="btn btn-dark" style="float: right;" (click)="completeEdit()">完成</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-light" style="float: right;"
+          (click)="backToMenu()" i18n>返回主頁</button>
+</form>

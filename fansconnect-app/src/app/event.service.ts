@@ -8,6 +8,8 @@ import { Income } from './income/income';
 import { Expense } from './income/expense';
 import { Sform } from './luckydraw/income';
 import { SupportItemForm } from './support-item-form/support-item-form';
+import { ProfileForm } from './profile/profile-form';
+import { UserModel } from './login/usermodel';
 
 
 @Injectable({
@@ -38,6 +40,14 @@ export class EventService {
     );
   }
 
+  addProfileForm(sform: ProfileForm): Observable<Sform>{
+    var apiUrl = this.eventApi.concat("/addprofileform/", sform.idolId.toString(), "?");
+    return this.http.post<Sform>(
+      apiUrl,
+      sform
+    );
+  }
+
   addSupportItemForm(sform: SupportItemForm): Observable<Sform>{
     var apiUrl = this.eventApi.concat("/addsupportitemform/", sform.idolId.toString(), "?");
     return this.http.post<Sform>(
@@ -51,6 +61,25 @@ export class EventService {
     return this.http.post<Income>(
       apiUrl,
       income
+    );
+  }
+
+  getProfileForm(idolId: number): Observable<ProfileForm[]>{
+    var apiUrl = this.eventApi.concat(
+      "/profileform/", idolId.toString(),
+      "?code=CvKTuwlz6CSBvECLdqZv7MSeT/I46m8KKMiWM8v9Cq2s6fQfwNxpjQ==");
+    var usernameEmail = window.sessionStorage.getItem("usernameEmail");
+    var sessionId = window.sessionStorage.getItem("sessionId");
+    var user: UserModel = {
+      usernameEmail: usernameEmail??'',
+      sessionId: sessionId??'',
+      seessionExpireDatetime: new Date(),
+      roleId: ''
+    };
+    console.log(user);
+    return this.http.post<ProfileForm[]>(
+      apiUrl,
+      user
     );
   }
 

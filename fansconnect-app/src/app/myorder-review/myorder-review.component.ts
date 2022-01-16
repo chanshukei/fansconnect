@@ -94,6 +94,10 @@ export class MyorderReviewComponent implements OnInit {
     this.listOrders();
   }
 
+  gotoProfile():void{
+    this.router.navigate(['../profile'], {relativeTo: this.route});
+  }
+
   backToMenu(): void{
     this.router.navigate(['../home'], {relativeTo: this.route});
   }
