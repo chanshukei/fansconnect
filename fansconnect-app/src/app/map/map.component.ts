@@ -95,6 +95,9 @@ export class MapComponent implements OnInit {
       '應援玩店': {
         icon: "../../assets/icons/game.png",
       },
+      '應援音樂店': {
+        icon: "../../assets/icons/music.png",
+      },
       '海外應援店': {
         icon: "../../assets/icons/marker.png",
       },
