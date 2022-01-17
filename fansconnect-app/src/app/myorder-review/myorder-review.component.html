@@ -4,37 +4,60 @@
   &nbsp;
 </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">日期</th>
-      <th scope="col">
-        應援物<br>
-        <input class="search-filter" type="text" name="filterItemName" [(ngModel)]="filterargs.itemName">
-      </th>
-      <th scope="col">總金額</th>
-      <th scope="col">圖片證明</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let order of orders | orderfilter:filterargs">
-      <td>{{order.createDate | date:'yyyy-MM-dd hh:mm'}}</td>
-      <td>
-        <ul class="list-group">
-          <li class='list-group-item' *ngFor="let line of order.orderlines">
-            {{line.itemName}} ${{line.price}} x {{line.itemCount}}
-          </li>
-          <li class='list-group-item' *ngIf="order.remarks!='' && order.remarks!=null">
-            {{order.remarks}}
-          </li>
-        </ul>
-      </td>
-      <td>${{getTotalAmount(order)}}</td>
-      <a  target="_blank"
-      href='{{ "https://fansconnect-idol.azurewebsites.net/api/orderimage/" + order.orderId + "?code=shj0Rkq93vQ0jHmV8Z8alfUCcQrHdysOaZBw0od/8yD4/chO3LwAyg=="}}'>下載</a>
-    </tr>
-  </tbody>
-</table>
+<div style="overflow: scroll;">
+  <table class="table table-striped" style="min-width: 800px;">
+    <thead>
+      <tr>
+        <th scope="col">日期</th>
+        <th scope="col">
+          應援物<br>
+          <input class="search-filter" type="text" name="filterItemName" [(ngModel)]="filterargs.itemName">
+        </th>
+        <th scope="col">總金額</th>
+        <th scope="col">圖片證明</th>
+        <th scope="col" style="width: 150px;">更改款式</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders | orderfilter:filterargs">
+        <td>{{order.createDate | date:'yyyy-MM-dd hh:mm'}}</td>
+        <td>
+          <ul class="list-group">
+            <li class='list-group-item' *ngFor="let line of order.orderlines">
+              {{line.itemName}} ${{line.price}} x {{line.itemCount}}
+            </li>
+            <li class='list-group-item' *ngIf="order.remarks!='' && order.remarks!=null">
+              {{order.remarks}}
+            </li>
+          </ul>
+        </td>
+        <td>${{getTotalAmount(order)}}</td>
+        <td>
+          <a  target="_blank"
+          href='{{ "https://fansconnect-idol.azurewebsites.net/api/orderimage/" + order.orderId + "?code=shj0Rkq93vQ0jHmV8Z8alfUCcQrHdysOaZBw0od/8yD4/chO3LwAyg=="}}'>下載</a>
+        </td>
+        <td>
+          <button *ngIf="canChange(order)" type="button" class="btn btn-dark"
+                  style="font-size: 10pt;"
+                  (click)="startChange(order)">更改</button>
+          <div *ngIf="isChangingThis(order.orderId)" style="display: inline-block;">
+            <select class="form-control" style="width: 50px; display: inline; font-size: 10pt;"
+                    name="editingSize" [(ngModel)]="editingSize">
+              <option value="6">S</option>
+              <option value="7">M</option>
+              <option value="8">L</option>
+              <option value="9">XL</option>
+              <option value="10">XXL</option>
+              <option value="11">XXXL</option>
+            </select>
+            <button type="button" class="btn btn-dark" style="font-size: 10pt;"
+                    (click)="completeChange()">儲存</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <button type="button" class="btn btn-light" style="float: right;"
         (click)="backToMenu()" i18n>返回主頁</button>

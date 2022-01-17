@@ -17,8 +17,54 @@ export class MyorderReviewComponent implements OnInit {
     itemName: ''
   };
 
+  isChanging: boolean = false;
   isLoading: boolean = false;
   orders: Order[] = [];
+  editingOrders: Order[] = [];
+  editingSize: number = 0;
+
+  startChange(order:Order):void{
+    if(confirm("你要更改訂單嗎?")){
+      this.isChanging = true;
+      this.editingOrders = [order];
+    }
+  }
+
+  isChangingThis(orderId: string): boolean{
+    if(this.editingOrders.length>0){
+      if(this.editingOrders[0].orderId==orderId){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  canChange(order:Order):boolean{
+    if(!this.isChanging){
+      for(var i=0; i<order.orderlines.length; i++){
+        var ol = order.orderlines[i];
+        if(ol.itemId>=6 && ol.itemId<=11){
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  completeChange():void{
+    this.isChanging = false;
+    console.log('editingSize: '+this.editingSize);
+    if(this.editingOrders.length>0){
+      this.editingOrders[0].orderlines.forEach(ol =>{
+        ol.itemId = this.editingSize;
+      });
+      this.itemService.modifyOrder(this.editingOrders[0]).subscribe(data => {
+        alert("更改成功");
+      });
+      console.log(this.editingOrders[0]);
+    }
+    this.editingOrders = [];
+  }
 
   listOrders(): void{
     this.isLoading = true;

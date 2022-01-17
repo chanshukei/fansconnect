@@ -27,6 +27,15 @@ export class SupportitemService {
     );
   }
 
+  modifyOrder(order: Order): Observable<Order>{
+    var apiUrl = this.eventApi.concat("/saveorder?");
+    console.log(order);
+    return this.http.post<Order>(
+      apiUrl,
+      order
+    );
+  }
+
   getOrderlines(orderId: string): Observable<Orderline[]>{
     var apiUrl = this.eventApi.concat(
       "/orderlines/", orderId.toString(),
