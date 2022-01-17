@@ -6,4 +6,5 @@ export interface Reply {
   idolId: number;
   usernameEmail: string;
   tgId: string;
+  replyUsId: number;
 }

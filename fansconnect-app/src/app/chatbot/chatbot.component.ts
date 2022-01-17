@@ -19,7 +19,8 @@ export class ChatbotComponent implements OnInit {
     replyBy: 'me',
     replyDatetime: new Date(),
     tgId: '',
-    usernameEmail: ''
+    usernameEmail: '',
+    replyUsId: 0
   };
 
   resetMessage():void{
@@ -30,7 +31,8 @@ export class ChatbotComponent implements OnInit {
       replyBy: 'me',
       replyDatetime: new Date(),
       usernameEmail: '',
-      tgId: ''
+      tgId: '',
+      replyUsId: 0
     };
   }
 
@@ -56,7 +58,8 @@ export class ChatbotComponent implements OnInit {
       replyBy: 'me',
       replyDatetime: new Date(),
       usernameEmail: '',
-      tgId: ''
+      tgId: '',
+      replyUsId: 0
     };
     this.askForReply(firstMessage);
 
@@ -71,6 +74,11 @@ export class ChatbotComponent implements OnInit {
       return;
     }
 
+    if(reply2.content.toLowerCase()=='主席世一'){
+      this.router.navigate(['../chatroom'], {relativeTo: this.route});
+      return;
+    }
+
     this.questionService.askForReply(reply2).subscribe(
       e => {
         for(var i=0; i<e.length; i++){
@@ -81,7 +89,8 @@ export class ChatbotComponent implements OnInit {
             replyBy: "you",
             replyDatetime: new Date(),
             usernameEmail: '',
-            tgId: ''
+            tgId: '',
+            replyUsId: 0
           };
           if(e2.contentType == null || e2.contentType == ''){
             e2.contentType = "txt";

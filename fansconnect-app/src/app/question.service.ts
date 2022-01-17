@@ -15,6 +15,28 @@ export class QuestionService {
 
   constructor(private http: HttpClient) {}
 
+  getUnreadReply(reply: Reply): Observable<Reply[]>{
+    var apiUrl = this.questionApi.concat(
+      "/unreadreply/",
+      reply.idolId.toString(),
+      "?code=ssZeqsClziFhh2pewsiTz8nSKRoY4xVmFtCEfALIICIlszjLTeadaw==");
+    return this.http.post<Reply[]>(
+      apiUrl,
+      reply
+    );
+  }
+
+  addReply(reply: Reply): Observable<Reply[]>{
+    var apiUrl = this.questionApi.concat(
+      "/addreply/",
+      reply.idolId.toString(),
+      "?code=oXisCY6JUKckWEaUYkMSlhYCFxkSKyavZaz0a0keuOYfa4u6y2YROw==");
+    return this.http.post<Reply[]>(
+      apiUrl,
+      reply
+    );
+  }
+
   askForReply(reply: Reply): Observable<Reply[]>{
     var apiUrl = this.questionApi.concat(
       "/askforreply/",

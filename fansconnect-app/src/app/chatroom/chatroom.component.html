@@ -1,1 +1,38 @@
-<p>chatroom works!</p>
+<h2 i18n>CHATROOM</h2>
+
+<div class="loadingDiv" *ngIf="isLoading" style="background-image: url('../assets/icons/three mo_02.gif')">
+  &nbsp;
+</div>
+
+<form>
+  <div class="container">
+    <div class="row" *ngFor="let msg of replyList; let msgIndex=index;">
+      <div class="col col-md-12">
+        <div class="reply-you" *ngIf="msg.replyBy!=usernameEmail">
+          <span style="font-weight: bold; color: #006600;">{{msg.usernameEmail}}</span><br>
+          <span *ngIf="msg.contentType=='txt'">{{msg.content}}</span>
+          <a *ngIf="msg.contentType=='link'" [href]="msg.content">{{msg.content}}</a>
+          <video *ngIf="msg.contentType=='video'" width="320" height="480" autoplay="autoplay">
+            <source [src]="'https://fansconnect-video.azurewebsites.net/api/material/'+msg.content+'?code=uDgPTLPYrxnoR/qibHvzVli/jsznTJTS7EXH0fVIIu8RhInTpdLa3g=='">
+          </video>
+        </div>
+        <div class="reply-me" *ngIf="msg.replyBy==usernameEmail">
+          {{msg.content}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="min-height: auto; background: none; padding: 5px">
+    <div class="row">
+      <div class="col col-md-8">
+        <input  style="border-radius: 10px; width: 100%" type="text" name="content"
+                class="form-control" maxlength="200" [(ngModel)]="editingReply.content" />
+      </div>
+      <div class="col col-md-4">
+        <button type="button" class="btn btn-light" (click)="sendMessage()">傳送</button>
+      </div>
+    </div>
+  </div>
+</form>
+
