@@ -60,6 +60,7 @@ export class MyorderReviewComponent implements OnInit {
       });
       this.itemService.modifyOrder(this.editingOrders[0]).subscribe(data => {
         alert("更改成功");
+        this.listOrders();
       });
       console.log(this.editingOrders[0]);
     }
@@ -68,6 +69,7 @@ export class MyorderReviewComponent implements OnInit {
 
   listOrders(): void{
     this.isLoading = true;
+    this.orders = [];
     this.itemService.getMyOrders(1).subscribe(
       e => {
         for(var i=0; i<e.length; i++){
