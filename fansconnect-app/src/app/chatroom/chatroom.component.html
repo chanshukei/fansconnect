@@ -9,7 +9,7 @@
     <div class="row" *ngFor="let msg of replyList; let msgIndex=index;">
       <div class="col col-md-12">
         <div class="reply-you" *ngIf="msg.replyBy!=usernameEmail">
-          <span style="font-weight: bold; color: #006600;">{{msg.usernameEmail}}</span><br>
+          <span style="font-weight: bold; color: #006600;">{{msg.tgId}}</span><br>
           <span *ngIf="msg.contentType=='txt'">{{msg.content}}</span>
           <a *ngIf="msg.contentType=='link'" [href]="msg.content">{{msg.content}}</a>
           <video *ngIf="msg.contentType=='video'" width="320" height="480" autoplay="autoplay">

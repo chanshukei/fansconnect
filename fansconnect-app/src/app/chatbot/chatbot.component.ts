@@ -44,7 +44,13 @@ export class ChatbotComponent implements OnInit {
     private route: ActivatedRoute,
     private ngZone: NgZone) {
       this.ngZone.run(()=>{
-        this.router.navigate(['../chatbot'], {relativeTo: this.route});
+        var usernameEmail = window.sessionStorage.getItem("usernameEmail")??'';
+        var sessionId = window.sessionStorage.getItem("sessionId");
+        if(usernameEmail!='' && sessionId!='' && usernameEmail!=null && sessionId!=null){
+          this.router.navigate(['../chatbot'], {relativeTo: this.route});
+        }else{
+          this.router.navigate(['../login'], {relativeTo: this.route});
+        }
       });
     }
 
@@ -75,7 +81,11 @@ export class ChatbotComponent implements OnInit {
     }
 
     if(reply2.content.toLowerCase()=='主席世一'){
-      this.router.navigate(['../chatroom'], {relativeTo: this.route});
+      let person = prompt("請輸入你在TG谷用的名?")??'';
+      if(person.trim().length>0){
+        window.sessionStorage.setItem("tgName", person.trim());
+        this.router.navigate(['../chatroom'], {relativeTo: this.route});
+      }
       return;
     }
 

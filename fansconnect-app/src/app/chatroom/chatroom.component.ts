@@ -10,6 +10,7 @@ import { QuestionService } from '../question.service';
 })
 export class ChatroomComponent implements OnInit {
 
+  tgName: string = '';
   usernameEmail: string = '';
   latestReply: number = 0;
   isLoading: boolean = false;
@@ -32,6 +33,7 @@ export class ChatroomComponent implements OnInit {
     private route: ActivatedRoute,
     private ngZone: NgZone) {
       this.ngZone.run(()=>{
+        this.tgName = window.sessionStorage.getItem("tgName")??'';
         this.usernameEmail = window.sessionStorage.getItem("usernameEmail")??'';
         var sessionId = window.sessionStorage.getItem("sessionId");
         if(this.usernameEmail!='' && sessionId!='' && this.usernameEmail!=null && sessionId!=null){
@@ -88,7 +90,7 @@ export class ChatroomComponent implements OnInit {
               replyBy: e[i].usernameEmail,
               replyDatetime: e[i].replyDatetime,
               usernameEmail: e[i].usernameEmail,
-              tgId: '',
+              tgId: e[i].tgId,
               replyUsId: e[i].replyUsId
             };
             if(e2.contentType == null || e2.contentType == ''){
@@ -117,7 +119,7 @@ export class ChatroomComponent implements OnInit {
     this.editingReply.replyDatetime = new Date();
     this.editingReply.usernameEmail = this.usernameEmail;
     this.editingReply.replyBy = this.usernameEmail;
-
+    this.editingReply.tgId = this.tgName;
     this.askForReply(this.editingReply);
     this.resetMessage();
   }
