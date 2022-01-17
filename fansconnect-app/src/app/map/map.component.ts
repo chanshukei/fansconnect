@@ -11,6 +11,7 @@ import { Shopmarker } from './shopmarker';
 })
 export class MapComponent implements OnInit {
 
+  stype: string = "all";
   supportItems: SupportItem[] = [];
   markers: Shopmarker[] = [];
 
@@ -108,12 +109,13 @@ export class MapComponent implements OnInit {
     });
 
     this.markers.forEach( marker => {
-      console.log(marker.type);
-      new google.maps.Marker({
-        position: marker,
-        map: map,
-        icon: icons[marker.type].icon
-      });
+      if(marker.type==this.stype || this.stype=='all'){
+        new google.maps.Marker({
+          position: marker,
+          map: map,
+          icon: icons[marker.type].icon
+        });
+      }
     });
 
   }

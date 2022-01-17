@@ -3,7 +3,18 @@
   <span style="font-size: 12pt">
     [<a href="javascript: return false;" (click)="gotoList()">轉為列表</a>]
   </span>
+  <select style="font-size: 12pt;" name="stype" [(ngModel)]="stype" class="form-input" (change)="initMap()">
+    <option value="all">所有應援</option>
+    <option value="YOLICA">YOLICA</option>
+    <option value="應援茶飲店">應援茶飲店</option>
+    <option value="應援店">應援店</option>
+    <option value="應援書店">應援書店</option>
+    <option value="應援玩店">應援玩店</option>
+    <option value="應援音樂店">應援音樂店</option>
+    <option value="海外應援店">海外應援店</option>
+  </select>
 </h2>
+
 
 <div id="map"></div>
 
@@ -15,6 +26,7 @@
     <li><img src="../../assets/icons/food.png" />&nbsp;應援店</li>
     <li><img src="../../assets/icons/book.png" />&nbsp;應援書店</li>
     <li><img src="../../assets/icons/game.png" />&nbsp;應援玩店</li>
+    <li><img src="../../assets/icons/music.png" />&nbsp;應援音樂店</li>
     <li><img src="../../assets/icons/marker.png" />&nbsp;海外應援店</li>
   </ul>
 </div>
