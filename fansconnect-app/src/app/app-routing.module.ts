@@ -24,6 +24,7 @@ import { GameStartComponent } from './game-start/game-start.component';
 import { SicardGameStartComponent } from './sicard-game-start/sicard-game-start.component';
 import { SupportItemFormComponent } from './support-item-form/support-item-form.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ChatroomComponent } from './chatroom/chatroom.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'material', component: SmaterialComponent },
   { path: 'chatbot', component: ChatbotComponent },
+  { path: 'chatroom', component: ChatroomComponent },
   { path: 'luckydraw', component: LuckydrawComponent },
   { path: 'shop', component: ShopComponent },
   { path: 'shopItemEdit', component: ShopItemEditComponent },

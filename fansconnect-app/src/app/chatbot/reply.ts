@@ -4,4 +4,6 @@ export interface Reply {
   replyDatetime: Date;
   replyBy: string;
   idolId: number;
+  usernameEmail: string;
+  tgId: string;
 }

@@ -1,14 +1,14 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Reply } from '../chatbot/reply';
 import { QuestionService } from '../question.service';
-import { Reply } from './reply';
 
 @Component({
-  selector: 'app-chatbot',
-  templateUrl: './chatbot.component.html',
-  styleUrls: ['./chatbot.component.sass']
+  selector: 'app-chatroom',
+  templateUrl: './chatroom.component.html',
+  styleUrls: ['./chatroom.component.sass']
 })
-export class ChatbotComponent implements OnInit {
+export class ChatroomComponent implements OnInit {
 
   isLoading: boolean = false;
 
@@ -18,8 +18,8 @@ export class ChatbotComponent implements OnInit {
     contentType: '',
     replyBy: 'me',
     replyDatetime: new Date(),
-    tgId: '',
-    usernameEmail: ''
+    usernameEmail: '',
+    tgId: ''
   };
 
   resetMessage():void{

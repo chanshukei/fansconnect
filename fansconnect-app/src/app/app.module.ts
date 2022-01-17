@@ -32,6 +32,7 @@ import { GameStartComponent } from './game-start/game-start.component';
 import { SicardGameStartComponent } from './sicard-game-start/sicard-game-start.component';
 import { SupportItemFormComponent } from './support-item-form/support-item-form.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ChatroomComponent } from './chatroom/chatroom.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { ProfileComponent } from './profile/profile.component';
     GameStartComponent,
     SicardGameStartComponent,
     SupportItemFormComponent,
-    ProfileComponent
+    ProfileComponent,
+    ChatroomComponent
   ],
   imports: [
     BrowserModule,
