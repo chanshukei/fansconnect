@@ -11,6 +11,7 @@ import { ProfileForm } from './profile-form';
 })
 export class ProfileComponent implements OnInit {
 
+  isLoading: boolean = false;
   total: number = 0;
   isComplete: boolean = false;
   infoMessages: string[] = [];
@@ -85,6 +86,7 @@ export class ProfileComponent implements OnInit {
   }
 
   listResult(): void{
+    this.isLoading = true;
     this.eventService.getProfileForm(this.editForm.idolId).subscribe(
       data => {
         if(data!=null && data.length==1){
@@ -98,6 +100,7 @@ export class ProfileComponent implements OnInit {
             usernameEmail: data[0].usernameEmail
           };
         }
+        this.isLoading = false;
       }
     );
   }

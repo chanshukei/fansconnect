@@ -65,7 +65,7 @@ export class ChatroomComponent implements OnInit {
     this.getLatestReplies2();
     let intervalId = setInterval(() => {
       this.getLatestReplies2();
-    }, 10000);
+    }, 5000);
   }
 
   getLatestReplies2(): void{
