@@ -58,9 +58,10 @@ export class ProfileComponent implements OnInit {
     console.log(this.editForm);
     this.eventService.addProfileForm(this.editForm).subscribe(
       data => {
+        console.log(data);
         this.isComplete = true;
-        this.infoMessages = ["成功提交表格, 會員資料已更新。"]
-        window.scrollTo(0, 0);
+        alert("成功提交表格, 會員資料已更新。");
+        this.router.navigate(['../profile'], {relativeTo: this.route});
       }
     );
   }
