@@ -25,6 +25,7 @@ import { SicardGameStartComponent } from './sicard-game-start/sicard-game-start.
 import { SupportItemFormComponent } from './support-item-form/support-item-form.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ChatroomComponent } from './chatroom/chatroom.component';
+import { SurveyComponent } from './survey/survey.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -52,6 +53,7 @@ const routes: Routes = [
   { path: 'sicard-store', component: SicardStoreComponent },
   { path: 'supportitem', component: SupportitemComponent },
   { path: 'support-item-form', component: SupportItemFormComponent },
+  { path: 'survey', component: SurveyComponent },
   { path: 'profile', component: ProfileComponent }
 ];
 @NgModule({

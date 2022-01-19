@@ -10,6 +10,7 @@ import { Sform } from './luckydraw/income';
 import { SupportItemForm } from './support-item-form/support-item-form';
 import { ProfileForm } from './profile/profile-form';
 import { UserModel } from './login/usermodel';
+import { Survey } from './survey/survey';
 
 
 @Injectable({
@@ -35,6 +36,14 @@ export class EventService {
   addForm(sform: Sform): Observable<Sform>{
     var apiUrl = this.eventApi.concat("/addform/", sform.idolId.toString(), "?");
     return this.http.post<Sform>(
+      apiUrl,
+      sform
+    );
+  }
+
+  addSurvey(sform: Survey): Observable<Survey>{
+    var apiUrl = this.eventApi.concat("/addsurvey/", sform.idolId.toString(), "?");
+    return this.http.post<Survey>(
       apiUrl,
       sform
     );
