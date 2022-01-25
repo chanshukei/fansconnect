@@ -23,7 +23,9 @@ export class ProfileComponent implements OnInit {
     gender: '',
     address: '',
     bornyear: '',
-    usernameEmail: ''
+    usernameEmail: '',
+    tgId: '',
+    tgName: ''
   };
 
   constructor(
@@ -78,7 +80,9 @@ export class ProfileComponent implements OnInit {
       gender: '',
       address: '',
       bornyear: '',
-      usernameEmail: ''
+      usernameEmail: '',
+      tgId: '',
+      tgName: ''
     };
   }
 
@@ -98,7 +102,9 @@ export class ProfileComponent implements OnInit {
             location: data[0].location,
             address: data[0].address,
             idolId: data[0].idolId,
-            usernameEmail: data[0].usernameEmail
+            usernameEmail: data[0].usernameEmail,
+            tgId: data[0].tgId,
+            tgName: data[0].tgName
           };
         }
         this.isLoading = false;

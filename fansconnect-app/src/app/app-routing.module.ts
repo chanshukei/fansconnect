@@ -26,6 +26,10 @@ import { SupportItemFormComponent } from './support-item-form/support-item-form.
 import { ProfileComponent } from './profile/profile.component';
 import { ChatroomComponent } from './chatroom/chatroom.component';
 import { SurveyComponent } from './survey/survey.component';
+import { SicardGameHomeComponent } from './sicard-game-home/sicard-game-home.component';
+import { AddQuestionComponent } from './add-question/add-question.component';
+import { QuestionsKingComponent } from './questions-king/questions-king.component';
+import { QuestionsKingHomeComponent } from './questions-king-home/questions-king-home.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -48,12 +52,16 @@ const routes: Routes = [
   { path: 'orderReview', component: OrderReviewComponent },
   { path: 'game-battle', component: GameBattleComponent },
   { path: 'sicard-game-start', component: SicardGameStartComponent },
+  { path: 'sicard-game-home', component: SicardGameHomeComponent },
   { path: 'game-start', component: GameStartComponent },
   { path: 'game-creation', component: GameCreationComponent },
   { path: 'sicard-store', component: SicardStoreComponent },
   { path: 'supportitem', component: SupportitemComponent },
   { path: 'support-item-form', component: SupportItemFormComponent },
   { path: 'survey', component: SurveyComponent },
+  { path: 'add-question', component: AddQuestionComponent },
+  { path: 'questions-king', component: QuestionsKingComponent },
+  { path: 'questions-king-home', component: QuestionsKingHomeComponent },
   { path: 'profile', component: ProfileComponent }
 ];
 @NgModule({

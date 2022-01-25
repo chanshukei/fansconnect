@@ -105,6 +105,10 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['../questions'], {relativeTo: this.route});
   }
 
+  goToQuestionsKing(): void{
+    this.router.navigate(['../questions-king-home'], {relativeTo: this.route});
+  }
+
   goToEvents(): void{
     this.router.navigate(['../events'], {relativeTo: this.route});
   }

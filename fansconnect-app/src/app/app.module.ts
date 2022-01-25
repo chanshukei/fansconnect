@@ -34,6 +34,10 @@ import { SupportItemFormComponent } from './support-item-form/support-item-form.
 import { ProfileComponent } from './profile/profile.component';
 import { ChatroomComponent } from './chatroom/chatroom.component';
 import { SurveyComponent } from './survey/survey.component';
+import { SicardGameHomeComponent } from './sicard-game-home/sicard-game-home.component';
+import { QuestionsKingComponent } from './questions-king/questions-king.component';
+import { AddQuestionComponent } from './add-question/add-question.component';
+import { QuestionsKingHomeComponent } from './questions-king-home/questions-king-home.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +69,11 @@ import { SurveyComponent } from './survey/survey.component';
     SupportItemFormComponent,
     ProfileComponent,
     ChatroomComponent,
-    SurveyComponent
+    SurveyComponent,
+    SicardGameHomeComponent,
+    QuestionsKingComponent,
+    AddQuestionComponent,
+    QuestionsKingHomeComponent
   ],
   imports: [
     BrowserModule,

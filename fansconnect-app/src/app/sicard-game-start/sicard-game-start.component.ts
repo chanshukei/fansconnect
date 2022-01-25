@@ -29,7 +29,7 @@ export class SicardGameStartComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  gotoBattle(): void{
-    this.router.navigate(['../sicard-game-battle'], {relativeTo: this.route});
+  gotoHome(): void{
+    this.router.navigate(['../sicard-game-home'], {relativeTo: this.route});
   }
 }

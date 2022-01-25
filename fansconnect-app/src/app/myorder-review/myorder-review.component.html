@@ -15,7 +15,7 @@
         </th>
         <th scope="col">總金額</th>
         <th scope="col">圖片證明</th>
-        <th scope="col" style="width: 150px;">更改款式</th>
+        <!-- th scope="col" style="width: 150px;">更改款式</th -->
       </tr>
     </thead>
     <tbody>
@@ -36,7 +36,7 @@
           <a  target="_blank"
           href='{{ "https://fansconnect-idol.azurewebsites.net/api/orderimage/" + order.orderId + "?code=shj0Rkq93vQ0jHmV8Z8alfUCcQrHdysOaZBw0od/8yD4/chO3LwAyg=="}}'>下載</a>
         </td>
-        <td>
+        <!-- td>
           <button *ngIf="canChange(order)" type="button" class="btn btn-dark"
                   style="font-size: 10pt;"
                   (click)="startChange(order)">更改</button>
@@ -53,7 +53,7 @@
             <button type="button" class="btn btn-dark" style="font-size: 10pt;"
                     (click)="completeChange()">儲存</button>
           </div>
-        </td>
+        </td -->
       </tr>
     </tbody>
   </table>

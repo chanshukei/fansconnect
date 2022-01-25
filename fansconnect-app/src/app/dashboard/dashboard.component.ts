@@ -91,6 +91,7 @@ export class DashboardComponent implements OnInit {
   }
 
   createSummary(): void{
+    var answer52 = '';
     var amount2 = 0;
     var date2 = new Date('1900-01-01');
     for(var i=0; i<this.incomes.length; i++){
@@ -104,13 +105,14 @@ export class DashboardComponent implements OnInit {
             createDate: date2,
             tgId: '', payeeName: '',
             imageContent: '',
-            answer1: '', answer2: '', answer3: '', answer4: '', answer5: '',
+            answer1: '', answer2: '', answer3: '', answer4: '', answer5: answer52,
             idolId: 0
           };
           this.incomeSummarys.push(income1);
         }
         date2 = this.incomes[i].createDate;
         amount2 = this.incomes[i].amount;
+        answer52 = this.incomes[i].answer5;
       }
     }
 

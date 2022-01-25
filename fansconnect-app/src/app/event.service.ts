@@ -57,6 +57,14 @@ export class EventService {
     );
   }
 
+  updateTg(sform: ProfileForm): Observable<ProfileForm>{
+    var apiUrl = this.eventApi.concat("/updatetg/", sform.idolId.toString(), "?");
+    return this.http.post<ProfileForm>(
+      apiUrl,
+      sform
+    );
+  }
+
   addSupportItemForm(sform: SupportItemForm): Observable<Sform>{
     var apiUrl = this.eventApi.concat("/addsupportitemform/", sform.idolId.toString(), "?");
     return this.http.post<Sform>(

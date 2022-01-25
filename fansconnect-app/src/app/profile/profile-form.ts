@@ -6,4 +6,6 @@ export interface ProfileForm {
   gender: string;
   bornyear: string;
   usernameEmail: string;
+  tgName: string;
+  tgId: string;
 }

@@ -1,0 +1,115 @@
+<div class="loadingDiv" *ngIf="isLoading" style="background-image: url('../assets/icons/three mo_02.gif')">
+  &nbsp;
+</div>
+
+<h2 i18n>常識鬥 - 新增問題</h2>
+
+<div class="container">
+  <div class="row" *ngFor="let msg of alertMessages; let msgIndex=index;">
+    <div class="col col-md-10">
+      <div class="alert alert-danger" role="alert">
+        {{msg}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngFor="let msg of infoMessages; let msgIndex=index;">
+    <div class="col col-md-10">
+      <div class="alert alert-info" role="alert">
+        {{msg}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<form>
+  <div class='card' style="width: 90%; min-width: 300px; margin:auto">
+    <div class='card-body'>
+      <h3 class="card-title">
+        常識題資料
+      </h3>
+
+      <div class="container">
+        <div class="row">
+          <div class='col col-md-12'>
+            <label class="form-label">題目<span class="required">*</span></label><br>
+            <input  type="text" maxlength="200" name="question" class="form-control"
+                    [(ngModel)]="editQuestion.question"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class='col col-md-4'>
+            <label class="form-label">選項一<span class="required">*</span></label>
+          </div>
+          <div class="col col-md-8">
+            <input  type="text" maxlength="50" name="option1" class="form-control"
+                    [(ngModel)]="editQuestion.option1"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class='col col-md-4'>
+            <label class="form-label">選項二<span class="required">*</span></label>
+          </div>
+          <div class="col col-md-8">
+            <input  type="text" maxlength="50" name="option2" class="form-control"
+                    [(ngModel)]="editQuestion.option2"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class='col col-md-4'>
+            <label class="form-label">選項三<span class="required">*</span></label>
+          </div>
+          <div class="col col-md-8">
+            <input  type="text" maxlength="50" name="option3" class="form-control"
+                    [(ngModel)]="editQuestion.option3"/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class='col col-md-4'>
+            <label class="form-label">選項四<span class="required">*</span></label>
+          </div>
+          <div class="col col-md-8">
+            <input  type="text" maxlength="50" name="option4" class="form-control"
+                    [(ngModel)]="editQuestion.option4"/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class='col col-md-4'>
+            <label class="form-label">答案<span class="required">*</span></label>
+          </div>
+          <div class="col col-md-8">
+            <select  type="text" maxlength="50" name="answer" class="form-control"
+                    [(ngModel)]="editQuestion.answer">
+                <option value="1">{{editQuestion.option1}} (選項一)</option>
+                <option value="2">{{editQuestion.option2}} (選項二)</option>
+                <option value="3">{{editQuestion.option3}} (選項三)</option>
+                <option value="4">{{editQuestion.option4}} (選項四)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class='col col-md-12'>
+            <label class="form-label">解釋<span class="required">*</span></label><br>
+            <textarea style="min-height: 150px;" maxlength="500" name="explain" class="form-control"
+                    [(ngModel)]="editQuestion.explain"></textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col col-md-12">
+            <button type="button" class="btn btn-dark" style="float: left;" (click)="cancelEdit()" i18n>取消</button>
+            <button type="button" class="btn btn-dark" style="float: right;" (click)="completeEdit()">完成</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <br/>
+  <button type="button" class="btn btn-light" style="float: right;"
+          (click)="backToMenu()" i18n>返回主頁</button>
+</form>

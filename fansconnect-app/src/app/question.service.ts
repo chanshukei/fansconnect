@@ -4,6 +4,8 @@ import { Question } from './questions/question';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { Reply } from './chatbot/reply';
+import { QuestionAnswer } from './questions-king/question-answer';
+import { Qkplayer } from './questions-king-home/qkplayer';
 
 
 @Injectable({
@@ -26,6 +28,17 @@ export class QuestionService {
     );
   }
 
+  addQuestion(q: Question): Observable<Question[]>{
+    var apiUrl = this.questionApi.concat(
+      "/addquestion/",
+      q.idolId.toString(),
+      "?code=XeT3JeSbwZyN6liIMrLZcPjFyzy7aXL7M25d868XqXwN41VGL0Gh1Q==");
+    return this.http.post<Question[]>(
+      apiUrl,
+      q
+    );
+  }
+
   addReply(reply: Reply): Observable<Reply[]>{
     var apiUrl = this.questionApi.concat(
       "/addreply/",
@@ -35,6 +48,12 @@ export class QuestionService {
       apiUrl,
       reply
     );
+  }
+
+  addQuestionAnswer(qa: QuestionAnswer): Observable<QuestionAnswer[]>{
+    var apiUrl = this.questionApi.concat(
+      "/addquestionanswer?code=Tjw0ECjTFzJa0MhirQajU/90Ca7PuWwAOpRnPrGS1YDCZeHCNL6NPQ==");
+    return this.http.post<QuestionAnswer[]>(apiUrl, qa);
   }
 
   askForReply(reply: Reply): Observable<Reply[]>{
@@ -48,11 +67,45 @@ export class QuestionService {
     );
   }
 
+  getMyQuestions(idolId: number): Observable<Question[]>{
+    var apiUrl = this.questionApi.concat(
+      "/myquestions/", idolId.toString(),
+      "?code=seqV0iA/egeX1oa5s0lNu1HUKCabcJbMlUWRdRQP4cPVgiNTZ0tmkA==");
+    var usernameEmail = window.sessionStorage.getItem("usernameEmail");
+    return this.http.post<Question[]>(
+      apiUrl,
+      {
+        answerBy: usernameEmail
+      }
+    );
+  }
+
+  getQuestions2(idolId: number): Observable<Question[]>{
+    var apiUrl = this.questionApi.concat(
+      "/questions2/", idolId.toString(),
+      "?code=ZkzWt4HL3TK9HeEVPrk1OVagKSWrG8OLcJO7tU0MVwO7zAcWUGd44Q==");
+    var usernameEmail = window.sessionStorage.getItem("usernameEmail");
+    return this.http.post<Question[]>(
+      apiUrl,
+      {
+        answerBy: usernameEmail
+      }
+    );
+  }
+
+  getQkPlayers(idolId: number): Observable<Qkplayer[]>{
+    var apiUrl = this.questionApi.concat(
+      "/qkplayers/", idolId.toString(),
+      "?code=xBoGBZLF/HJhD6gYv7AiMVWBEJriFKFdUqwDIJS3tBW65vZPcWDgNw==");
+    return this.http.get<Qkplayer[]>(apiUrl).pipe(
+      catchError(this.handleError<Qkplayer[]>("Get Qk Players", []))
+    );
+  }
+
   getQuestions(idolId: number): Observable<Question[]>{
     var apiUrl = this.questionApi.concat(
       "/questions/", idolId.toString(),
       "?code=HQj0lTd2cv553qTqpFAV82tNU9IXrSOacufJGVSGmpqzjkFDV0KzDg==");
-    console.log(apiUrl);
     return this.http.get<Question[]>(apiUrl).pipe(
       catchError(this.handleError<Question[]>("Get Question", []))
     );

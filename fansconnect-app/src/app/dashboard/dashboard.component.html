@@ -32,7 +32,7 @@
     <tbody>
       <tr *ngFor="let item of incomeSummarys;">
         <td>{{item.createDate | date:'yyyy-MM-dd'}}</td>
-        <td>眾籌</td>
+        <td>{{item.answer5!=''?item.answer5:'眾籌'}}</td>
         <td>${{item.amount}}</td>
       </tr>
       <tr *ngFor="let item of expenses;">

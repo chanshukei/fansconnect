@@ -1,4 +1,5 @@
 export interface Question {
+  idolId: number,
   questionId: number;
   question: string;
   questionType: string;
@@ -8,4 +9,6 @@ export interface Question {
   option4: string;
   answer: number;
   selectedOption: number;
+  explain: string,
+  createBy: string
 }

@@ -1,21 +1,21 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { QuestionService } from '../question.service';
-import { Question } from './question';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Question } from '../questions/question';
+import { QuestionAnswer } from './question-answer';
 
 @Component({
-  selector: 'app-questions',
-  templateUrl: './questions.component.html',
-  styleUrls: ['./questions.component.sass']
+  selector: 'app-questions-king',
+  templateUrl: './questions-king.component.html',
+  styleUrls: ['./questions-king.component.sass']
 })
-export class QuestionsComponent implements OnInit {
+export class QuestionsKingComponent implements OnInit {
 
   isLoading: boolean = false;
-  isCompleted: boolean = false;
+  mode: string = 'question';
   idolId: number = 0;
   currentQuestionIndex: number = 0;
   questions: Question[] = [];
-  correctAnswerCount: number = 0;
 
   constructor(
     private questionService: QuestionService,
@@ -23,7 +23,7 @@ export class QuestionsComponent implements OnInit {
     private route: ActivatedRoute,
     private ngZone: NgZone) {
       this.ngZone.run(()=>{
-        this.router.navigate(['../questions'], {relativeTo: this.route});
+        this.router.navigate(['../questions-king'], {relativeTo: this.route});
       });
     }
 
@@ -32,10 +32,13 @@ export class QuestionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.questions = QUESTIONS;
     console.log("questions init");
+    this.listQuestions();
+  }
+
+  listQuestions(): void{
     this.isLoading = true;
-    this.questionService.getQuestions(1).subscribe(
+    this.questionService.getQuestions2(1).subscribe(
       e => {
         for(var i=0; i<e.length; i++){
           this.questions.push({
@@ -77,13 +80,27 @@ export class QuestionsComponent implements OnInit {
   }
 
   completeQuestion(): void{
-    this.correctAnswerCount = 0;
-    for(var i=0; i<this.questions.length; i++){
-      if(this.questions[i].answer == this.questions[i].selectedOption){
-        this.correctAnswerCount += 1;
-      }
-    }
-    this.isCompleted = true;
+    this.isLoading = true;
+    var qlen = this.questions.length;
+    var qcount = 0;
+    var usernameEmail = window.sessionStorage.getItem("usernameEmail")??'';
+    this.questions.forEach(q => {
+      var qa: QuestionAnswer = {
+        answerId: 0,
+        questionId: q.questionId,
+        answerBy: usernameEmail,
+        answer: q.selectedOption
+      };
+      console.log(qa);
+      this.questionService.addQuestionAnswer(qa).subscribe(
+        data => {
+          qcount += 1;
+          if(qcount==qlen){
+            this.router.navigate(['../questions-king-home'], {relativeTo: this.route});
+          }
+        }
+      );
+    });
   }
 
 }

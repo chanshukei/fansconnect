@@ -1,0 +1,110 @@
+<div class="loadingDiv" *ngIf="isLoading" style="background-image: url('../assets/icons/three mo_02.gif')">
+  &nbsp;
+</div>
+
+<h2 i18n>常識鬥</h2>
+
+<div style="border-radius: 5px; background-color: white;">
+  <p>
+  遊戲方法:
+  - 參加者每出一題有10分
+  - 參加者答中一題有1分
+  - 題目被5位參加者答中後, 題目會作廢, 出題者會減10分
+  - 參加者有2次機會答同一題目, 答錯唔會扣分
+  - 如果題目的解釋不合理, 題目會作廢
+  </p>
+</div>
+
+<div class="container">
+  <div class="row" *ngFor="let msg of alertMessages; let msgIndex=index;">
+    <div class="col col-md-10">
+      <div class="alert alert-danger" role="alert">
+        {{msg}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngFor="let msg of infoMessages; let msgIndex=index;">
+    <div class="col col-md-10">
+      <div class="alert alert-info" role="alert">
+        {{msg}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<form>
+  <div *ngIf="mode=='dashboard'" style="width: 90%; min-width: 300px; margin-bottom: 5px;">
+    <h3 style="color: white;">
+      排行榜
+    </h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">排名</th>
+          <th scope="col">TG名</th>
+          <th scope="col">已出題目</th>
+          <th scope="col">已中題目</th>
+          <th scope="col">總分</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of players;let pIndex=index;">
+          <td>{{pIndex+1}}</td>
+          <td>{{p.tgName}}</td>
+          <td>{{p.questionsCount}}</td>
+          <td>{{p.answersCount}}</td>
+          <td>{{getTotalMarks(p)}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="text-align: center;">
+      <button [disabled]="myquestions.length>10" type="button" class="btn btn-primary" style="font-size: 16pt;"
+              (click)="addQuestion()" i18n>出新題目</button>
+      <button type="button" class="btn btn-success" style="font-size: 16pt;"
+              (click)="startGame()" i18n>開始挑戰</button>
+    </div>
+  </div>
+
+  <div *ngIf="mode=='profile'" class='card' style="width: 90%; min-width: 300px; margin-bottom: 5px;">
+    <div class='card-body'>
+      <h3 class="card-title">
+        會員資料
+      </h3>
+
+      <div class="container">
+        <div class="row">
+          <div class='col col-md-4'>
+            <label class="form-label">TG Name<span class="required">*</span></label>
+          </div>
+          <div class="col col-md-8">
+            <input  type="text" maxlength="50" name="tgName" class="form-control"
+                    [(ngModel)]="editForm.tgName"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class='col col-md-4'>
+            <label class="form-label">TG Id</label>
+          </div>
+          <div class="col col-md-8">
+            <input  type="text" maxlength="50" name="tgId" class="form-control"
+                    [(ngModel)]="editForm.tgId"/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col col-md-12">
+            <button type="button" class="btn btn-dark" style="float: left;" (click)="cancelEdit()" i18n>取消</button>
+            <button type="button" class="btn btn-dark" style="float: right;" (click)="completeEdit()">完成</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <button type="button" class="btn btn-light" style="float: right;"
+          (click)="backToMenu()" i18n>返回主頁</button>
+</form>
