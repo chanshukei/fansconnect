@@ -6,12 +6,12 @@
 
 <div style="border-radius: 5px; background-color: white;">
   <p>
-  遊戲方法:
-  - 參加者每出一題有10分
-  - 參加者答中一題有1分
-  - 題目被5位參加者答中後, 題目會作廢, 出題者會減10分
-  - 參加者有2次機會答同一題目, 答錯唔會扣分
-  - 如果題目的解釋不合理, 題目會作廢
+  遊戲方法:<br>
+  - 參加者每出一條有效題目有10分<br>
+  - 參加者答中一題有1分<br>
+  - 題目未能被3位參加者答中, 題目會無效<br>
+  - 題目被30位參加者答中後, 題目會無效<br>
+  - 如果題目的解釋不合理, 題目會作廢<br>
   </p>
 </div>
 
@@ -35,6 +35,12 @@
 
 <form>
   <div *ngIf="mode=='dashboard'" style="width: 90%; min-width: 300px; margin-bottom: 5px;">
+    <div style="text-align: center;">
+      <button [disabled]="myquestions.length>30" type="button" class="btn btn-primary" style="font-size: 16pt;"
+              (click)="addQuestion()" i18n>出新題目</button>
+      <button type="button" class="btn btn-success" style="font-size: 16pt;"
+              (click)="startGame()" i18n>開始挑戰</button>
+    </div>
     <h3 style="color: white;">
       排行榜
     </h3>
@@ -44,6 +50,7 @@
           <th scope="col">排名</th>
           <th scope="col">TG名</th>
           <th scope="col">已出題目</th>
+          <th scope="col">有效題目</th>
           <th scope="col">已中題目</th>
           <th scope="col">總分</th>
         </tr>
@@ -53,17 +60,12 @@
           <td>{{pIndex+1}}</td>
           <td>{{p.tgName}}</td>
           <td>{{p.questionsCount}}</td>
+          <td>{{p.vquestionsCount}}</td>
           <td>{{p.answersCount}}</td>
-          <td>{{getTotalMarks(p)}}</td>
+          <td>{{p.totalMarks}}</td>
         </tr>
       </tbody>
     </table>
-    <div style="text-align: center;">
-      <button [disabled]="myquestions.length>10" type="button" class="btn btn-primary" style="font-size: 16pt;"
-              (click)="addQuestion()" i18n>出新題目</button>
-      <button type="button" class="btn btn-success" style="font-size: 16pt;"
-              (click)="startGame()" i18n>開始挑戰</button>
-    </div>
   </div>
 
   <div *ngIf="mode=='profile'" class='card' style="width: 90%; min-width: 300px; margin-bottom: 5px;">

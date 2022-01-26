@@ -38,6 +38,7 @@ export class QuestionsKingComponent implements OnInit {
 
   listQuestions(): void{
     this.isLoading = true;
+    this.questions.length = 0;
     this.questionService.getQuestions2(1).subscribe(
       e => {
         for(var i=0; i<e.length; i++){

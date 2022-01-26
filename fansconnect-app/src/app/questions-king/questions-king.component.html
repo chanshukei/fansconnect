@@ -5,6 +5,9 @@
 </div>
 
 <form>
+  <div *ngIf="questions.length==0">
+    未有新題目。
+  </div>
   <div  *ngFor="let question of questions; let questionIndex=index;"
         class='card question-badge' style="width: 90%; min-width: 300px;">
     <div class='card-body' *ngIf="questionIndex==currentQuestionIndex">

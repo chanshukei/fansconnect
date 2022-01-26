@@ -53,6 +53,14 @@ export class AddQuestionComponent implements OnInit {
   completeEdit(): void{
     this.alertMessages.length = 0;
 
+    if(
+      this.editQuestion.question=='' || this.editQuestion.option1=='' || this.editQuestion.option2==''
+      || this.editQuestion.option3=='' || this.editQuestion.option4==''
+      || this.editQuestion.answer<=0 || this.editQuestion.explain==''
+    ){
+      this.alertMessages.push("請輸入所有資料。");
+    }
+
     if(this.alertMessages.length>0){
       return;
     }

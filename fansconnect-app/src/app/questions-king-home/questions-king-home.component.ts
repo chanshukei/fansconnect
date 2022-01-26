@@ -56,10 +56,6 @@ export class QuestionsKingHomeComponent implements OnInit {
     this.router.navigate(['../home'], {relativeTo: this.route});
   }
 
-  getTotalMarks(p: Qkplayer):number{
-    return p.questionsCount * 10 + p.answersCount;
-  }
-
   addQuestion(): void{
     this.router.navigate(['../add-question'], {relativeTo: this.route});
   }
@@ -143,7 +139,9 @@ export class QuestionsKingHomeComponent implements OnInit {
             var p: Qkplayer = {
               tgName: data[i].tgName,
               questionsCount: data[i].questionsCount,
+              vquestionsCount: data[i].vquestionsCount,
               answersCount: data[i].answersCount,
+              totalMarks: data[i].totalMarks,
               usernameEmail: ''
             };
             this.players.push(p);
