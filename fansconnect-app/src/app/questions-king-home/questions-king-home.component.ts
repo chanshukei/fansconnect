@@ -52,6 +52,14 @@ export class QuestionsKingHomeComponent implements OnInit {
     });
   }
 
+  changeToDashboard(): void{
+    this.mode = 'dashboard';
+  }
+
+  changeToMyQuestions():void{
+    this.mode = 'myquestions';
+  }
+
   backToMenu(): void{
     this.router.navigate(['../home'], {relativeTo: this.route});
   }

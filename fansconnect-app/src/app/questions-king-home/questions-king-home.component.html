@@ -34,8 +34,28 @@
 </div>
 
 <form>
+  <div *ngIf="mode=='myquestions'" style="width: 90%; min-width: 300px; margin-bottom: 5px;">
+    <div style="text-align: center; ">
+      <button type="button" class="btn btn-info" style="font-size: 16pt;"
+              (click)="changeToDashboard()" i18n>排名榜</button>
+    </div>
+    <h3 style="color: white;">
+      我的有效題目
+    </h3>
+    <ul style="background: white; border-radius: 5px;">
+      <li *ngIf="myquestions.length==0">
+        你沒有有效題目。
+      </li>
+      <li *ngFor="let q of myquestions;let qIndex=index;">
+        {{qIndex+1}}. {{q.question}}<br>(1){{q.option1}} (1){{q.option2}} (1){{q.option3}} (1){{q.option4}}
+      </li>
+    </ul>
+  </div>
+
   <div *ngIf="mode=='dashboard'" style="width: 90%; min-width: 300px; margin-bottom: 5px;">
     <div style="text-align: center;">
+      <button type="button" class="btn btn-info" style="font-size: 16pt;"
+              (click)="changeToMyQuestions()" i18n>我的有效題目</button>
       <button [disabled]="myquestions.length>30" type="button" class="btn btn-primary" style="font-size: 16pt;"
               (click)="addQuestion()" i18n>出新題目</button>
       <button type="button" class="btn btn-success" style="font-size: 16pt;"
