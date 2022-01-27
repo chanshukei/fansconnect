@@ -57,6 +57,7 @@ export class QuestionService {
   }
 
   askForReply(reply: Reply): Observable<Reply[]>{
+    console.log(reply);
     var apiUrl = this.questionApi.concat(
       "/askforreply/",
       reply.idolId.toString(),

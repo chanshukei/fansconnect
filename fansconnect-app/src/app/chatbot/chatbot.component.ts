@@ -85,8 +85,8 @@ export class ChatbotComponent implements OnInit {
       if(person.trim().length>0){
         window.sessionStorage.setItem("tgName", person.trim());
         this.router.navigate(['../chatroom'], {relativeTo: this.route});
+        return;
       }
-      return;
     }
 
     this.questionService.askForReply(reply2).subscribe(
