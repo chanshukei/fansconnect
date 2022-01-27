@@ -51,6 +51,7 @@ export class AddQuestionComponent implements OnInit {
   }
 
   completeEdit(): void{
+    this.isLoading = true;
     this.alertMessages.length = 0;
 
     if(
@@ -62,11 +63,11 @@ export class AddQuestionComponent implements OnInit {
     }
 
     if(this.alertMessages.length>0){
+      this.isLoading = false;
       return;
     }
     this.editQuestion.createBy = window.sessionStorage.getItem("usernameEmail")??'';
 
-    console.log(this.editQuestion);
     this.questionService.addQuestion(this.editQuestion).subscribe(
       data => {
         console.log(data);
