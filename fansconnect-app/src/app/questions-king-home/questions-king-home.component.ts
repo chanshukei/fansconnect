@@ -47,6 +47,7 @@ export class QuestionsKingHomeComponent implements OnInit {
         this.editForm.usernameEmail = usernameEmail;
         this.router.navigate(['../questions-king-home'], {relativeTo: this.route});
       }else{
+        window.sessionStorage.setItem("redirectTo", "../questions-king-home");
         this.router.navigate(['../login'], {relativeTo: this.route});
       }
     });

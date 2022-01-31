@@ -98,7 +98,7 @@ export class HomeComponent implements OnInit {
   }
 
   goToPhotoBattle(): void{
-    this.router.navigate(['../photobattle'], {relativeTo: this.route});
+    this.router.navigate(['../design-comp'], {relativeTo: this.route});
   }
 
   goToQuestions(): void{

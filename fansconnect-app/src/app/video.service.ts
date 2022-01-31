@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { DesignItem } from './design-comp/design-item';
 import { Smaterial } from './smaterial/smaterial';
 
 @Injectable({
@@ -12,6 +13,16 @@ export class VideoService {
   private eventApi: string = "https://fansconnect-video.azurewebsites.net/api";
 
   constructor(private http: HttpClient) {}
+
+  getDesignItems(idolId: number): Observable<DesignItem[]>{
+    var apiUrl = this.eventApi.concat(
+      "/designitems/", idolId.toString(),
+      "?code=br9z890aM2r1/lKVL1uaTRsaeu8tzbXNcvGYzB3yZp7fgcTCNPaJxQ==");
+    console.log(apiUrl);
+    return this.http.get<DesignItem[]>(apiUrl).pipe(
+      catchError(this.handleError<DesignItem[]>("Get Design Item", []))
+    );
+  }
 
   getMaterials(idolId: number): Observable<Smaterial[]>{
     var apiUrl = this.eventApi.concat(
@@ -31,11 +42,19 @@ export class VideoService {
     };
   }
 
-  addMaterial(material: Smaterial): Observable<Smaterial>{
-    var apiUrl = this.eventApi.concat("/material/", material.idolId.toString(), "?");
+  addMaterial(item: Smaterial): Observable<Smaterial>{
+    var apiUrl = this.eventApi.concat("/material/", item.idolId.toString(), "?");
     return this.http.post<Smaterial>(
       apiUrl,
-      material
+      item
+    );
+  }
+
+  addDesignItem(item: DesignItem): Observable<DesignItem>{
+    var apiUrl = this.eventApi.concat("/designitem/", item.idolId.toString(), "?");
+    return this.http.post<DesignItem>(
+      apiUrl,
+      item
     );
   }
 }

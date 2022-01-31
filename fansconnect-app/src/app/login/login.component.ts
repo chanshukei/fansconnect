@@ -31,7 +31,13 @@ export class LoginComponent implements OnInit {
       data => {
         window.sessionStorage.setItem("usernameEmail", data.usernameEmail);
         window.sessionStorage.setItem("sessionId", data.sessionId);
-        this.router.navigate(['../home'], {relativeTo: this.route});
+        var redirectTo = window.sessionStorage.getItem("redirectTo")??'';
+        if(redirectTo!=''){
+          window.sessionStorage.removeItem("redirectTo");
+          this.router.navigate([redirectTo], {relativeTo: this.route});
+        }else{
+          this.router.navigate(['../home'], {relativeTo: this.route});
+        }
       },
       error => {
         console.error(error);

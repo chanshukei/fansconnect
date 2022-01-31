@@ -38,6 +38,7 @@ import { SicardGameHomeComponent } from './sicard-game-home/sicard-game-home.com
 import { QuestionsKingComponent } from './questions-king/questions-king.component';
 import { AddQuestionComponent } from './add-question/add-question.component';
 import { QuestionsKingHomeComponent } from './questions-king-home/questions-king-home.component';
+import { DesignCompComponent } from './design-comp/design-comp.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { QuestionsKingHomeComponent } from './questions-king-home/questions-king
     SicardGameHomeComponent,
     QuestionsKingComponent,
     AddQuestionComponent,
-    QuestionsKingHomeComponent
+    QuestionsKingHomeComponent,
+    DesignCompComponent
   ],
   imports: [
     BrowserModule,

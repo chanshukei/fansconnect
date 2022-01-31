@@ -49,6 +49,7 @@ export class ShopComponent implements OnInit {
         if(usernameEmail!='' && sessionId!='' && usernameEmail!=null && sessionId!=null){
           this.router.navigate(['../shop'], {relativeTo: this.route});
         }else{
+          window.sessionStorage.setItem("redirectTo", "../shop");
           this.router.navigate(['../login'], {relativeTo: this.route});
         }
       });

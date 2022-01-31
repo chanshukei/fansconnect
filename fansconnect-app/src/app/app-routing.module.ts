@@ -30,6 +30,7 @@ import { SicardGameHomeComponent } from './sicard-game-home/sicard-game-home.com
 import { AddQuestionComponent } from './add-question/add-question.component';
 import { QuestionsKingComponent } from './questions-king/questions-king.component';
 import { QuestionsKingHomeComponent } from './questions-king-home/questions-king-home.component';
+import { DesignCompComponent } from './design-comp/design-comp.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -62,6 +63,7 @@ const routes: Routes = [
   { path: 'add-question', component: AddQuestionComponent },
   { path: 'questions-king', component: QuestionsKingComponent },
   { path: 'questions-king-home', component: QuestionsKingHomeComponent },
+  { path: 'design-comp', component: DesignCompComponent },
   { path: 'profile', component: ProfileComponent }
 ];
 @NgModule({
