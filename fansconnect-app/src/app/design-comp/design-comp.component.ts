@@ -14,7 +14,7 @@ export class DesignCompComponent implements OnInit {
   voteItem: number = 0;
   isLoading: boolean = false;
   isUploading: boolean = false;
-  pagemode: string = '';
+  pagemode: string = 'upload';
   infoMessages: string[] = [];
   alertMessages: string[] = [];
   items: DesignItem[] = [];
@@ -108,14 +108,14 @@ export class DesignCompComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.pagemode = 'list';
-    this.listResult();
+    this.pagemode = 'upload';
+    //this.listResult();
   }
 
   cancelEdit(): void{
     this.reset();
-    this.pagemode = 'list';
-    this.listResult();
+    //this.pagemode = 'list';
+    //this.listResult();
   }
 
   reset(): void{
