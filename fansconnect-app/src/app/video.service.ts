@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { DesignItem } from './design-comp/design-item';
+import { VoteItem } from './design-comp/vote-item';
 import { Smaterial } from './smaterial/smaterial';
 
 @Injectable({
@@ -45,6 +46,14 @@ export class VideoService {
   addMaterial(item: Smaterial): Observable<Smaterial>{
     var apiUrl = this.eventApi.concat("/material/", item.idolId.toString(), "?");
     return this.http.post<Smaterial>(
+      apiUrl,
+      item
+    );
+  }
+
+  addVoteItem(item: VoteItem): Observable<VoteItem>{
+    var apiUrl = this.eventApi.concat("/voteitem/", item.idolId.toString(), "?");
+    return this.http.post<VoteItem>(
       apiUrl,
       item
     );

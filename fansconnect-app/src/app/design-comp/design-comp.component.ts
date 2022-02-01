@@ -2,6 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VideoService } from '../video.service';
 import { DesignItem } from './design-item';
+import { VoteItem } from './vote-item';
 
 @Component({
   selector: 'app-design-comp',
@@ -10,6 +11,7 @@ import { DesignItem } from './design-item';
 })
 export class DesignCompComponent implements OnInit {
 
+  voteItem: number = 0;
   isLoading: boolean = false;
   isUploading: boolean = false;
   pagemode: string = '';
@@ -27,6 +29,11 @@ export class DesignCompComponent implements OnInit {
     fileName: '',
     filePath: '',
     fileType: ''
+  }
+
+  gotoVote():void{
+    this.pagemode = 'vote';
+    this.reset();
   }
 
   gotoUpload():void{
@@ -126,6 +133,36 @@ export class DesignCompComponent implements OnInit {
     }
   }
 
+  vote(): void{
+    this.alertMessages.length = 0;
+    if(this.voteItem==0){
+      this.alertMessages.push("請選擇作品。");
+    }
+
+    if(this.alertMessages.length>0){
+      return;
+    }
+
+    this.infoMessages = ["投票中..."];
+    var usernameEmail = window.sessionStorage.getItem("usernameEmail")??'';
+    this.isUploading = true;
+    this.editItem.idolId = 1;
+    var vi: VoteItem = {
+      itemId: this.voteItem,
+      createBy: usernameEmail,
+      createDate: new Date(),
+      idolId: 1
+    };
+    console.log(vi);
+    this.videoService.addVoteItem(vi).subscribe(
+      data => {
+        this.reset();
+        this.infoMessages = ["投票成功"];
+        window.scrollTo(0, 0);
+      }
+    );
+  }
+
   completeEdit(): void{
     this.alertMessages.length = 0;
     if(this.editItem.fileContent.length==0){
@@ -137,8 +174,10 @@ export class DesignCompComponent implements OnInit {
     }
 
     this.infoMessages = ["上載中..."];
+    var usernameEmail = window.sessionStorage.getItem("usernameEmail")??'';
     this.isUploading = true;
     this.editItem.idolId = 1;
+    this.editItem.uploadBy = usernameEmail;
     this.videoService.addDesignItem(this.editItem).subscribe(
       data => {
         this.reset();
