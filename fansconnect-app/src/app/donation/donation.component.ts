@@ -33,11 +33,13 @@ export class DonationComponent implements OnInit {
   }
 
   onFileSelected(event: Event): void{
+    this.isLoading = true;
     var fileList = (event.target as HTMLInputElement).files??new Array();
     if(fileList.length > 0){
       var file:File = fileList[0];
       if(file.size > 1024 * (1024 * 10)){
         this.alertMessages.push("上載檔案不可超過10MB");
+        this.isLoading = false;
         return;
       }
 
@@ -48,6 +50,7 @@ export class DonationComponent implements OnInit {
       reader.onload = () => {
         var result = reader.result as string;
         this.editDonation.fileContent = result.toString().split(',')[1]
+        this.isLoading = false;
       }
       reader.readAsDataURL(file)
     }
