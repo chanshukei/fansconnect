@@ -39,6 +39,7 @@ import { QuestionsKingComponent } from './questions-king/questions-king.componen
 import { AddQuestionComponent } from './add-question/add-question.component';
 import { QuestionsKingHomeComponent } from './questions-king-home/questions-king-home.component';
 import { DesignCompComponent } from './design-comp/design-comp.component';
+import { DonationComponent } from './donation/donation.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { DesignCompComponent } from './design-comp/design-comp.component';
     QuestionsKingComponent,
     AddQuestionComponent,
     QuestionsKingHomeComponent,
-    DesignCompComponent
+    DesignCompComponent,
+    DonationComponent
   ],
   imports: [
     BrowserModule,

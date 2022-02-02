@@ -31,6 +31,7 @@ import { AddQuestionComponent } from './add-question/add-question.component';
 import { QuestionsKingComponent } from './questions-king/questions-king.component';
 import { QuestionsKingHomeComponent } from './questions-king-home/questions-king-home.component';
 import { DesignCompComponent } from './design-comp/design-comp.component';
+import { DonationComponent } from './donation/donation.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -64,6 +65,7 @@ const routes: Routes = [
   { path: 'questions-king', component: QuestionsKingComponent },
   { path: 'questions-king-home', component: QuestionsKingHomeComponent },
   { path: 'design-comp', component: DesignCompComponent },
+  { path: 'donation', component: DonationComponent },
   { path: 'profile', component: ProfileComponent }
 ];
 @NgModule({

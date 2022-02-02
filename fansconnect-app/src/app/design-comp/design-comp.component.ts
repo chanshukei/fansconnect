@@ -108,14 +108,14 @@ export class DesignCompComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.pagemode = 'upload';
-    //this.listResult();
+    this.pagemode = 'list';
+    this.listResult();
   }
 
   cancelEdit(): void{
     this.reset();
-    //this.pagemode = 'list';
-    //this.listResult();
+    this.pagemode = 'list';
+    this.listResult();
   }
 
   reset(): void{

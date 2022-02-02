@@ -4,7 +4,11 @@
   &nbsp;
 </div>
 
-<button type="button" class="btn btn-light" style="float: right;" (click)="goToEventFans()" i18n>車力巨人之野史</button>
+<div style="text-align: right;">
+  <button type="button" (click)="goToMaterial()" class="btn btn-light">回憶閣</button>
+  <button type="button" class="btn btn-light" (click)="goToEventFans()" i18n>車力巨人之野史</button>
+</div>
+
 <form>
   <div>
       <select class="form-input" name="selectedYearmonth" [(ngModel)]="selectedYearmonth">

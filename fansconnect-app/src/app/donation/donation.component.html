@@ -1,0 +1,65 @@
+<h2 i18n>分享愛</h2>
+<p>
+  過數資料:<br />
+  FPS ID: 5001789<br />
+  銀行轉帳Hang Seng Bank: 234-309060-882<br />
+  WONG Yxxx Fxxx<br />
+  <br />
+  過咗數之後cap圖🙇🏻‍♀️<br />
+</p>
+<form>
+  <div class='card' style="width: 90%; min-width: 300px; margin-bottom: 5px;">
+    <div class='card-body'>
+      <h3 class="card-title">
+        我要辣魚蛋
+        [<a href="https://www.facebook.com/%E6%88%91%E8%A6%81%E8%BE%A3%E9%AD%9A%E8%9B%8B-937755122901356/"
+            target="_blank">相關網頁</a>]
+      </h3>
+      <p class="card-text">Sica Fans Club (又名: 今日流會) 計劃以每月捐出價值約$1000元的貓用品, 收集後的捐款全數用於購買貓用品, 所有帳單會公開。</p>
+      <p class="card-text">全年目標捐款數目為$12000, 達標後會暫停捐款。</p>
+
+      <div class="container">
+        <div class="row" *ngFor="let msg of alertMessages; let msgIndex=index;">
+          <div class="col col-md-10">
+            <div class="alert alert-danger" role="alert">
+              {{msg}}
+            </div>
+          </div>
+        </div>
+
+        <div class="row" *ngFor="let msg of infoMessages; let msgIndex=index;">
+          <div class="col col-md-10">
+            <div class="alert alert-info" role="alert">
+              {{msg}}
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class='col col-md-4'><label class="form-label">金額(HKD) <span class="required">*</span></label></div>
+          <div class="col col-md-6">
+            <input type="number" name="amount" class="form-control" maxlength="10" [(ngModel)]="editDonation.amount"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class='col col-md-4'><label class="form-label">圖片證明 <span class="required">*</span></label></div>
+          <div class="col col-md-6">
+            <div class="photo-container">
+              <input accept="image/*" type="file" id="image_input" (change)="onFileSelected($event)">
+           </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col col-md-12">
+            <button type="button" class="btn btn-dark" style="float: left;" (click)="cancelEdit()" i18n>取消</button>
+            <button type="button" class="btn btn-dark" style="float: right;" (click)="completeEdit()">完成</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-light" style="float: right;"
+          (click)="backToMenu()" i18n>返回主頁</button>
+</form>

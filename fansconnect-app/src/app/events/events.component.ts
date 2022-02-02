@@ -29,6 +29,10 @@ export class EventsComponent implements OnInit {
     this.router.navigate(['../home'], {relativeTo: this.route});
   }
 
+  goToMaterial(): void{
+    this.router.navigate(['../material'], {relativeTo: this.route});
+  }
+
   goToEventFans(): void{
     this.router.navigate(['../eventfans'], {relativeTo: this.route});
   }

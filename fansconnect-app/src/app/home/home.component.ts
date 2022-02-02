@@ -89,6 +89,10 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['../game-start'], {relativeTo: this.route});
   }
 
+  goToDonation(): void{
+    this.router.navigate(['../donation'], {relativeTo: this.route});
+  }
+
   goToMaterial(): void{
     this.router.navigate(['../material'], {relativeTo: this.route});
   }

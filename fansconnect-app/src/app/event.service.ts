@@ -11,6 +11,7 @@ import { SupportItemForm } from './support-item-form/support-item-form';
 import { ProfileForm } from './profile/profile-form';
 import { UserModel } from './login/usermodel';
 import { Survey } from './survey/survey';
+import { Donation } from './donation/donation';
 
 
 @Injectable({
@@ -78,6 +79,14 @@ export class EventService {
     return this.http.post<Income>(
       apiUrl,
       income
+    );
+  }
+
+  addDonation(donation: Donation): Observable<Income>{
+    var apiUrl = this.eventApi.concat("/donation/", donation.idolId.toString(), "?");
+    return this.http.post<Income>(
+      apiUrl,
+      donation
     );
   }
 
