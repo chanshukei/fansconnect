@@ -58,7 +58,14 @@ export class DonationComponent implements OnInit {
     private route: ActivatedRoute,
     private ngZone: NgZone) {
       this.ngZone.run(()=>{
-        this.router.navigate(['../donation'], {relativeTo: this.route});
+        var usernameEmail = window.sessionStorage.getItem("usernameEmail");
+        var sessionId = window.sessionStorage.getItem("sessionId");
+        if(usernameEmail!='' && sessionId!='' && usernameEmail!=null && sessionId!=null){
+          this.router.navigate(['../donation'], {relativeTo: this.route});
+        }else{
+          window.sessionStorage.setItem("redirectTo", "../donation");
+          this.router.navigate(['../login'], {relativeTo: this.route});
+        }
       });
     }
 
