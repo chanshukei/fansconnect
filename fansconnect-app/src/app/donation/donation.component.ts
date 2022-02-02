@@ -119,6 +119,7 @@ export class DonationComponent implements OnInit {
     this.eventService.addDonation(this.editDonation).subscribe(
       data => {
         this.reset();
+        window.alert("上載成功");
         this.infoMessages = ["上載成功"];
         this.isLoading = false;
         window.scrollTo(0, 0);
