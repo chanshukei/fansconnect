@@ -10,6 +10,7 @@ import { Donation } from './donation';
 })
 export class DonationComponent implements OnInit {
 
+  isLoading: boolean = false;
   isUploading: boolean = false;
   infoMessages: string[] = [];
   alertMessages: string[] = [];
@@ -93,6 +94,7 @@ export class DonationComponent implements OnInit {
   }
 
   completeEdit(): void{
+    this.isLoading = false;
     this.alertMessages.length = 0;
     if(this.editDonation.amount==0){
       this.alertMessages.push("請輸入金額");
@@ -115,6 +117,7 @@ export class DonationComponent implements OnInit {
       data => {
         this.reset();
         this.infoMessages = ["上載成功"];
+        this.isLoading = false;
         window.scrollTo(0, 0);
       }
     );
