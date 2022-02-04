@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { SiCard } from './game-creation/sicard';
 import { SiCharactor } from './game-creation/sicharactor';
 import { SiSkill } from './game-creation/siskill';
+import { Scplayer } from './sicard-game-start/scplayer';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,16 @@ export class GameService  {
     console.log(apiUrl);
     return this.http.get<SiCharactor[]>(apiUrl).pipe(
       catchError(this.handleError<SiCharactor[]>("Get SiCharactor", []))
+    );
+  }
+
+  getScplayer(): Observable<Scplayer[]>{
+    var apiUrl = this.eventApi.concat(
+      "/sicard/", '',
+      "?code=2evkpoN40G0fBa71zOaaJz/ixaS8I7xfE47fP53YsX7zvbYmMCO5dg==");
+    console.log(apiUrl);
+    return this.http.get<Scplayer[]>(apiUrl).pipe(
+      catchError(this.handleError<Scplayer[]>("Get scplayer", []))
     );
   }
 

@@ -1,0 +1,52 @@
+<h2 style="display: inline-block;" i18n>分享愛 - 捐款紀錄</h2>
+
+<div class="loadingDiv" *ngIf="isLoading" style="background-image: url('../assets/icons/three mo_02.gif')">
+  &nbsp;
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">日期</th>
+      <th scope="col">
+        會員
+      </th>
+      <th scope="col">
+        受惠單位
+      </th>
+      <th scope="col">金額</th>
+      <th scope="col">
+        圖片證明<br>
+        <div class="form-check form-switch" style="font-size: 10pt; float: right;">
+          <input class="form-check-input" type="checkbox" name="filterImage" [(ngModel)]="isShowImage" id="flexCheckDefault">
+          <label class="form-check-label" for="flexCheckDefault">
+            顯示圖片
+          </label>
+        </div>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let donation of donations">
+      <td>{{donation.uploadDate | date:'yyyy-MM-dd hh:mm'}}</td>
+      <td>{{donation.uploadBy}}</td>
+      <td>{{donation.answer1}}</td>
+      <td>${{donation.amount}}</td>
+      <td>
+        <a  *ngIf="isShowImage"
+            target="_blank"
+            href='{{ "https://fansconnect-event.azurewebsites.net/api/donationimage/" + donation.donationId + "?code=4EsvGuA4YVjI6Aa/kWikAq88dpHwBe73nAOjqlD9sMDsa9BArsVuow=="}}'>
+          <img  style="max-width: 300px; border: 1px solid #000000; margin: 5px; border-radius: 5px;"
+                src='{{ "https://fansconnect-event.azurewebsites.net/api/donationimage/" + donation.donationId + "?code=4EsvGuA4YVjI6Aa/kWikAq88dpHwBe73nAOjqlD9sMDsa9BArsVuow=="}}'>
+        </a>
+        <a  *ngIf="!isShowImage"
+            style="font-size: 10pt;"
+            target="_blank"
+            href='{{ "https://fansconnect-event.azurewebsites.net/api/donationimage/" + donation.donationId + "?code=4EsvGuA4YVjI6Aa/kWikAq88dpHwBe73nAOjqlD9sMDsa9BArsVuow=="}}'>下載</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<button type="button" class="btn btn-light" style="float: right;"
+        (click)="backToMenu()" i18n>返回主頁</button>

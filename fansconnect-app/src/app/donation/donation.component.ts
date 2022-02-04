@@ -1,6 +1,7 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from '../event.service';
+import { IdolService } from '../idol.service';
 import { Donation } from './donation';
 
 @Component({
@@ -10,6 +11,7 @@ import { Donation } from './donation';
 })
 export class DonationComponent implements OnInit {
 
+  adminAccessRight: boolean = false;
   isLoading: boolean = false;
   isUploading: boolean = false;
   infoMessages: string[] = [];
@@ -26,6 +28,10 @@ export class DonationComponent implements OnInit {
     idolId: 0,
     uploadBy: '',
     uploadDate: new Date()
+  }
+
+  goToReview(): void{
+    this.router.navigate(['../donation-review'], {relativeTo: this.route});
   }
 
   backToMenu(): void{
@@ -57,6 +63,7 @@ export class DonationComponent implements OnInit {
   }
 
   constructor(
+    private idolService: IdolService,
     private eventService: EventService,
     private router: Router,
     private route: ActivatedRoute,
@@ -64,6 +71,15 @@ export class DonationComponent implements OnInit {
       this.ngZone.run(()=>{
         var usernameEmail = window.sessionStorage.getItem("usernameEmail");
         var sessionId = window.sessionStorage.getItem("sessionId");
+
+        //admin right
+        this.idolService.checkAccessRight(1, 'admin').subscribe(
+          e => {
+            this.adminAccessRight = e.length>0;
+          }
+        );
+
+        //all
         if(usernameEmail!='' && sessionId!='' && usernameEmail!=null && sessionId!=null){
           this.router.navigate(['../donation'], {relativeTo: this.route});
         }else{

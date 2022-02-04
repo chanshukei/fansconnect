@@ -40,6 +40,7 @@ import { AddQuestionComponent } from './add-question/add-question.component';
 import { QuestionsKingHomeComponent } from './questions-king-home/questions-king-home.component';
 import { DesignCompComponent } from './design-comp/design-comp.component';
 import { DonationComponent } from './donation/donation.component';
+import { DonationReviewComponent } from './donation-review/donation-review.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { DonationComponent } from './donation/donation.component';
     AddQuestionComponent,
     QuestionsKingHomeComponent,
     DesignCompComponent,
-    DonationComponent
+    DonationComponent,
+    DonationReviewComponent
   ],
   imports: [
     BrowserModule,

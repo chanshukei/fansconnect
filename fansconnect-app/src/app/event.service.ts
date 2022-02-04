@@ -12,6 +12,7 @@ import { ProfileForm } from './profile/profile-form';
 import { UserModel } from './login/usermodel';
 import { Survey } from './survey/survey';
 import { Donation } from './donation/donation';
+import { DonationComponent } from './donation/donation.component';
 
 
 @Injectable({
@@ -82,11 +83,20 @@ export class EventService {
     );
   }
 
-  addDonation(donation: Donation): Observable<Income>{
+  addDonation(donation: Donation): Observable<Donation>{
     var apiUrl = this.eventApi.concat("/donation/", donation.idolId.toString(), "?");
-    return this.http.post<Income>(
+    return this.http.post<Donation>(
       apiUrl,
       donation
+    );
+  }
+
+  getDonations(idolId: number): Observable<Donation[]>{
+    var apiUrl = this.eventApi.concat(
+      "/donations/", idolId.toString(),
+      "?code=4uf6mJvXia17PoHw8aNUlDC1iT1G8RqkFIPB5LC2bsgrVihwmKTpVA==");
+    return this.http.get<Donation[]>(apiUrl).pipe(
+      catchError(this.handleError<Donation[]>("Get Donations", []))
     );
   }
 

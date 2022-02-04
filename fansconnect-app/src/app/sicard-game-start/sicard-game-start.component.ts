@@ -22,11 +22,23 @@ export class SicardGameStartComponent implements OnInit {
           ele2.hidden =  true;
         }
 
-        this.router.navigate(['../sicard-game-start'], {relativeTo: this.route});
+        var usernameEmail = window.sessionStorage.getItem("usernameEmail");
+        var sessionId = window.sessionStorage.getItem("sessionId");
+        if(usernameEmail!='' && sessionId!='' && usernameEmail!=null && sessionId!=null){
+          this.router.navigate(['../sicard-game-start'], {relativeTo: this.route});
+        }else{
+          window.sessionStorage.setItem("redirectTo", "../sicard-game-start");
+          this.router.navigate(['../login'], {relativeTo: this.route});
+        }
       });
     }
 
   ngOnInit(): void {
+    this.loadGameSave();
+  }
+
+  loadGameSave(): void{
+
   }
 
   gotoHome(): void{

@@ -32,6 +32,7 @@ import { QuestionsKingComponent } from './questions-king/questions-king.componen
 import { QuestionsKingHomeComponent } from './questions-king-home/questions-king-home.component';
 import { DesignCompComponent } from './design-comp/design-comp.component';
 import { DonationComponent } from './donation/donation.component';
+import { DonationReviewComponent } from './donation-review/donation-review.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -65,6 +66,7 @@ const routes: Routes = [
   { path: 'questions-king', component: QuestionsKingComponent },
   { path: 'questions-king-home', component: QuestionsKingHomeComponent },
   { path: 'design-comp', component: DesignCompComponent },
+  { path: 'donation-review', component: DonationReviewComponent },
   { path: 'donation', component: DonationComponent },
   { path: 'profile', component: ProfileComponent }
 ];

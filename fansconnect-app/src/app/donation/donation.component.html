@@ -2,6 +2,12 @@
   &nbsp;
 </div>
 
+<div style="position: absolute; top: 0; right: 0;">
+  <button type="button" class="btn btn-light"
+          *ngIf="adminAccessRight"
+          (click)="goToReview()" i18n>查閱捐款紀錄</button>
+</div>
+
 <h2 i18n>分享愛</h2>
 <p>
   過數資料:<br />
@@ -56,8 +62,10 @@
 
         <div class="row">
           <div class="col col-md-12">
-            <button type="button" class="btn btn-dark" style="float: left;" (click)="cancelEdit()" i18n>取消</button>
-            <button type="button" class="btn btn-dark" style="float: right;" (click)="completeEdit()">完成</button>
+            <button [disabled]="isUploading" type="button" class="btn btn-dark"
+                    style="float: left;" (click)="cancelEdit()" i18n>取消</button>
+            <button [disabled]="isUploading" type="button" class="btn btn-dark"
+                    style="float: right;" (click)="completeEdit()">完成</button>
           </div>
         </div>
       </div>
