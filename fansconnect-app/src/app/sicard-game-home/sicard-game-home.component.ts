@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GameProfile } from '../sicard-game-start/game-profile';
 
 @Component({
   selector: 'app-sicard-game-home',
@@ -6,6 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sicard-game-home.component.sass']
 })
 export class SicardGameHomeComponent implements OnInit {
+
+  gameProfile: GameProfile = {
+    gameId: '', gameUid: 0, gameName:'',
+    exp: 0, sta: 0, stone: 0, money: 0, usernameEmail: ''
+  }
 
   constructor() {
     var ele = document.getElementById('app-title');
@@ -19,6 +25,8 @@ export class SicardGameHomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    var str: string = window.sessionStorage.getItem('gameProfile')??'';
+    this.gameProfile = JSON.parse(str);
   }
 
 }

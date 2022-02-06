@@ -1,5 +1,7 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { GameService } from '../game.service';
+import { GameProfile } from './game-profile';
 
 @Component({
   selector: 'app-game-start',
@@ -8,7 +10,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class SicardGameStartComponent implements OnInit {
 
+  gameProfile: GameProfile = {
+    gameUid: 0, gameName: '',
+    exp: 0, sta: 0, stone: 0, money: 0,
+    usernameEmail: '', gameId: ''
+  };
+
   constructor(
+    private gameService: GameService,
     private router: Router,
     private route: ActivatedRoute,
     private ngZone: NgZone) {
@@ -34,11 +43,67 @@ export class SicardGameStartComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.loadGameSave();
+    var usernameEmail = window.sessionStorage.getItem("usernameEmail")??'';
+    this.loadGameSave(usernameEmail);
   }
 
-  loadGameSave(): void{
+  continueGame():void{
+    var str:string = JSON.stringify(this.gameProfile);
+    console.log(str);
+    window.sessionStorage.setItem('gameProfile', str);
+    this.router.navigate(['../sicard-game-home'], {relativeTo: this.route});
+  }
 
+  newGame():void{
+    let person = prompt("請輸入你在TG谷用的名?")??'';
+    if(person.trim().length>0){
+      var usernameEmail = window.sessionStorage.getItem("usernameEmail")??'';
+      this.gameProfile = {
+        gameUid: 0,
+        gameId: '',
+        gameName: person,
+        exp: 0,
+        sta: 10,
+        stone: 10,
+        money: 1000,
+        usernameEmail: usernameEmail
+      };
+
+      this.gameService.createGameProfile(1, this.gameProfile).subscribe(e => {
+        this.gameProfile = {
+          gameId: e.gameId,
+          gameUid: e.gameUid,
+          gameName: e.gameName,
+          exp: e.exp,
+          sta: e.sta,
+          stone: e.stone,
+          money: e.money,
+          usernameEmail: e.usernameEmail
+        };
+        var str:string = JSON.stringify(this.gameProfile);
+        window.sessionStorage.setItem('gameProfile', str);
+        this.router.navigate(['../sicard-game-home'], {relativeTo: this.route});
+      });
+    }
+  }
+
+  loadGameSave(u: string): void{
+    this.gameService.getGameProfile(1).subscribe(
+      e => {
+        if(e.length>0){
+          //continue
+          this.gameProfile = {
+            gameId: e[0].gameId,
+            gameUid: e[0].gameUid,
+            gameName: e[0].gameName,
+            exp: e[0].exp,
+            sta: e[0].sta,
+            stone: e[0].stone,
+            money: e[0].money,
+            usernameEmail: e[0].usernameEmail
+          };
+        }
+    });
   }
 
   gotoHome(): void{

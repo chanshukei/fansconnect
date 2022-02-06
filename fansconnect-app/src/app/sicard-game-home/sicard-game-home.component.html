@@ -1,5 +1,7 @@
 <div style="margin: 10px">
-  <input type="text" value="Name">
+  <input  class="form-control" type="text"
+          style="background: white;"
+          value="Name" disabled [(ngModel)]="gameProfile.gameName">
 </div>
 
 <div style="display: block;">
@@ -7,26 +9,26 @@
     <div>
       <span>EXP</span>
       <div style="margin-left: 5px; display: inline-block; height: 10px; background: white; border: 1px solid black; width: 100px;">
-        <div style="height: 100%; background: red; width: 40%; border: 1px solid white;"></div>
+        <div [style]="'height: 100%; background: red; width: ' + gameProfile.exp +'%; border: 1px solid white;'"></div>
       </div>
       <span>Rank 1</span>
     </div>
     <div>
       <span>STA</span>
       <div style="margin-left: 5px; display: inline-block; height: 10px; background: white; border: 1px solid black; width: 100px;">
-        <div style="height: 100%; background: red; width: 40%; border: 1px solid white;"></div>
+        <div [style]="'height: 100%; background: red; width: '+gameProfile.sta+'%; border: 1px solid white;'"></div>
       </div>
-      <span>70/100</span>
+      <span>{{gameProfile.sta}}/100</span>
     </div>
   </div>
-  <div style="width: 40%; display: inline-block;">
+  <div style="width: 38%; display: inline-block;">
     <div style="text-align: right;">
       <span>STONE</span>
-      <input type="text" value="7" style="width: 50px;">
+      <input type="text" style="width: 60px; background-color: white;" disabled [(ngModel)]="gameProfile.stone">
     </div>
     <div style="text-align:right;">
       <span>$</span>
-      <input type="text" value="1000" style="width: 50px;">
+      <input type="text" style="width: 60px; background-color: white;" disabled [(ngModel)]="gameProfile.money">
     </div>
   </div>
 </div>

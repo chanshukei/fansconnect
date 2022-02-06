@@ -5,7 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { SiCard } from './game-creation/sicard';
 import { SiCharactor } from './game-creation/sicharactor';
 import { SiSkill } from './game-creation/siskill';
-import { Scplayer } from './sicard-game-start/scplayer';
+import { GameProfile } from './sicard-game-start/game-profile';
 
 @Injectable({
   providedIn: 'root'
@@ -54,13 +54,30 @@ export class GameService  {
     );
   }
 
-  getScplayer(): Observable<Scplayer[]>{
+  createGameProfile(idolId: number, p: GameProfile): Observable<GameProfile>{
+    console.log(p);
     var apiUrl = this.eventApi.concat(
-      "/sicard/", '',
-      "?code=2evkpoN40G0fBa71zOaaJz/ixaS8I7xfE47fP53YsX7zvbYmMCO5dg==");
-    console.log(apiUrl);
-    return this.http.get<Scplayer[]>(apiUrl).pipe(
-      catchError(this.handleError<Scplayer[]>("Get scplayer", []))
+      "/newgame/", idolId.toString(), "?");
+    return this.http.post<GameProfile>(
+      apiUrl,
+      p
+    );
+  }
+
+  getGameProfile(idolId: number): Observable<GameProfile[]>{
+    var apiUrl = this.eventApi.concat(
+      "/gameprofile/", idolId.toString(),
+      "?code=6wYyZxN10JQsFT2Iw4HSpuPGCdAtv/BOyCXpIuEDVTdoptilPzc/iQ==");
+    var usernameEmail = window.sessionStorage.getItem("usernameEmail");
+    var user: GameProfile = {
+      usernameEmail: usernameEmail??'',
+      exp: 0, sta: 0, stone: 0, money: 0,
+      gameName: '', gameUid: 0, gameId: ''
+    };
+    console.log(user);
+    return this.http.post<GameProfile[]>(
+      apiUrl,
+      user
     );
   }
 
