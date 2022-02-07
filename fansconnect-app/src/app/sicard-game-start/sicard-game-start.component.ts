@@ -10,10 +10,12 @@ import { GameProfile } from './game-profile';
 })
 export class SicardGameStartComponent implements OnInit {
 
+  isLoading: boolean = false;
   gameProfile: GameProfile = {
     gameUid: 0, gameName: '',
     exp: 0, sta: 0, stone: 0, money: 0,
-    usernameEmail: '', gameId: ''
+    usernameEmail: '', gameId: '',
+    expFull: 0, staFull: 0
   };
 
   constructor(
@@ -66,7 +68,8 @@ export class SicardGameStartComponent implements OnInit {
         sta: 10,
         stone: 10,
         money: 1000,
-        usernameEmail: usernameEmail
+        usernameEmail: usernameEmail,
+        expFull: 100, staFull: 10
       };
 
       this.gameService.createGameProfile(1, this.gameProfile).subscribe(e => {
@@ -78,7 +81,8 @@ export class SicardGameStartComponent implements OnInit {
           sta: e.sta,
           stone: e.stone,
           money: e.money,
-          usernameEmail: e.usernameEmail
+          usernameEmail: e.usernameEmail,
+          expFull: 0, staFull: 0
         };
         var str:string = JSON.stringify(this.gameProfile);
         window.sessionStorage.setItem('gameProfile', str);
@@ -88,6 +92,7 @@ export class SicardGameStartComponent implements OnInit {
   }
 
   loadGameSave(u: string): void{
+    this.isLoading = true;
     this.gameService.getGameProfile(1).subscribe(
       e => {
         if(e.length>0){
@@ -100,9 +105,12 @@ export class SicardGameStartComponent implements OnInit {
             sta: e[0].sta,
             stone: e[0].stone,
             money: e[0].money,
-            usernameEmail: e[0].usernameEmail
+            usernameEmail: e[0].usernameEmail,
+            expFull: e[0].expFull,
+            staFull: e[0].staFull
           };
         }
+        this.isLoading = false;
     });
   }
 

@@ -7,4 +7,6 @@ export interface GameProfile {
   sta: number;
   stone: number;
   money: number;
+  expFull: number;
+  staFull: number;
 }

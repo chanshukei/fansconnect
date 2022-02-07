@@ -72,7 +72,8 @@ export class GameService  {
     var user: GameProfile = {
       usernameEmail: usernameEmail??'',
       exp: 0, sta: 0, stone: 0, money: 0,
-      gameName: '', gameUid: 0, gameId: ''
+      gameName: '', gameUid: 0, gameId: '',
+      expFull: 0, staFull: 0
     };
     console.log(user);
     return this.http.post<GameProfile[]>(

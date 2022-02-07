@@ -9,16 +9,16 @@
     <div>
       <span>EXP</span>
       <div style="margin-left: 5px; display: inline-block; height: 10px; background: white; border: 1px solid black; width: 100px;">
-        <div [style]="'height: 100%; background: red; width: ' + gameProfile.exp +'%; border: 1px solid white;'"></div>
+        <div [style]="'height: 100%; background: red; width: ' + (gameProfile.exp*100/gameProfile.expFull) +'%; border: 1px solid white;'"></div>
       </div>
       <span>Rank 1</span>
     </div>
     <div>
       <span>STA</span>
       <div style="margin-left: 5px; display: inline-block; height: 10px; background: white; border: 1px solid black; width: 100px;">
-        <div [style]="'height: 100%; background: red; width: '+gameProfile.sta+'%; border: 1px solid white;'"></div>
+        <div [style]="'height: 100%; background: red; width: '+(gameProfile.sta*100/gameProfile.staFull)+'%; border: 1px solid white;'"></div>
       </div>
-      <span>{{gameProfile.sta}}/100</span>
+      <span>{{gameProfile.sta}}/{{gameProfile.staFull}}</span>
     </div>
   </div>
   <div style="width: 38%; display: inline-block;">
