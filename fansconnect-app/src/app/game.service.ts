@@ -5,6 +5,9 @@ import { catchError } from 'rxjs/operators';
 import { SiCard } from './game-creation/sicard';
 import { SiCharactor } from './game-creation/sicharactor';
 import { SiSkill } from './game-creation/siskill';
+import { Sichapter } from './sicard-game-home/sichapter';
+import { Sitask } from './sicard-game-home/sitask';
+import { Siworld } from './sicard-game-home/siworld';
 import { GameProfile } from './sicard-game-start/game-profile';
 
 @Injectable({
@@ -59,6 +62,36 @@ export class GameService  {
     var apiUrl = this.eventApi.concat(
       "/newgame/", idolId.toString(), "?");
     return this.http.post<GameProfile>(
+      apiUrl,
+      p
+    );
+  }
+
+  getSichapters(worldId: number, p: GameProfile): Observable<Sichapter[]>{
+    var apiUrl = this.eventApi.concat(
+      "/sichapter/", worldId.toString(),
+      "?code=cTYdsX0ycx4M9B8hEhDOkk/gjvPFJ8ymn3sWD8meSForuNpVFidHhQ==");
+    return this.http.post<Sichapter[]>(
+      apiUrl,
+      p
+    );
+  }
+
+  getSitasks(chapterId: number, p: GameProfile): Observable<Sitask[]>{
+    var apiUrl = this.eventApi.concat(
+      "/sitask/", chapterId.toString(),
+      "?code=LkY40vJlmCHaP8g7jyaKl2fOLeY5yFXu20YDid7KWdjBpLWNLmpyug==");
+    return this.http.post<Sitask[]>(
+      apiUrl,
+      p
+    );
+  }
+
+  getSiworld(idolId: number, p: GameProfile): Observable<Siworld[]>{
+    var apiUrl = this.eventApi.concat(
+      "/siworld/", idolId.toString(),
+      "?code=Js1SxI5Imm0O69Qdlw9aoipKc2hDxZHsA7WdLcYBMZqQ0wKmUuSgCg==");
+    return this.http.post<Siworld[]>(
       apiUrl,
       p
     );

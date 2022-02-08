@@ -1,3 +1,7 @@
+<div class="loadingDiv" *ngIf="isLoading" style="background-image: url('../assets/icons/three mo_02.gif')">
+  &nbsp;
+</div>
+
 <div style="margin: 10px">
   <input  class="form-control" type="text"
           style="background: white;"
@@ -34,11 +38,27 @@
 </div>
 
 <div class="main" style="background-image: url('../../assets/icons/three mo_02.gif');">
-
+  <div *ngIf="mode=='story'"
+      class="world-box"
+      style="background-image: url('../../assets/icons/grass.png');">
+    <h2 *ngIf="worlds.length>selectedWorld" class="world-title">【{{worlds[selectedWorld].worldName}}】</h2>
+    <div *ngFor="let chapter of chapters; let chapterIndex=index" class="chapter-box">
+      <h3 class="chapter-title">第{{chapter.seq}}章 『{{chapter.chapterName}}』</h3>
+      <div *ngIf="selectedChapter==chapterIndex">
+        <div class="card" *ngFor="let task of tasks">
+          <div class='card-body'>
+            <button type="button" class="btn btn-success" style="float: right;">GO!</button>
+            <p class="card-title">{{chapter.seq}}.{{task.seq}}: {{task.taskName}}</p>
+            <p class="card-text">STA消耗: {{task.staCost}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div style="text-align: center;">
-  <button type="button" class="btn btn-light">故事</button>
+  <button type="button" class="btn btn-light" [disabled]="mode=='story'">故事</button>
   <button type="button" class="btn btn-light">人物</button>
   <button type="button" class="btn btn-light">士多</button>
   <button type="button" class="btn btn-light">抽蛋</button>

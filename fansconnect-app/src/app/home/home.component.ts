@@ -86,7 +86,7 @@ export class HomeComponent implements OnInit {
   }
 
   gotoSicard(): void{
-    this.router.navigate(['../game-start'], {relativeTo: this.route});
+    this.router.navigate(['../sicard-game-start'], {relativeTo: this.route});
   }
 
   goToDonation(): void{
