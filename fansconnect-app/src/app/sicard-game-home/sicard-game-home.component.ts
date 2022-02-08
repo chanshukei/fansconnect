@@ -47,7 +47,6 @@ export class SicardGameHomeComponent implements OnInit {
         if(str!=null && str!=null){
           this.router.navigate(['../sicard-game-home'], {relativeTo: this.route});
         }else{
-          window.sessionStorage.setItem("redirectTo", "../sicard-game-home");
           this.router.navigate(['../login'], {relativeTo: this.route});
         }
       });
@@ -93,6 +92,12 @@ export class SicardGameHomeComponent implements OnInit {
         this.isLoading = false;
         this.loadTasks();
     });
+  }
+
+  gotoBattle(t: Sitask): void{
+    var str: string = JSON.stringify(t);
+    window.sessionStorage.setItem('sitask', str);
+    this.router.navigate(['../game-battle'], {relativeTo: this.route});
   }
 
   loadTasks(): void{

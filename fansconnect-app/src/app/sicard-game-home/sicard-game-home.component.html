@@ -47,7 +47,7 @@
       <div *ngIf="selectedChapter==chapterIndex">
         <div class="card" *ngFor="let task of tasks">
           <div class='card-body'>
-            <button type="button" class="btn btn-success" style="float: right;">GO!</button>
+            <button type="button" class="btn btn-success" style="float: right;" (click)="gotoBattle(task)">GO!</button>
             <p class="card-title">{{chapter.seq}}.{{task.seq}}: {{task.taskName}}</p>
             <p class="card-text">STA消耗: {{task.staCost}}</p>
           </div>
@@ -58,9 +58,15 @@
 </div>
 
 <div style="text-align: center;">
-  <button type="button" class="btn btn-light" [disabled]="mode=='story'">故事</button>
-  <button type="button" class="btn btn-light">人物</button>
-  <button type="button" class="btn btn-light">士多</button>
-  <button type="button" class="btn btn-light">抽蛋</button>
-  <button type="button" class="btn btn-light">朋友</button>
+  <button type="button"
+          [ngClass]="{'btn btn-primary':(mode=='story'), 'btn btn-light':(mode!='story')}"
+          >故事</button>
+  <button type="button"
+          [ngClass]="{'btn btn-primary':(mode=='charactor'), 'btn btn-light':(mode!='charactor')}"
+          >角色</button>
+  <button type="button"
+          [ngClass]="{'btn btn-primary':(mode=='store'), 'btn btn-light':(mode!='store')}"
+          >士多</button>
+  <button type="button" class="btn btn-dark" disabled>抽蛋</button>
+  <button type="button" class="btn btn-dark" disabled>朋友</button>
 </div>

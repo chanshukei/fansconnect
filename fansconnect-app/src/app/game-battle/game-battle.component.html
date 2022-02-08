@@ -27,8 +27,8 @@
   &nbsp;
   <div class="victoryBg" style="background-image: url('../assets/icons/sicard-bg.png')">
     <p style="font-size: 16pt;">我真係恭喜你!</p>
-    <p style="font-size: 16pt;">你成功通過了所有關。</p>
-    <p style="font-size: 16pt;">請耐心等候正式版。</p>
+    <p style="font-size: 16pt;">你成功通過《{{sitask.taskName}}》。</p>
+    <p style="font-size: 16pt;">請繼續旅程。</p>
     <button type="button" class="btn btn-light" style="font-size: 16pt;" (click)="gotoHome()">返回目錄</button>
   </div>
 </div>
@@ -53,7 +53,7 @@
     </div>
   </div>
 
-  <div class="player-panel" *ngIf="players[activePlayer].card.length>0">
+  <div class="player-panel" *ngIf="players.length>activePlayer && players[activePlayer].card.length>0">
     <p style="font-size: 12pt;">
       HP{{players[activePlayer].hp}}/{{players[activePlayer].charactor[0].hp}}
       SP{{players[activePlayer].sp}}/{{players[activePlayer].charactor[0].sp}}

@@ -2,6 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Player } from './game-battle/player';
+import { Snack } from './game-battle/snack';
+import { Stage } from './game-battle/stage';
+import { StageMonster } from './game-battle/stage-monster';
 import { SiCard } from './game-creation/sicard';
 import { SiCharactor } from './game-creation/sicharactor';
 import { SiSkill } from './game-creation/siskill';
@@ -21,7 +25,6 @@ export class GameService  {
 
   saveSiCharactor(order: SiCharactor): Observable<SiCharactor>{
     var apiUrl = this.eventApi.concat("/sicharactor/", order.charactorId.toString(), "?");
-    console.log(order);
     return this.http.post<SiCharactor>(
       apiUrl,
       order
@@ -30,7 +33,6 @@ export class GameService  {
 
   addSiCard(order: SiCard): Observable<SiCard>{
     var apiUrl = this.eventApi.concat("/sicard/", order.idolId.toString(), "?");
-    console.log(order);
     return this.http.post<SiCard>(
       apiUrl,
       order
@@ -41,7 +43,6 @@ export class GameService  {
     var apiUrl = this.eventApi.concat(
       "/siskills/", cardId,
       "?code=HAa6mzCrhJYwp6xDg3LyTJxWHPcjnDwUt/6vTQyqmAHAFdm2FaUQkQ==");
-    console.log(apiUrl);
     return this.http.get<SiSkill[]>(apiUrl).pipe(
       catchError(this.handleError<SiSkill[]>("Get SiSkill", []))
     );
@@ -51,14 +52,12 @@ export class GameService  {
     var apiUrl = this.eventApi.concat(
       "/sicharactor/", cardId,
       "?code=TSa8CMdSzNjGAsR3h2YIYq1CW8zUy83giKNMNBfsiW8xfP/xKvpwKA==");
-    console.log(apiUrl);
     return this.http.get<SiCharactor[]>(apiUrl).pipe(
       catchError(this.handleError<SiCharactor[]>("Get SiCharactor", []))
     );
   }
 
   createGameProfile(idolId: number, p: GameProfile): Observable<GameProfile>{
-    console.log(p);
     var apiUrl = this.eventApi.concat(
       "/newgame/", idolId.toString(), "?");
     return this.http.post<GameProfile>(
@@ -72,6 +71,46 @@ export class GameService  {
       "/sichapter/", worldId.toString(),
       "?code=cTYdsX0ycx4M9B8hEhDOkk/gjvPFJ8ymn3sWD8meSForuNpVFidHhQ==");
     return this.http.post<Sichapter[]>(
+      apiUrl,
+      p
+    );
+  }
+
+  getSiPlayers(idolId:number, p: GameProfile): Observable<Player[]>{
+    var apiUrl = this.eventApi.concat(
+      "/siplayer/", idolId.toString(),
+      "?code=lgYMkS1Z4R2vkr0o7YQrGMvvCRQ/XBsfG5uk95WLv5mcKQY4g3Q7AA==");
+    return this.http.post<Player[]>(
+      apiUrl,
+      p
+    );
+  }
+
+  getSiStageMonsters(stageId:number, p: GameProfile): Observable<StageMonster[]>{
+    var apiUrl = this.eventApi.concat(
+      "/sistagemonster/", stageId.toString(),
+      "?code=aCkQouIDOfGlcMTFBVTMnLpIrLIuI/h2kw/2x/j3U59/j295EQWxXw==");
+    return this.http.post<StageMonster[]>(
+      apiUrl,
+      p
+    );
+  }
+
+  getSiStages(taskId:number, p: GameProfile): Observable<Stage[]>{
+    var apiUrl = this.eventApi.concat(
+      "/sistage/", taskId.toString(),
+      "?code=fZ8HhmZGBAvyo0XcHvsMx8rl3sMJBUdZ27BgIWswCIrFwIF8rkCMEw==");
+    return this.http.post<Stage[]>(
+      apiUrl,
+      p
+    );
+  }
+
+  getSiSnacks(idolId:number, p: GameProfile): Observable<Snack[]>{
+    var apiUrl = this.eventApi.concat(
+      "/sisnack/", idolId.toString(),
+      "?code=KBTKpPy6OBTsPS1PF7ApBcpmqoGi2EZsSjfsahW/Ei9Sk8jYMdUw4w==");
+    return this.http.post<Snack[]>(
       apiUrl,
       p
     );
@@ -108,7 +147,6 @@ export class GameService  {
       gameName: '', gameUid: 0, gameId: '',
       expFull: 0, staFull: 0
     };
-    console.log(user);
     return this.http.post<GameProfile[]>(
       apiUrl,
       user
@@ -119,7 +157,6 @@ export class GameService  {
     var apiUrl = this.eventApi.concat(
       "/sicard/", cardId,
       "?code=2evkpoN40G0fBa71zOaaJz/ixaS8I7xfE47fP53YsX7zvbYmMCO5dg==");
-    console.log(apiUrl);
     return this.http.get<SiCard[]>(apiUrl).pipe(
       catchError(this.handleError<SiCard[]>("Get SiCard", []))
     );
@@ -129,7 +166,6 @@ export class GameService  {
     var apiUrl = this.eventApi.concat(
       "/sicards/", idolId.toString(),
       "?code=k0cs7/o9cPkv3DNh9ljB5bcEMna9UaiPya7moECJVFaCfqq6u2tfKw==");
-    console.log(apiUrl);
     return this.http.get<SiCard[]>(apiUrl).pipe(
       catchError(this.handleError<SiCard[]>("Get SiCards", []))
     );

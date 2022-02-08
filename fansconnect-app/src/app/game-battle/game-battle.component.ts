@@ -1,13 +1,15 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { single } from 'rxjs/operators';
 import { SiCard } from '../game-creation/sicard';
 import { SiCharactor } from '../game-creation/sicharactor';
 import { SiSkill } from '../game-creation/siskill';
 import { GameService } from '../game.service';
+import { Sitask } from '../sicard-game-home/sitask';
+import { GameProfile } from '../sicard-game-start/game-profile';
 import { Monster } from './monster';
 import { Player } from './player';
 import { Snack } from './snack';
+import { Stage } from './stage';
 import { StageMonster } from './stage-monster';
 
 @Component({
@@ -17,6 +19,14 @@ import { StageMonster } from './stage-monster';
 })
 export class GameBattleComponent implements OnInit {
 
+  gameProfile: GameProfile = {
+    gameUid:0, gameId: '', gameName:'',
+    exp: 0, expFull:0, sta:0, staFull:0,
+    stone: 0, money:0, usernameEmail: ''
+  };
+  sitask: Sitask = {
+    taskId: 0, taskName: '', staCost: 0, seq: 0, chapterId: 0
+  };
   gameMode: string = '';
   playerPanelMode: string = 'home';
   activeStage: number = 1;
@@ -30,37 +40,15 @@ export class GameBattleComponent implements OnInit {
   isLoading: boolean = false;
 
   scripts: string[][] = [];
-  stageMonsters: StageMonster[] = [
-    {
-      stageUid: 0,
-      cardId: '26a9d305-c077-4347-9780-5b321fd2f642',
-      monsterCount: 1
-    }
-  ];
 
-  snacks: Snack[] = [{
-    cardId: '0c2d96c9-7347-4404-997b-a147f17324fa',
-    card: [],
-    charactor: [],
-    count: 99
-  },
-  {
-    cardId: '8fb60e18-b4f3-4feb-9d11-626af52c6728',
-    card: [],
-    charactor: [],
-    count: 99
-  }];
+  //in save
+  snacks: Snack[] = [];
+  playersInTeam: Player[] = [];
+  stages: Stage[] = [];
+  stageMonsters: StageMonster[] = [];
 
-  players: Player[] = [{
-    cardId: '66d7c238-73e4-4d0b-a58b-6ed60356a8ed',
-    card: [],
-    charactor: [],
-    hp: 0,
-    sp: 0,
-    att: 0,
-    def: 0,
-    status: ''
-  }];
+  //in game
+  players: Player[] = [];
   playerCards: Map<string, SiCard> = new Map<string, SiCard>();
   playerCharactors: Map<string, SiCharactor> = new Map<string, SiCharactor>();
 
@@ -84,62 +72,47 @@ export class GameBattleComponent implements OnInit {
         ele2.hidden =  true;
       }
 
-      this.router.navigate(['../game-battle'], {relativeTo: this.route});
+      var str: string = window.sessionStorage.getItem('sitask')??'';
+      this.sitask = JSON.parse(str);
+      var str2: string = window.sessionStorage.getItem('gameProfile')??'';
+      this.gameProfile = JSON.parse(str2);
+      if(str!=''){
+        this.router.navigate(['../game-battle'], {relativeTo: this.route});
+      }else{
+        this.router.navigate(['../home'], {relativeTo: this.route});
+      }
     });
   }
 
   gotoHome(): void{
-    this.router.navigate(['../home'], {relativeTo: this.route});
+    this.router.navigate(['../sicard-game-home'], {relativeTo: this.route});
   }
 
   gotoNextStage(): void{
     this.activeStage += 1;
-    if(this.activeStage==2){
-      this.stageMonsters = [
-        {
-          stageUid: 0,
-          cardId: '26a9d305-c077-4347-9780-5b321fd2f642',
-          monsterCount: 3
+    var stageIndex = this.activeStage-1;
+    if(stageIndex<this.stages.length){
+      this.gameService.getSiStageMonsters(this.stages[stageIndex].stageUid, this.gameProfile).subscribe(
+        e => {
+          this.stageMonsters.length = 0;
+          for(var i=0; i<e.length; i++){
+            var sm: StageMonster = {
+              cardId: e[i].cardId,
+              monsterCount: e[i].monsterCount,
+              stageUid: e[i].stageUid
+            };
+            this.stageMonsters.push(sm);
+          }
+
+          //init mosters
+          this.initMonsters();
+          this.gameMode = "";
+          this.playerPanelMode = "home";
         }
-      ];
-    }else if(this.activeStage==3){
-      this.stageMonsters = [
-        {
-          stageUid: 0,
-          cardId: '8925ec9e-3732-4df8-9429-2c7414216664',
-          monsterCount: 1
-        },
-        {
-          stageUid: 0,
-          cardId: '26a9d305-c077-4347-9780-5b321fd2f642',
-          monsterCount: 2
-        }
-      ];
-    }else if(this.activeStage==4){
-      this.stageMonsters = [
-        {
-          stageUid: 0,
-          cardId: '2d8bb3eb-1b53-4c9a-96bb-86e5f4d6335c',
-          monsterCount: 1
-        }
-      ];
-    }else if(this.activeStage==5){
-      this.stageMonsters = [
-        {
-          stageUid: 0,
-          cardId: '7cdd9d3f-dfcd-420f-a207-d4870f7ae125',
-          monsterCount: 1
-        }
-      ];
-    }else if(this.activeStage==6){
+      );
+    }else{
       this.gameMode = "finish";
     }
-
-    //init mosters
-    this.initMonsters();
-
-    this.gameMode = "";
-    this.playerPanelMode = "home";
   }
 
   changePlayerPanelMode(mode: string): void{
@@ -169,7 +142,7 @@ export class GameBattleComponent implements OnInit {
         cardId: cardId,
         status: ''
       };
-      this.players[0] = player;
+      this.players.push(player);
     }
   }
 
@@ -186,6 +159,9 @@ export class GameBattleComponent implements OnInit {
       if(this.scripts[this.activeScript][0]=='#allMonsterDead#'){
         this.activeScript = -1;
         this.gameMode = 'victory';
+        if(this.activeStage==this.stages.length){
+          this.gameMode = 'finish';
+        }
       }else if(this.scripts[this.activeScript][0]=='#monsterTurn#'){
         this.activeScript = -1;
         this.monsterTurn();
@@ -210,7 +186,6 @@ export class GameBattleComponent implements OnInit {
   }
 
   monsterTurn():void{
-    console.log('monster turn');
     this.activeMonster += 1;
     while(
       this.activeMonster<this.monsters.length
@@ -233,7 +208,6 @@ export class GameBattleComponent implements OnInit {
     var sIndex = Math.floor(Math.random()*skills.length);
     var skill: SiSkill = skills[sIndex];
     var damage:number = Math.floor(skill.power * (monster.att / player.def));
-    console.log('damage: '+ damage);
     this.activeScript = 0;
     this.scripts = [[
       monster.monsterUname+' 使用了 '+skill.skillName+'。',
@@ -269,7 +243,6 @@ export class GameBattleComponent implements OnInit {
     if(skill.power>0){
       //animation
       var damage = (skill.power * Math.floor(this.players[this.activePlayer].att)/monster.def);
-      console.log('damage: '+ damage);
       this.activeScript = 0;
       this.scripts = [[
         this.players[this.activePlayer].card[0].cardName+' 使用了 '+skill.skillName+'。',
@@ -306,7 +279,6 @@ export class GameBattleComponent implements OnInit {
     }
 
     if(!isMonstersDead){
-      console.log('add monsterTurn');
       this.scripts.push(["#monsterTurn#"]);
     }
     this.activeSkill = -1;
@@ -421,8 +393,6 @@ export class GameBattleComponent implements OnInit {
           skills.push(skill);
         };
 
-        console.log('load skills:');
-        console.log(skills);
         if(ctype=='M'){
           var monster = this.monsterCards.get(cardId);
           if(monster!=null){
@@ -463,7 +433,6 @@ export class GameBattleComponent implements OnInit {
             //start loop
             for(var i=0; i<this.snacks.length; i++){
               if(this.snacks[i].cardId==cardId){
-                console.log('load snack success: '+this.snacks[i].card[0].cardName);
                 this.snacks[i].charactor = [sichar];
               }
             }
@@ -476,17 +445,74 @@ export class GameBattleComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {
-    this.isLoading = true;
+  loadSave(): void{
+    this.gameService.getSiSnacks(1, this.gameProfile).subscribe(e =>{
+      this.snacks.length = 0;
+      for(var i=0; i<e.length; i++){
+        var s: Snack = {
+          cardId: e[i].cardId,
+          count: e[i].count,
+          card: [],
+          charactor: []
+        };
+        this.snacks.push(s);
+      }
+      this.initSnacks();
+    });
 
-    //init mosters
-    this.initMonsters();
-    //init Snacks
-    this.initSnacks();
+    this.gameService.getSiPlayers(1, this.gameProfile).subscribe(e =>{
+      this.playersInTeam.length = 0;
+      for(var i=0; i<e.length; i++){
+        var p: Player = {
+          cardId: e[i].cardId,
+          card: [],
+          charactor: [],
+          hp: 0,
+          sp: 0,
+          att: 0,
+          def: 0,
+          status: ''
+        };
+        this.playersInTeam.push(p);
+      }
+      this.initPlayersInTeam();
+    });
 
-    //load players
-    for(var i=0; i<this.players.length; i++){
-      this.gameService.getSiCard(this.players[i].cardId).subscribe(
+    this.gameService.getSiStages(this.sitask.taskId, this.gameProfile).subscribe(
+      e => {
+        this.stages.length = 0;
+        for(var i=0; i<e.length; i++){
+          var s: Stage = {
+            stageUid: e[i].stageUid,
+            seq: e[i].seq,
+            isEnd: e[i].isEnd
+          };
+          this.stages.push(s);
+        }
+
+        //load 1st stage
+        this.gameService.getSiStageMonsters(this.stages[0].stageUid, this.gameProfile).subscribe(
+          e2 => {
+            this.stageMonsters.length = 0;
+            for(var j=0; j<e2.length; j++){
+              var sm: StageMonster = {
+                cardId: e2[j].cardId,
+                stageUid: e2[j].stageUid,
+                monsterCount: e2[j].monsterCount
+              }
+              this.stageMonsters.push(sm);
+            }
+            this.initMonsters();
+          }
+        );
+      }
+    );
+  }
+
+  initPlayersInTeam(): void{
+    this.players.length = 0;
+    for(var i=0; i<this.playersInTeam.length; i++){
+      this.gameService.getSiCard(this.playersInTeam[i].cardId).subscribe(
         e => {
           var card: SiCard = {
             cardId: e[0].cardId,
@@ -511,6 +537,11 @@ export class GameBattleComponent implements OnInit {
         }
       );
     }
+  }
+
+  ngOnInit(): void {
+    this.isLoading = true;
+    this.loadSave();
   }
 
   initSnacks():void{
