@@ -38,6 +38,9 @@
           src='{{ "https://fansconnect-video.azurewebsites.net/api/designitem/" + item.itemId + "?code=Z8mrbNy/XMQaMW1awDQ9LS7SY7PjdIYig54zyXeAY3Etd9frQo/mGA=="}}' />
       <p class="card-text">By {{item.uploadBy}}</p>
       <p class="card-text">{{item.fileDescription}}</p>
+      <a  *ngIf="adminRight"
+          target="_blank"
+          [href]="'https://fansconnect-video.azurewebsites.net/api/designitem/' + item.itemId + '?code=Z8mrbNy/XMQaMW1awDQ9LS7SY7PjdIYig54zyXeAY3Etd9frQo/mGA=='">原圖</a>
     </div>
   </div>
   <br />

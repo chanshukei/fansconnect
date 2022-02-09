@@ -1,5 +1,6 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IdolService } from '../idol.service';
 import { VideoService } from '../video.service';
 import { DesignItem } from './design-item';
 import { VoteItem } from './vote-item';
@@ -11,6 +12,7 @@ import { VoteItem } from './vote-item';
 })
 export class DesignCompComponent implements OnInit {
 
+  adminRight: boolean = false;
   voteItem: number = 0;
   isLoading: boolean = false;
   isUploading: boolean = false;
@@ -91,6 +93,7 @@ export class DesignCompComponent implements OnInit {
   }
 
   constructor(
+    private idolService: IdolService,
     private videoService: VideoService,
     private router: Router,
     private route: ActivatedRoute,
@@ -109,7 +112,16 @@ export class DesignCompComponent implements OnInit {
 
   ngOnInit(): void {
     this.pagemode = 'list';
+    this.loadAccessRight('admin');
     this.listResult();
+  }
+
+  loadAccessRight(roleId :string): void{
+    this.idolService.checkAccessRight(1, roleId).subscribe(
+      e => {
+        this.adminRight = e.length>0;
+      }
+    );
   }
 
   cancelEdit(): void{
