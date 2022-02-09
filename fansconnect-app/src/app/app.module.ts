@@ -41,6 +41,8 @@ import { QuestionsKingHomeComponent } from './questions-king-home/questions-king
 import { DesignCompComponent } from './design-comp/design-comp.component';
 import { DonationComponent } from './donation/donation.component';
 import { DonationReviewComponent } from './donation-review/donation-review.component';
+import { SicardStorepComponent } from './sicard-storep/sicard-storep.component';
+import { SicardCreationComponent } from './sicard-creation/sicard-creation.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +81,9 @@ import { DonationReviewComponent } from './donation-review/donation-review.compo
     QuestionsKingHomeComponent,
     DesignCompComponent,
     DonationComponent,
-    DonationReviewComponent
+    DonationReviewComponent,
+    SicardStorepComponent,
+    SicardCreationComponent
   ],
   imports: [
     BrowserModule,

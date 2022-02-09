@@ -33,6 +33,8 @@ import { QuestionsKingHomeComponent } from './questions-king-home/questions-king
 import { DesignCompComponent } from './design-comp/design-comp.component';
 import { DonationComponent } from './donation/donation.component';
 import { DonationReviewComponent } from './donation-review/donation-review.component';
+import { SicardStorepComponent } from './sicard-storep/sicard-storep.component';
+import { SicardCreationComponent } from './sicard-creation/sicard-creation.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -58,6 +60,8 @@ const routes: Routes = [
   { path: 'sicard-game-home', component: SicardGameHomeComponent },
   { path: 'game-start', component: GameStartComponent },
   { path: 'game-creation', component: GameCreationComponent },
+  { path: 'sicard-creation', component: SicardCreationComponent },
+  { path: 'sicard-storep', component: SicardStorepComponent },
   { path: 'sicard-store', component: SicardStoreComponent },
   { path: 'supportitem', component: SupportitemComponent },
   { path: 'support-item-form', component: SupportItemFormComponent },

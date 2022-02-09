@@ -23,8 +23,20 @@ export class GameService  {
 
   constructor(private http: HttpClient) {}
 
+
+  saveSiSkills(skills: SiSkill[]): Observable<SiCharactor>{
+    var apiUrl = this.eventApi.concat("/siskill/", skills[0].cardId, "?");
+    console.log(skills[0].cardId);
+    console.log(skills);
+    return this.http.post<SiCharactor>(
+      apiUrl,
+      skills
+    );
+  }
+
   saveSiCharactor(order: SiCharactor): Observable<SiCharactor>{
     var apiUrl = this.eventApi.concat("/sicharactor/", order.charactorId.toString(), "?");
+    console.log(order);
     return this.http.post<SiCharactor>(
       apiUrl,
       order
@@ -169,6 +181,19 @@ export class GameService  {
     return this.http.get<SiCard[]>(apiUrl).pipe(
       catchError(this.handleError<SiCard[]>("Get SiCards", []))
     );
+  }
+
+  getMySiCards(idolId: number, usernameEmail: string): Observable<SiCard[]>{
+    var user: GameProfile = {
+      usernameEmail: usernameEmail??'',
+      exp: 0, sta: 0, stone: 0, money: 0,
+      gameName: '', gameUid: 0, gameId: '',
+      expFull: 0, staFull: 0
+    };
+    var apiUrl = this.eventApi.concat(
+      "/mysicards/", idolId.toString(),
+      "?code=2xFYQCm6LbhvQQwnhtaPEBZI03R14SjkbsdRFYpoh/mjaGnlGwpa5w==");
+    return this.http.post<SiCard[]>(apiUrl,user);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
