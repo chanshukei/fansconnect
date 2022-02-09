@@ -4,6 +4,7 @@ import { SiCard } from '../game-creation/sicard';
 import { SiCharactor } from '../game-creation/sicharactor';
 import { SiSkill } from '../game-creation/siskill';
 import { GameService } from '../game.service';
+import { GameProfile } from '../sicard-game-start/game-profile';
 
 @Component({
   selector: 'app-sicard-creation',
@@ -194,6 +195,26 @@ export class SicardCreationComponent implements OnInit {
         this.isUploading = false;
       }
     );
+  }
+
+  deleteSicard(): void{
+    if(this.editCardId==''){
+      return;
+    }
+    if(window.confirm("你肯定要刪除此卡?")){
+      var gameprofile: GameProfile = {
+        usernameEmail: window.sessionStorage.getItem("usernameEmail")??'',
+        gameId: '', gameUid:0, gameName: '',
+        exp: 0, expFull: 0, sta: 0, staFull: 0,
+        stone: 0, money: 0
+      };
+      this.gameService.deleteSiCard(this.editCardId, gameprofile).subscribe(
+        data => {
+          window.alert("刪除成功");
+          this.router.navigate(['../sicard-storep'], {relativeTo: this.route});
+        }
+      );
+    }
   }
 
   completeEditCharactor(): void{

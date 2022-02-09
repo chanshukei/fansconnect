@@ -69,6 +69,15 @@ export class GameService  {
     );
   }
 
+  deleteSiCard(cardId: string, p: GameProfile): Observable<GameProfile>{
+    var apiUrl = this.eventApi.concat(
+      "/deletesicard/", cardId, "?");
+    return this.http.post<GameProfile>(
+      apiUrl,
+      p
+    );
+  }
+
   createGameProfile(idolId: number, p: GameProfile): Observable<GameProfile>{
     var apiUrl = this.eventApi.concat(
       "/newgame/", idolId.toString(), "?");

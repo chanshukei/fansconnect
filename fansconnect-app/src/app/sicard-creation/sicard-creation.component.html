@@ -87,8 +87,13 @@
 
         <div class="row">
           <div class="col col-md-12">
-            <button type="button" class="btn btn-dark" style="float: left;" (click)="cancelEdit()" i18n>取消</button>
-            <button [disabled]="isUploading" type="button" class="btn btn-dark" style="float: right;" (click)="completeEdit()">完成</button>
+            <button [disabled]="isUploading" type="button" class="btn btn-danger"
+                    *ngIf="editCardId!=''"
+                    style="float: left;" (click)="deleteSicard()">刪除此卡</button>
+            <button [disabled]="isUploading" type="button" class="btn btn-dark"
+                    style="float: right;" (click)="completeEdit()">完成</button>
+            <button type="button" class="btn btn-dark"
+                    style="float: right; margin-right: 50px;" (click)="cancelEdit()" i18n>取消</button>
           </div>
         </div>
       </div>
