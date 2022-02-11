@@ -1,0 +1,89 @@
+<div class="loadingDiv" *ngIf="isLoading" style="background-image: url('../assets/icons/three mo_02.gif')">
+  &nbsp;
+</div>
+
+<div style="margin: 10px">
+  <input  class="form-control" type="text"
+          style="background: white;"
+          value="Name" disabled [(ngModel)]="gameProfile.gameName">
+</div>
+
+<div style="display: block;">
+  <div style="width: 60%; display: inline-block;">
+    <div>
+      <span>EXP</span>
+      <div style="margin-left: 5px; display: inline-block; height: 10px; background: white; border: 1px solid black; width: 100px;">
+        <div [style]="'height: 100%; background: red; width: ' + (gameProfile.exp*100/gameProfile.expFull) +'%; border: 1px solid white;'"></div>
+      </div>
+      <span>Rank 1</span>
+    </div>
+    <div>
+      <span>STA</span>
+      <div style="margin-left: 5px; display: inline-block; height: 10px; background: white; border: 1px solid black; width: 100px;">
+        <div [style]="'height: 100%; background: red; width: '+(gameProfile.sta*100/gameProfile.staFull)+'%; border: 1px solid white;'"></div>
+      </div>
+      <span>{{gameProfile.sta}}/{{gameProfile.staFull}}</span>
+    </div>
+  </div>
+  <div style="width: 38%; display: inline-block;">
+    <div style="text-align: right;">
+      <span>STONE</span>
+      <input type="text" style="width: 60px; background-color: white;" disabled [(ngModel)]="gameProfile.stone">
+    </div>
+    <div style="text-align:right;">
+      <span>$</span>
+      <input type="text" style="width: 60px; background-color: white;" disabled [(ngModel)]="gameProfile.money">
+    </div>
+  </div>
+</div>
+
+<div class="main" style="background-image: url('../../assets/icons/three mo_02.gif');">
+  <div class="world-box"
+    style="background-image: url('../../assets/icons/brick.png'); padding-top: 30px;">
+    <div style="width: 50%; float: left;">
+      <button *ngFor="let snackCard of snackCards; let snackIdx = index" type="button"
+              class="btn btn-light btn-shop"
+              [ngClass]="{
+                'btn-primary':(snackIdx==selectedSnackIndex),
+                'btn-light':(snackIdx!=selectedSnackIndex)}"
+              (click)="selectSnack(snackIdx)">
+        {{snackCard.cardName}}
+      </button>
+    </div>
+    <div style="width: 50%; border: 2px solid white; background: none;  float: right;">
+      <div class="card" *ngIf="selectedSnackIndex>=0" style="background: rgba(255,255,255,0.8)">
+        <div class="card-title" style="margin: auto;">
+          <img class="card-image"
+            [src]="'https://fansconnect-game.azurewebsites.net/api/sicardimage/'+snackCards[selectedSnackIndex].cardId+'?code=miMufIBJZhw3ByaH16D5Dc/8bBGv2RAPDzWnfEyuimnzW9sz5av7OA=='">
+        </div>
+        <p class="card-text">{{snackCards[selectedSnackIndex].cardDescription}}</p>
+        <p class="card-text" style="text-align: center;">{{getSnackEffect(snackCards[selectedSnackIndex].cardId)}}</p>
+      </div>
+      <div style="width: 90%; margin:5px; padding: 10px; text-align: center; font-size: 14pt; font-weight: bold; background-color: black; border-radius: 5px; color: white;">
+        <select [(ngModel)]="selectedSnackCount" class="form-control"
+                [disabled]="selectedSnackIndex==-1" style="width: 50px; display: inline;">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+        件
+      </div>
+      <button type="button" class="btn btn-primary" (click)="buySnack()"
+              style="width: 90%;" [disabled]="selectedSnackIndex==-1">購買</button>
+    </div>
+  </div>
+</div>
+
+
+<div style="width: 100%;">
+  <button type="button" class="btn btn-dark"
+          style="display: block; width: 90%; margin: auto;"
+          (click)="gotoShop()">返回商店</button>
+</div>

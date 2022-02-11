@@ -38,6 +38,7 @@
 </div>
 
 <div class="main" style="background-image: url('../../assets/icons/three mo_02.gif');">
+  <!-- story -->
   <div *ngIf="mode=='story'"
       class="world-box"
       style="background-image: url('../../assets/icons/grass.png');">
@@ -55,18 +56,44 @@
       </div>
     </div>
   </div>
+
+  <!-- shop -->
+  <div *ngIf="mode=='shop'"
+    class="world-box"
+    style="background-image: url('../../assets/icons/brick.png'); padding-top: 30px;">
+    <div style="width: 100%;">
+      <button type="button" class="btn btn-light btn-shop" (click)="gotoSnackShop()">
+        <img src="../../assets/icons/snack.png">&nbsp;零食店
+      </button>
+      <button type="button" class="btn btn-light btn-shop" disabled>
+        <img src="../../assets/icons/restaurant.png">&nbsp;餐廳
+      </button>
+      <button type="button" class="btn btn-light btn-shop" disabled>
+        <img src="../../assets/icons/eitem.png">&nbsp;道具屋
+      </button>
+      <button type="button" class="btn btn-light btn-shop" disabled>
+        <img src="../../assets/icons/weapon.png">&nbsp;武器屋
+      </button>
+    </div>
+  </div>
+
+
 </div>
+
+
 
 <div style="text-align: center;">
   <button type="button"
+          (click)="gotoStory()"
           [ngClass]="{'btn btn-primary':(mode=='story'), 'btn btn-light':(mode!='story')}"
           >故事</button>
   <button type="button"
           [ngClass]="{'btn btn-primary':(mode=='charactor'), 'btn btn-light':(mode!='charactor')}"
           >角色</button>
   <button type="button"
-          [ngClass]="{'btn btn-primary':(mode=='store'), 'btn btn-light':(mode!='store')}"
-          >士多</button>
+          (click)="gotoShop()"
+          [ngClass]="{'btn btn-primary':(mode=='shop'), 'btn btn-light':(mode!='shop')}"
+          >商店</button>
   <button type="button" class="btn btn-dark" disabled>抽蛋</button>
   <button type="button" class="btn btn-dark" disabled>朋友</button>
 </div>

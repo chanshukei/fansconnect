@@ -27,6 +27,10 @@ export class SicardGameHomeComponent implements OnInit {
     expFull: 0, staFull: 0
   }
 
+  gotoSnackShop(): void{
+    this.router.navigate(['../sicard-snack-shop'], {relativeTo: this.route});
+  }
+
   constructor(
     private gameService: GameService,
     private router: Router,
@@ -54,6 +58,14 @@ export class SicardGameHomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadWorlds();
+  }
+
+  gotoStory():void{
+    this.mode = 'story';
+  }
+
+  gotoShop(): void{
+    this.mode = 'shop';
   }
 
   loadWorlds(): void{

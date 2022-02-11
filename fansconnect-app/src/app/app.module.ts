@@ -43,6 +43,7 @@ import { DonationComponent } from './donation/donation.component';
 import { DonationReviewComponent } from './donation-review/donation-review.component';
 import { SicardStorepComponent } from './sicard-storep/sicard-storep.component';
 import { SicardCreationComponent } from './sicard-creation/sicard-creation.component';
+import { SicardSnackShopComponent } from './sicard-snack-shop/sicard-snack-shop.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { SicardCreationComponent } from './sicard-creation/sicard-creation.compo
     DonationComponent,
     DonationReviewComponent,
     SicardStorepComponent,
-    SicardCreationComponent
+    SicardCreationComponent,
+    SicardSnackShopComponent
   ],
   imports: [
     BrowserModule,
