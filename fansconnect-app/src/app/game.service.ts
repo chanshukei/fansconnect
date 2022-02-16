@@ -117,6 +117,36 @@ export class GameService  {
     );
   }
 
+  recoverSta(p: GameProfile): Observable<GameProfile>{
+    var apiUrl = this.eventApi.concat(
+      "/recoversta",
+      "?code=Zf9pmIEE2sRBDkCFtUWPs58OLaW0eLb2PKIFkvnYsbIBtQZUn5VFxQ==");
+    return this.http.post<GameProfile>(
+      apiUrl,
+      p
+    );
+  }
+
+  startTask(taskId:number, p: GameProfile): Observable<GameProfile>{
+    var apiUrl = this.eventApi.concat(
+      "/starttask/", taskId.toString(),
+      "?code=yLkJOuIngXpEICgzCy9KPnasnomOqJin6cmZrIRwNeu9a6vQMfoZKw==");
+    return this.http.post<GameProfile>(
+      apiUrl,
+      p
+    );
+  }
+
+  clearTask(taskId:number, p: GameProfile): Observable<GameProfile>{
+    var apiUrl = this.eventApi.concat(
+      "/cleartask/", taskId.toString(),
+      "?code=TxJye2CNIR11f1z/h3J14bZfuOcGWv0NksTYvV4GDXTuzhkbIheacg==");
+    return this.http.post<GameProfile>(
+      apiUrl,
+      p
+    );
+  }
+
   getSiStages(taskId:number, p: GameProfile): Observable<Stage[]>{
     var apiUrl = this.eventApi.concat(
       "/sistage/", taskId.toString(),
@@ -176,7 +206,7 @@ export class GameService  {
       usernameEmail: usernameEmail??'',
       exp: 0, sta: 0, stone: 0, money: 0,
       gameName: '', gameUid: 0, gameId: '',
-      expFull: 0, staFull: 0
+      expFull: 0, staFull: 0, rank: 0
     };
     return this.http.post<GameProfile[]>(
       apiUrl,
@@ -217,7 +247,7 @@ export class GameService  {
       usernameEmail: usernameEmail??'',
       exp: 0, sta: 0, stone: 0, money: 0,
       gameName: '', gameUid: 0, gameId: '',
-      expFull: 0, staFull: 0
+      expFull: 0, staFull: 0, rank: 0
     };
     var apiUrl = this.eventApi.concat(
       "/mysicards/", idolId.toString(),

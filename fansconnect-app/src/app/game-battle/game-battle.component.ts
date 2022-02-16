@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SiCard } from '../game-creation/sicard';
@@ -22,10 +23,10 @@ export class GameBattleComponent implements OnInit {
   gameProfile: GameProfile = {
     gameUid:0, gameId: '', gameName:'',
     exp: 0, expFull:0, sta:0, staFull:0,
-    stone: 0, money:0, usernameEmail: ''
+    stone: 0, money:0, usernameEmail: '', rank: 0
   };
   sitask: Sitask = {
-    taskId: 0, taskName: '', staCost: 0, seq: 0, chapterId: 0
+    taskId: 0, taskName: '', staCost: 0, seq: 0, chapterId: 0, taskStatus: ''
   };
   gameMode: string = '';
   playerPanelMode: string = 'home';
@@ -111,8 +112,22 @@ export class GameBattleComponent implements OnInit {
         }
       );
     }else{
-      this.gameMode = "finish";
+      this.clearTask();
     }
+  }
+
+  clearTask(): void{
+    this.isLoading = true;
+    this.gameService.clearTask(this.sitask.taskId, this.gameProfile).subscribe(
+      e => {
+        this.gameMode = "finish";
+        this.gameProfile.exp = e.exp;
+        this.gameProfile.expFull = e.expFull;
+        this.gameProfile.rank = e.rank;
+        window.sessionStorage.removeItem('gameProfile');
+        window.sessionStorage.setItem('gameProfile', JSON.stringify(this.gameProfile));
+      }
+    );
   }
 
   changePlayerPanelMode(mode: string): void{
@@ -160,7 +175,7 @@ export class GameBattleComponent implements OnInit {
         this.activeScript = -1;
         this.gameMode = 'victory';
         if(this.activeStage==this.stages.length){
-          this.gameMode = 'finish';
+          this.clearTask();
         }
       }else if(this.scripts[this.activeScript][0]=='#monsterTurn#'){
         this.activeScript = -1;

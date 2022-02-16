@@ -2,6 +2,10 @@
   &nbsp;
 </div>
 
+<audio src="../assets/bgm/battle.mp3" autoplay>
+  <p>If you are reading this, it is because your browser does not support the audio element.</p>
+</audio>
+
 <div class="loadingDiv" style="background-image: url('../assets/icons/three mo_02.gif')" *ngIf="gameMode=='lose'">
   &nbsp;
   <div class="victoryBg" style="background-image: url('../assets/icons/sicard-bg.png')">
@@ -28,6 +32,7 @@
   <div class="victoryBg" style="background-image: url('../assets/icons/sicard-bg.png')">
     <p style="font-size: 16pt;">我真係恭喜你!</p>
     <p style="font-size: 16pt;">你成功通過《{{sitask.taskName}}》。</p>
+    <p style="font-size: 16pt;">你的EXP提升到{{gameProfile.exp}}, Rank提升至{{gameProfile.rank}}。</p>
     <p style="font-size: 16pt;">請繼續旅程。</p>
     <button type="button" class="btn btn-light" style="font-size: 16pt;" (click)="gotoHome()">返回目錄</button>
   </div>

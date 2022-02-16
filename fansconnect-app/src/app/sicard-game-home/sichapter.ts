@@ -3,4 +3,5 @@ export interface Sichapter {
   chapterId: number;
   chapterName: string;
   seq: number;
+  chapterStatus: string;
 }

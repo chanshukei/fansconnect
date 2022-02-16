@@ -2,6 +2,10 @@
   &nbsp;
 </div>
 
+<audio src="../assets/bgm/story.mp3" autoplay>
+  <p>If you are reading this, it is because your browser does not support the audio element.</p>
+</audio>
+
 <div style="margin: 10px">
   <input  class="form-control" type="text"
           style="background: white;"
@@ -15,7 +19,7 @@
       <div style="margin-left: 5px; display: inline-block; height: 10px; background: white; border: 1px solid black; width: 100px;">
         <div [style]="'height: 100%; background: red; width: ' + (gameProfile.exp*100/gameProfile.expFull) +'%; border: 1px solid white;'"></div>
       </div>
-      <span>Rank 1</span>
+      <span>Rank {{gameProfile.rank}}</span>
     </div>
     <div>
       <span>STA</span>
@@ -43,13 +47,19 @@
       class="world-box"
       style="background-image: url('../../assets/icons/grass.png');">
     <h2 *ngIf="worlds.length>selectedWorld" class="world-title">【{{worlds[selectedWorld].worldName}}】</h2>
-    <div *ngFor="let chapter of chapters; let chapterIndex=index" class="chapter-box">
+    <div *ngFor="let chapter of chapters | sichapterfilter; let chapterIndex=index" class="chapter-box">
       <h3 class="chapter-title">第{{chapter.seq}}章 『{{chapter.chapterName}}』</h3>
       <div *ngIf="selectedChapter==chapterIndex">
-        <div class="card" *ngFor="let task of tasks">
+        <div class="card" *ngFor="let task of tasks | sitaskfilter">
           <div class='card-body'>
-            <button type="button" class="btn btn-success" style="float: right;" (click)="gotoBattle(task)">GO!</button>
-            <p class="card-title">{{chapter.seq}}.{{task.seq}}: {{task.taskName}}</p>
+            <button type="button" class="btn btn-success" style="float: right;"
+                    [disabled]="gameProfile.sta<task.staCost && gameProfile.stone==0"
+                    (click)="gotoBattle(task)">GO!</button>
+            <p class="card-title" style="text-decoration: none;">
+              {{chapter.seq}}.{{task.seq}}: {{task.taskName}}
+              <span *ngIf="task.taskStatus=='clear'"
+                    style="color: #dc143c; background-color: #ffff66; padding: 5px; border-radius: 5px;">[CLEAR]</span>
+            </p>
             <p class="card-text">STA消耗: {{task.staCost}}</p>
           </div>
         </div>

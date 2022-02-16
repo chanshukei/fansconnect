@@ -15,7 +15,7 @@ export class SicardGameStartComponent implements OnInit {
     gameUid: 0, gameName: '',
     exp: 0, sta: 0, stone: 0, money: 0,
     usernameEmail: '', gameId: '',
-    expFull: 0, staFull: 0
+    expFull: 0, staFull: 0, rank: 0
   };
 
   constructor(
@@ -69,7 +69,8 @@ export class SicardGameStartComponent implements OnInit {
         stone: 10,
         money: 1000,
         usernameEmail: usernameEmail,
-        expFull: 100, staFull: 10
+        expFull: 100, staFull: 10,
+        rank: 1
       };
 
       this.gameService.createGameProfile(1, this.gameProfile).subscribe(e => {
@@ -82,7 +83,8 @@ export class SicardGameStartComponent implements OnInit {
           stone: e.stone,
           money: e.money,
           usernameEmail: e.usernameEmail,
-          expFull: 0, staFull: 0
+          expFull: 0, staFull: 0,
+          rank: e.rank
         };
         var str:string = JSON.stringify(this.gameProfile);
         window.sessionStorage.setItem('gameProfile', str);
@@ -107,7 +109,8 @@ export class SicardGameStartComponent implements OnInit {
             money: e[0].money,
             usernameEmail: e[0].usernameEmail,
             expFull: e[0].expFull,
-            staFull: e[0].staFull
+            staFull: e[0].staFull,
+            rank: e[0].rank
           };
         }
         this.isLoading = false;

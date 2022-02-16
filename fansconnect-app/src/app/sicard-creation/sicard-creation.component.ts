@@ -206,7 +206,7 @@ export class SicardCreationComponent implements OnInit {
         usernameEmail: window.sessionStorage.getItem("usernameEmail")??'',
         gameId: '', gameUid:0, gameName: '',
         exp: 0, expFull: 0, sta: 0, staFull: 0,
-        stone: 0, money: 0
+        stone: 0, money: 0, rank: 0
       };
       this.gameService.deleteSiCard(this.editCardId, gameprofile).subscribe(
         data => {

@@ -9,4 +9,5 @@ export interface GameProfile {
   money: number;
   expFull: number;
   staFull: number;
+  rank: number;
 }

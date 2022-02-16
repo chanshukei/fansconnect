@@ -22,7 +22,7 @@ export class SicardSnackShopComponent implements OnInit {
   gameProfile: GameProfile = {
     gameId: '', gameUid: 0, gameName:'',
     exp: 0, sta: 0, stone: 0, money: 0, usernameEmail: '',
-    expFull: 0, staFull: 0
+    expFull: 0, staFull: 0, rank: 0
   }
 
   constructor(

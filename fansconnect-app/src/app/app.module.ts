@@ -44,6 +44,8 @@ import { DonationReviewComponent } from './donation-review/donation-review.compo
 import { SicardStorepComponent } from './sicard-storep/sicard-storep.component';
 import { SicardCreationComponent } from './sicard-creation/sicard-creation.component';
 import { SicardSnackShopComponent } from './sicard-snack-shop/sicard-snack-shop.component';
+import { SitaskFilter } from './sicard-game-home/sitaskfilter';
+import { SichapterFilter } from './sicard-game-home/sichapterfilter';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,8 @@ import { SicardSnackShopComponent } from './sicard-snack-shop/sicard-snack-shop.
     OrderReviewComponent,
     OrderFilter,
     EventFilter,
+    SitaskFilter,
+    SichapterFilter,
     GameBattleComponent,
     GameCreationComponent,
     SicardStoreComponent,

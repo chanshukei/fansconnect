@@ -24,7 +24,7 @@ export class SicardGameHomeComponent implements OnInit {
   gameProfile: GameProfile = {
     gameId: '', gameUid: 0, gameName:'',
     exp: 0, sta: 0, stone: 0, money: 0, usernameEmail: '',
-    expFull: 0, staFull: 0
+    expFull: 0, staFull: 0, rank: 0
   }
 
   gotoSnackShop(): void{
@@ -97,7 +97,8 @@ export class SicardGameHomeComponent implements OnInit {
             worldId: e[i].worldId,
             chapterId: e[i].chapterId,
             chapterName: e[i].chapterName,
-            seq: e[i].seq
+            seq: e[i].seq,
+            chapterStatus: e[i].chapterStatus
           };
           this.chapters.push(w);
         }
@@ -107,9 +108,28 @@ export class SicardGameHomeComponent implements OnInit {
   }
 
   gotoBattle(t: Sitask): void{
-    var str: string = JSON.stringify(t);
-    window.sessionStorage.setItem('sitask', str);
-    this.router.navigate(['../game-battle'], {relativeTo: this.route});
+    if(this.gameProfile.sta<t.staCost && this.gameProfile.stone>0){
+      if(window.confirm("你沒有足夠的STA挑戰這一關, 需要使用 1 STONE回復STA嗎?")){
+        this.gameService.recoverSta(this.gameProfile).subscribe(
+          e => {
+            this.gameProfile.stone -= 1;
+            this.gameProfile.sta = this.gameProfile.staFull;
+          }
+        );
+      }
+      return;
+    }
+
+    this.gameService.startTask(t.taskId, this.gameProfile).subscribe(
+      e => {
+        this.gameProfile.sta = e.sta;
+        window.sessionStorage.removeItem('gameProfile');
+        window.sessionStorage.setItem('gameProfile', JSON.stringify(this.gameProfile));
+        var str: string = JSON.stringify(t);
+        window.sessionStorage.setItem('sitask', str);
+        this.router.navigate(['../game-battle'], {relativeTo: this.route});
+      }
+    );
   }
 
   loadTasks(): void{
@@ -125,7 +145,8 @@ export class SicardGameHomeComponent implements OnInit {
             chapterId: e[i].chapterId,
             taskName: e[i].taskName,
             seq: e[i].seq,
-            staCost: e[i].staCost
+            staCost: e[i].staCost,
+            taskStatus: e[i].taskStatus
           };
           this.tasks.push(w);
         }
