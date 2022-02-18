@@ -40,6 +40,7 @@ export class GameBattleComponent implements OnInit {
   activeSnack: number = -1;
   useSnackTime: number = 0;
   isLoading: boolean = false;
+  isPlayMusic: boolean = true;
 
   scripts: string[][] = [];
 
@@ -217,12 +218,17 @@ export class GameBattleComponent implements OnInit {
   }
 
   continueGame(): void{
-    window.open('https://youtu.be/Wa0pR0yIGsc');
-    this.players[this.activePlayer].hp = this.players[this.activePlayer].charactor[0].hp;
-    this.players[this.activePlayer].sp = this.players[this.activePlayer].charactor[0].sp;
-    this.gameMode = '';
-    this.players[this.activePlayer].status = '';
-    this.playerPanelMode = 'home';
+    this.isPlayMusic = false;
+    this.gameMode = 'video';
+    var self = this;
+    window.setTimeout(function(){
+      self.players[self.activePlayer].hp = self.players[self.activePlayer].charactor[0].hp;
+      self.players[self.activePlayer].sp = self.players[self.activePlayer].charactor[0].sp;
+      self.isPlayMusic = true;
+      self.gameMode = '';
+      self.players[self.activePlayer].status = '';
+      self.playerPanelMode = 'home';
+    }, 1000 * 60 * 1.5);
   }
 
   gameOver():void{

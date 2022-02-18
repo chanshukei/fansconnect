@@ -2,9 +2,17 @@
   &nbsp;
 </div>
 
-<audio src="../assets/bgm/battle.mp3" autoplay>
+<audio *ngIf="isPlayMusic" src="../assets/bgm/battle.mp3" autoplay>
   <p>If you are reading this, it is because your browser does not support the audio element.</p>
 </audio>
+
+<div style="background-image: url('../assets/icons/three mo_02.gif')" *ngIf="gameMode=='video'">
+  <iframe width="100%" height="100%"
+          src="https://www.youtube.com/embed/Wa0pR0yIGsc?controls=0"
+          title="YouTube video player" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+</div>
 
 <div style="background-image: url('../assets/icons/three mo_02.gif')" *ngIf="gameMode=='lose'">
   &nbsp;
