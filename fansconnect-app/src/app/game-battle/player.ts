@@ -10,5 +10,6 @@ export interface Player {
   def: number,
   card: SiCard[],
   charactor: SiCharactor[],
-  status: string
+  status: string,
+  dizzy: number
 }

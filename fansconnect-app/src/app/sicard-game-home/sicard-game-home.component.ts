@@ -92,6 +92,7 @@ export class SicardGameHomeComponent implements OnInit {
       this.gameProfile).subscribe(
       e => {
         this.chapters.length = 0;
+        var lastChapter = 0;
         for(var i=0; i<e.length; i++){
           var w: Sichapter = {
             worldId: e[i].worldId,
@@ -100,10 +101,12 @@ export class SicardGameHomeComponent implements OnInit {
             seq: e[i].seq,
             chapterStatus: e[i].chapterStatus
           };
+          if(w.chapterStatus=='open'){
+            lastChapter = i;
+          }
           this.chapters.push(w);
         }
-        this.isLoading = false;
-        this.loadTasks();
+        this.changeSelectedChapter(lastChapter);
     });
   }
 
@@ -132,6 +135,12 @@ export class SicardGameHomeComponent implements OnInit {
     );
   }
 
+  changeSelectedChapter(i: number):void{
+    this.isLoading = true;
+    this.selectedChapter = i;
+    this.loadTasks();
+  }
+
   loadTasks(): void{
     this.isLoading = true;
     this.gameService.getSitasks(
@@ -146,7 +155,9 @@ export class SicardGameHomeComponent implements OnInit {
             taskName: e[i].taskName,
             seq: e[i].seq,
             staCost: e[i].staCost,
-            taskStatus: e[i].taskStatus
+            taskStatus: e[i].taskStatus,
+            money: e[i].money,
+            exp: e[i].exp
           };
           this.tasks.push(w);
         }

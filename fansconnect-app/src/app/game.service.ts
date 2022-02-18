@@ -141,6 +141,7 @@ export class GameService  {
     var apiUrl = this.eventApi.concat(
       "/cleartask/", taskId.toString(),
       "?code=TxJye2CNIR11f1z/h3J14bZfuOcGWv0NksTYvV4GDXTuzhkbIheacg==");
+    console.log(apiUrl);
     return this.http.post<GameProfile>(
       apiUrl,
       p

@@ -26,7 +26,8 @@ export class GameBattleComponent implements OnInit {
     stone: 0, money:0, usernameEmail: '', rank: 0
   };
   sitask: Sitask = {
-    taskId: 0, taskName: '', staCost: 0, seq: 0, chapterId: 0, taskStatus: ''
+    taskId: 0, taskName: '', staCost: 0, seq: 0, chapterId: 0, taskStatus: '',
+    money: 0, exp: 0
   };
   gameMode: string = '';
   playerPanelMode: string = 'home';
@@ -89,7 +90,32 @@ export class GameBattleComponent implements OnInit {
     this.router.navigate(['../sicard-game-home'], {relativeTo: this.route});
   }
 
+  playerTakeRest(): void{
+    var player = this.players[this.activePlayer];
+    var spadd = player.charactor[0].sp*0.1;
+    var sp = player.sp + spadd;
+    if(sp>player.charactor[0].sp){
+      player.sp = player.charactor[0].sp;
+    }else{
+      player.sp = sp;
+    }
+    if(player.dizzy>0){
+      player.dizzy -= 1;
+    }
+
+    this.activeScript = 0;
+    this.scripts = [[
+      this.players[this.activePlayer].card[0].cardName+'此回合休息, SP回復了'+spadd+'點。'
+    ]];
+    this.scripts.push(["#monsterTurn#"]);
+
+    this.activeSkill = -1;
+    this.activeTarget = -1;
+    this.playerPanelMode = "script";
+  }
+
   gotoNextStage(): void{
+    this.isLoading = true;
     this.activeStage += 1;
     var stageIndex = this.activeStage-1;
     if(stageIndex<this.stages.length){
@@ -124,8 +150,9 @@ export class GameBattleComponent implements OnInit {
         this.gameProfile.exp = e.exp;
         this.gameProfile.expFull = e.expFull;
         this.gameProfile.rank = e.rank;
-        window.sessionStorage.removeItem('gameProfile');
+        this.gameProfile.money = e.money;
         window.sessionStorage.setItem('gameProfile', JSON.stringify(this.gameProfile));
+        this.isLoading = false;
       }
     );
   }
@@ -155,7 +182,8 @@ export class GameBattleComponent implements OnInit {
         att: charactor.att,
         def: charactor.def,
         cardId: cardId,
-        status: ''
+        status: '',
+        dizzy: 0
       };
       this.players.push(player);
     }
@@ -173,9 +201,10 @@ export class GameBattleComponent implements OnInit {
       this.activeScript += 1;
       if(this.scripts[this.activeScript][0]=='#allMonsterDead#'){
         this.activeScript = -1;
-        this.gameMode = 'victory';
         if(this.activeStage==this.stages.length){
           this.clearTask();
+        }else{
+          this.gameMode = 'victory';
         }
       }else if(this.scripts[this.activeScript][0]=='#monsterTurn#'){
         this.activeScript = -1;
@@ -188,7 +217,7 @@ export class GameBattleComponent implements OnInit {
   }
 
   continueGame(): void{
-    window.open('https://www.youtube.com/watch?v=re6pnLn6D9U');
+    window.open('https://youtu.be/Wa0pR0yIGsc');
     this.players[this.activePlayer].hp = this.players[this.activePlayer].charactor[0].hp;
     this.players[this.activePlayer].sp = this.players[this.activePlayer].charactor[0].sp;
     this.gameMode = '';
@@ -197,7 +226,7 @@ export class GameBattleComponent implements OnInit {
   }
 
   gameOver():void{
-    this.router.navigate(['../home'], {relativeTo: this.route});
+    this.router.navigate(['../sicard-game-start'], {relativeTo: this.route});
   }
 
   monsterTurn():void{
@@ -222,12 +251,57 @@ export class GameBattleComponent implements OnInit {
     ));
     var sIndex = Math.floor(Math.random()*skills.length);
     var skill: SiSkill = skills[sIndex];
-    var damage:number = Math.floor(skill.power * (monster.att / player.def));
+
+    //init
     this.activeScript = 0;
-    this.scripts = [[
-      monster.monsterUname+' 使用了 '+skill.skillName+'。',
-      player.card[0].cardName+" 受到傷害, HP扣減 " + damage+" 點。"
-    ]];
+    this.scripts = [[]];
+    this.scripts[0].push(monster.monsterUname+' 使用了 '+skill.skillName+'。');
+
+    //effect
+    var powerup = 1;
+    if(skill.effect.startsWith('dizzy')){
+      var pt = skill.effect.split(':');
+      var pc = Number.parseInt(pt[1].substring(0, pt[1].indexOf('%')));
+      var pcresult = Math.ceil(Math.random()*100);
+      if(pcresult<=pc){
+        player.dizzy = 1;
+        this.scripts[0].push(player.card[0].cardName+'暈倒, 暫停一回合。');
+      }
+    }else if(skill.effect.startsWith('critical')){
+      var pt = skill.effect.split(':');
+      var pc = Number.parseInt(pt[1].substring(0, pt[1].indexOf('%')));
+      var pcresult = Math.ceil(Math.random()*100);
+      if(pcresult<=pc){
+        powerup = 1.25;
+        this.scripts[0].push(player.card[0].cardName+'被重擊。');
+      }
+    }else if(skill.effect.startsWith('repeat')){
+      var pt = skill.effect.split(':');
+      var pt2 = pt[1].split('-');
+      var fr = Number.parseInt(pt2[0]);
+      var to = Number.parseInt(pt2[1]);
+      var pcresult = Math.round(Math.random()*(to-fr));
+      powerup = to + pcresult;
+      this.scripts[0].push(player.card[0].cardName+'被連續攻擊'+powerup+'次。');
+    }else if(skill.effect.startsWith('stealsnack')){
+      var pt = skill.effect.split(':');
+      var pc = Number.parseInt(pt[1].substring(0, pt[1].indexOf('%')));
+      var pcresult = Math.round(Math.random()*100);
+      if(pcresult<=pc){
+        var itemStolen = Number.parseInt(pt[1]);
+        var snackIdx = Math.floor(Math.random()*this.snacks.length)
+        this.snacks[snackIdx].count -= 1;
+        this.scripts[0].push(player.card[0].cardName+'被偷了'+itemStolen+'件'+this.snacks[snackIdx].card[0].cardName+'。');
+      }
+    }
+
+    var damage:number = Math.floor(skill.power * powerup * (monster.att / player.def));
+    if(damage>0){
+      this.scripts[0].push(player.card[0].cardName+" 受到傷害, HP扣減 " + damage+" 點。");
+    }else{
+      this.scripts[0].push(player.card[0].cardName+" 沒有受到傷害。");
+    }
+
     var hp = player.hp - damage;
     if(hp<0){
       player.hp = 0;
@@ -486,7 +560,8 @@ export class GameBattleComponent implements OnInit {
           sp: 0,
           att: 0,
           def: 0,
-          status: ''
+          status: '',
+          dizzy: 0
         };
         this.playersInTeam.push(p);
       }
@@ -599,13 +674,13 @@ export class GameBattleComponent implements OnInit {
   }
 
   initMonsters():void{
+    this.isLoading = true;
     this.monsters =[];
     this.monsterCards = new Map<string, SiCard>();
     this.monsterCharactors = new Map<string, SiCharactor>();
 
     //load monster
     for(var i=0; i<this.stageMonsters.length; i++){
-
       this.gameService.getSiCard(this.stageMonsters[i].cardId).subscribe(
         e => {
           var card: SiCard = {

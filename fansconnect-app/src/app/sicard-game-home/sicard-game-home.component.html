@@ -1,7 +1,3 @@
-<div class="loadingDiv" *ngIf="isLoading" style="background-image: url('../assets/icons/three mo_02.gif')">
-  &nbsp;
-</div>
-
 <audio src="../assets/bgm/story.mp3" autoplay>
   <p>If you are reading this, it is because your browser does not support the audio element.</p>
 </audio>
@@ -48,7 +44,7 @@
       style="background-image: url('../../assets/icons/grass.png');">
     <h2 *ngIf="worlds.length>selectedWorld" class="world-title">【{{worlds[selectedWorld].worldName}}】</h2>
     <div *ngFor="let chapter of chapters | sichapterfilter; let chapterIndex=index" class="chapter-box">
-      <h3 class="chapter-title">第{{chapter.seq}}章 『{{chapter.chapterName}}』</h3>
+      <h3 class="chapter-title" (click)="changeSelectedChapter(chapterIndex)">第{{chapter.seq}}章 『{{chapter.chapterName}}』</h3>
       <div *ngIf="selectedChapter==chapterIndex">
         <div class="card" *ngFor="let task of tasks | sitaskfilter">
           <div class='card-body'>
@@ -106,4 +102,8 @@
           >商店</button>
   <button type="button" class="btn btn-dark" disabled>抽蛋</button>
   <button type="button" class="btn btn-dark" disabled>朋友</button>
+</div>
+
+<div class="loadingDiv" *ngIf="isLoading" style="background-image: url('../assets/icons/three mo_02.gif')">
+  &nbsp;
 </div>

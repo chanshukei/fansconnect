@@ -5,4 +5,6 @@ export interface Sitask {
   seq: number;
   staCost: number;
   taskStatus: string;
+  exp: number;
+  money: number;
 }

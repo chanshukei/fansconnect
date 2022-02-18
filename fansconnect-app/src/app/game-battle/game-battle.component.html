@@ -6,7 +6,7 @@
   <p>If you are reading this, it is because your browser does not support the audio element.</p>
 </audio>
 
-<div class="loadingDiv" style="background-image: url('../assets/icons/three mo_02.gif')" *ngIf="gameMode=='lose'">
+<div style="background-image: url('../assets/icons/three mo_02.gif')" *ngIf="gameMode=='lose'">
   &nbsp;
   <div class="victoryBg" style="background-image: url('../assets/icons/sicard-bg.png')">
     <p style="font-size: 16pt;">對唔住呀!</p>
@@ -17,7 +17,7 @@
   </div>
 </div>
 
-<div class="loadingDiv" style="background-image: url('../assets/icons/three mo_02.gif')" *ngIf="gameMode=='victory'">
+<div style="background-image: url('../assets/icons/three mo_02.gif')" *ngIf="gameMode=='victory'">
   &nbsp;
   <div class="victoryBg" style="background-image: url('../assets/icons/sicard-bg.png')">
     <p style="font-size: 16pt;">我真係恭喜你!</p>
@@ -27,11 +27,12 @@
   </div>
 </div>
 
-<div class="loadingDiv" style="background-image: url('../assets/icons/three mo_02.gif')" *ngIf="gameMode=='finish'">
+<div style="background-image: url('../assets/icons/three mo_02.gif')" *ngIf="gameMode=='finish'">
   &nbsp;
   <div class="victoryBg" style="background-image: url('../assets/icons/sicard-bg.png')">
     <p style="font-size: 16pt;">我真係恭喜你!</p>
     <p style="font-size: 16pt;">你成功通過《{{sitask.taskName}}》。</p>
+    <p style="font-size: 16pt;">你可得到{{sitask.exp}}EXP和${{sitask.money}}。</p>
     <p style="font-size: 16pt;">你的EXP提升到{{gameProfile.exp}}, Rank提升至{{gameProfile.rank}}。</p>
     <p style="font-size: 16pt;">請繼續旅程。</p>
     <button type="button" class="btn btn-light" style="font-size: 16pt;" (click)="gotoHome()">返回目錄</button>
@@ -43,9 +44,10 @@
     <div  *ngFor="let monster of monsters"
           [ngClass]="{'monsterStatus':(monster.status==''), 'monsterStatusDead':(monster.status=='dead')}">
       <p style="font-size: 12pt;">{{monster.monsterUname}}</p>
-      <p>HP&nbsp;{{monster.hp}}/{{monster.charactor[0].hp}}</p>
-      <p>SP&nbsp;{{monster.sp}}/{{monster.charactor[0].sp}}</p>
-      <p>ATT&nbsp;{{monster.att}}&nbsp;DEF&nbsp;{{monster.def}}</p>
+      <p>
+        HP{{monster.hp}}
+        SP{{monster.sp}}
+      </p>
     </div>
   </div>
 
@@ -59,19 +61,20 @@
   </div>
 
   <div class="player-panel" *ngIf="players.length>activePlayer && players[activePlayer].card.length>0">
-    <p style="font-size: 12pt;">
-      HP{{players[activePlayer].hp}}/{{players[activePlayer].charactor[0].hp}}
-      SP{{players[activePlayer].sp}}/{{players[activePlayer].charactor[0].sp}}
-      ATT{{players[activePlayer].att}}
-      DEF{{players[activePlayer].def}}
-    </p>
-
-    <div class="player-status">
-      <div class="player-image-box">
-        <img  class="player-image"
-              [src]="'https://fansconnect-game.azurewebsites.net/api/sicardimage/'+players[activePlayer].cardId+'?code=miMufIBJZhw3ByaH16D5Dc/8bBGv2RAPDzWnfEyuimnzW9sz5av7OA=='">
+    <div style="display: block; width: 100%; background-color: rgba(0, 0, 0, 0.5); padding: 5px;">
+      <div class="player-status">
+        <div class="player-image-box">
+          <img  class="player-image"
+                [src]="'https://fansconnect-game.azurewebsites.net/api/sicardimage/'+players[activePlayer].cardId+'?code=miMufIBJZhw3ByaH16D5Dc/8bBGv2RAPDzWnfEyuimnzW9sz5av7OA=='">
+        </div>
+        <div style="font-size: 10pt; text-align: center;">
+          HP{{players[activePlayer].hp}}
+          SP{{players[activePlayer].sp}}
+        </div>
+        <div>
+          <span class="effect-icon-dizzy" *ngIf="players[activePlayer].dizzy>0"><img src="../../assets/icons/dizzy.png"></span>
+        </div>
       </div>
-      <div class="player-name-box">{{players[activePlayer].card[0].cardName}}</div>
     </div>
 
     <div class='player-script-panel' *ngIf="playerPanelMode=='script'" (click)="nextScript()">
@@ -79,20 +82,19 @@
     </div>
 
     <div class='player-button-panel' *ngIf="playerPanelMode=='home'">
-      <button type="button" class="btn btn-light" (click)="changePlayerPanelMode('skills')">技能</button>
-      <button type="button" class="btn btn-light" (click)="changePlayerPanelMode('snacks')">零食</button><br>
+      <button type="button" class="btn btn-light" (click)="changePlayerPanelMode('skills')" [disabled]="players[activePlayer].dizzy>0">技能</button>
+      <button type="button" class="btn btn-light" (click)="changePlayerPanelMode('snacks')" [disabled]="players[activePlayer].dizzy>0">零食</button><br>
       <button type="button" class="btn btn-light" disabled>道具</button>
-      <button type="button" class="btn btn-light" disabled>裝備</button>
+      <button type="button" class="btn btn-light" (click)="playerTakeRest()">休息</button>
     </div>
 
     <!-- skill -->
     <div class='player-skills-panel' *ngIf="playerPanelMode=='skills'">
-      <div style="width: 110px; margin: 0; padding: 0; display: inline-block;">
+      <div style="width: 35%; margin: 0; padding: 0; display: inline-block;">
         <button *ngFor="let skill of players[activePlayer].card[0].skills; let skillIndex=index"
                 [disabled]="players[activePlayer].sp<skill.sp"
                 [ngClass]="{'btn':true, 'btn-light':(activeSkill!=skillIndex), 'btn-primary':(activeSkill==skillIndex), 'skills-btn':true}"
                 (click)="selectPlayerSkill1(skillIndex)">{{skill.skillName}}</button>
-        <button class="btn btn-danger skills-btn" (click)="changePlayerPanelMode('home')">返回目錄</button>
       </div>
       <div class="player-skill-info">
         <p *ngIf="activeSkill>=0" style="text-align: left;">
@@ -101,12 +103,13 @@
           &nbsp;SP-{{players[activePlayer].card[0].skills[activeSkill].sp}}
         </p>
         <button [disabled]="activeSkill==-1" class="btn btn-success skills-btn" (click)="selectPlayerSkill2()">決定</button>
+        <button class="btn btn-danger skills-btn" (click)="changePlayerPanelMode('home')">返回目錄</button>
       </div>
     </div>
 
     <!-- skill attack-->
     <div class='player-skills-attack-panel' *ngIf="playerPanelMode=='skills-attack'">
-      <div style="width: 110px; margin: 0; padding: 0; display: inline-block;">
+      <div style="width: 50%; margin: 0; padding: 0; display: inline-block;">
         <button *ngFor="let tMonster of monsters; let tMonsterIndex=index"
                 [disabled]="tMonster.status=='dead'"
                 [ngClass]="{'btn':true, 'btn-light':(activeTarget!=tMonsterIndex), 'btn-primary':(activeTarget==tMonsterIndex), 'tmonster-btn':true}"
@@ -120,7 +123,7 @@
 
     <!-- snacks-->
     <div class='player-snacks-panel' *ngIf="playerPanelMode=='snacks'">
-      <div style="width: 110px; margin: 0; padding: 0; display: inline-block;">
+      <div style="width: 35%; margin: 0; padding: 0; display: inline-block;">
         <button *ngFor="let snack of snacks; let snackIndex=index"
                 [disabled]="snack.count<=0"
                 [ngClass]="{'btn':true, 'btn-light':(activeSnack!=snackIndex), 'btn-primary':(activeSnack==snackIndex), 'snacks-btn':true}"
