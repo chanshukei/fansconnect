@@ -49,6 +49,7 @@ export class GameBattleComponent implements OnInit {
   playersInTeam: Player[] = [];
   stages: Stage[] = [];
   stageMonsters: StageMonster[] = [];
+  foods: SiCharactor[] = [];
 
   //in game
   players: Player[] = [];
@@ -79,6 +80,12 @@ export class GameBattleComponent implements OnInit {
       this.sitask = JSON.parse(str);
       var str2: string = window.sessionStorage.getItem('gameProfile')??'';
       this.gameProfile = JSON.parse(str2);
+      var foodStr: string = window.sessionStorage.getItem('foods')??'';
+      if(foodStr!=''){
+        this.foods.push(JSON.parse(foodStr));
+        window.sessionStorage.removeItem('foods');
+      }
+
       if(str!=''){
         this.router.navigate(['../game-battle'], {relativeTo: this.route});
       }else{
@@ -186,6 +193,13 @@ export class GameBattleComponent implements OnInit {
         status: '',
         dizzy: 0
       };
+
+      //food
+      if(this.foods.length>0 && this.foods[0].effect!='' && this.foods[0].effect.startsWith('dizzy')){
+        player.dizzy = -Number.parseInt(this.foods[0].effect.substring(6));
+        console.log('protect dizzy: '+player.dizzy);
+      }
+
       this.players.push(player);
     }
   }
@@ -232,7 +246,7 @@ export class GameBattleComponent implements OnInit {
   }
 
   gameOver():void{
-    this.router.navigate(['../sicard-game-start'], {relativeTo: this.route});
+    this.router.navigate(['../sicard-game-home'], {relativeTo: this.route});
   }
 
   monsterTurn():void{
@@ -270,8 +284,15 @@ export class GameBattleComponent implements OnInit {
       var pc = Number.parseInt(pt[1].substring(0, pt[1].indexOf('%')));
       var pcresult = Math.ceil(Math.random()*100);
       if(pcresult<=pc){
-        player.dizzy = 1;
-        this.scripts[0].push(player.card[0].cardName+'暈倒, 暫停一回合。');
+        if(player.dizzy<0){
+          this.scripts[0].push(player.card[0].cardName+'防止暈倒。');
+        }else{
+          this.scripts[0].push(player.card[0].cardName+'暈倒, 暫停一回合。');
+        }
+        player.dizzy += 1;
+        if(player.dizzy>1){
+          player.dizzy = 1;
+        }
       }
     }else if(skill.effect.startsWith('critical')){
       var pt = skill.effect.split(':');
@@ -518,7 +539,8 @@ export class GameBattleComponent implements OnInit {
             sp: e[0].sp,
             att: e[0].att,
             def: e[0].def,
-            charactorId: e[0].charactorId
+            charactorId: e[0].charactorId,
+            effect: e[0].effect
           };
           if(ctype == 'M'){
             this.monsterCharactors.set(cardId, sichar);

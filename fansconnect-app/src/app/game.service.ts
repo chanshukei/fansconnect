@@ -158,6 +158,16 @@ export class GameService  {
     );
   }
 
+  buySiFoods(cardId:string, p: GameProfile): Observable<GameProfile[]>{
+    var apiUrl = this.eventApi.concat(
+      "/buysifood/", cardId,
+      "?code=pF0T6hcd5HDSBvHpQwLiXV/iQLIYje6oz2fUkzMNeD77vXd6NTQDGQ==");
+    return this.http.post<GameProfile[]>(
+      apiUrl,
+      p
+    );
+  }
+
   buySiSnacks(cardId:string, count: number, p: GameProfile): Observable<GameProfile[]>{
     var apiUrl = this.eventApi.concat(
       "/buysisnack/", cardId, "/", count.toString(),
@@ -221,6 +231,24 @@ export class GameService  {
       "?code=2evkpoN40G0fBa71zOaaJz/ixaS8I7xfE47fP53YsX7zvbYmMCO5dg==");
     return this.http.get<SiCard[]>(apiUrl).pipe(
       catchError(this.handleError<SiCard[]>("Get SiCard", []))
+    );
+  }
+
+  getSiRestaurantCards(idolId: number): Observable<SiCard[]>{
+    var apiUrl = this.eventApi.concat(
+      "/sirestaurantcards/", idolId.toString(),
+      "?code=2dknYqAhBT4PQjoaefxoDsZieqgzR2O3ZDD8zdSw13Yj7vyiCMd28w==");
+    return this.http.get<SiCard[]>(apiUrl).pipe(
+      catchError(this.handleError<SiCard[]>("Get restaurant SiCards", []))
+    );
+  }
+
+  getSiFoodCards(parentId: string): Observable<SiCard[]>{
+    var apiUrl = this.eventApi.concat(
+      "/sifoodcards/", parentId,
+      "?code=N17GB/GliLFLydaSCUaeXDAKoJIyvMG7jr5hcWL0KwBs2NOzfaRKaw==");
+    return this.http.get<SiCard[]>(apiUrl).pipe(
+      catchError(this.handleError<SiCard[]>("Get food SiCards", []))
     );
   }
 

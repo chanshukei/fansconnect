@@ -37,7 +37,8 @@ export class SicardCreationComponent implements OnInit {
     sp: 0,
     att: 0,
     def: 0,
-    charactorId: 0
+    charactorId: 0,
+    effect: ''
   };
 
   editSkills: SiSkill[] = [];
@@ -141,7 +142,8 @@ export class SicardCreationComponent implements OnInit {
             sp: e[0].sp,
             att: e[0].att,
             def: e[0].def,
-            charactorId: e[0].charactorId
+            charactorId: e[0].charactorId,
+            effect: e[0].effect
           };
         };
         this.isLoading = false;

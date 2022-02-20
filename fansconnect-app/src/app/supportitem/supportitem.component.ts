@@ -152,6 +152,7 @@ export class SupportitemComponent implements OnInit {
     this.isLoading = true;
     this.itemService.getItems(1).subscribe(
       e => {
+        console.log(e);
         for(var i=0; i<e.length; i++){
           if(this.verificationCode==''){
             var today = new Date();

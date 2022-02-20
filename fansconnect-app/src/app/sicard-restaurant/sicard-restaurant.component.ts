@@ -3,21 +3,22 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SiCard } from '../game-creation/sicard';
 import { SiCharactor } from '../game-creation/sicharactor';
 import { GameService } from '../game.service';
-import { Sitask } from '../sicard-game-home/sitask';
 import { GameProfile } from '../sicard-game-start/game-profile';
 
 @Component({
-  selector: 'app-sicard-snack-shop',
-  templateUrl: './sicard-snack-shop.component.html',
-  styleUrls: ['./sicard-snack-shop.component.sass']
+  selector: 'app-sicard-restaurant',
+  templateUrl: './sicard-restaurant.component.html',
+  styleUrls: ['./sicard-restaurant.component.sass']
 })
-export class SicardSnackShopComponent implements OnInit {
+export class SicardRestaurantComponent implements OnInit {
 
+  gameMode: string = 'restaurantList';
   isLoading: boolean = false;
-  snackCards: SiCard[] = [];
-  selectedSnackCount: number = 1;
-  selectedSnackIndex: number = -1;
-  snackCharactors: Map<string, SiCharactor> = new Map<string, SiCharactor>();
+  restaurantCards: SiCard[] = [];
+  foodCards: SiCard[] = [];
+  selectedRestaurantIdx: number = -1;
+  selectedFoodIndex: number = -1;
+  foodCharactors: Map<string, SiCharactor> = new Map<string, SiCharactor>();
 
   gameProfile: GameProfile = {
     gameId: '', gameUid: 0, gameName:'',
@@ -43,17 +44,17 @@ export class SicardSnackShopComponent implements OnInit {
         var str: string = window.sessionStorage.getItem('gameProfile')??'';
         this.gameProfile = JSON.parse(str);
         if(str!=null && str!=null){
-          this.router.navigate(['../sicard-snack-shop'], {relativeTo: this.route});
+          this.router.navigate(['../sicard-restaurant'], {relativeTo: this.route});
         }else{
           this.router.navigate(['../login'], {relativeTo: this.route});
         }
       });
   }
 
-  getSnackEffect(cardId: string): string{
+  getFoodEffect(cardId: string): string{
     var effect: string = '';
-    if(this.snackCharactors.has(cardId)){
-      var siChar: SiCharactor = this.snackCharactors.get(cardId)??{
+    if(this.foodCharactors.has(cardId)){
+      var siChar: SiCharactor = this.foodCharactors.get(cardId)??{
         cardId: cardId,
         charactorId: 0,
         hp: 0,
@@ -74,6 +75,11 @@ export class SicardSnackShopComponent implements OnInit {
       if(siChar.def>0){
         effect += (' DEF+'+siChar.def);
       }
+      if(siChar.effect!=''){
+        if(siChar.effect.startsWith('dizzy')){
+          effect += ' 防止暈眩'+siChar.effect.substring(6)+'次';
+        }
+      }
     }
     return effect;
   }
@@ -82,31 +88,37 @@ export class SicardSnackShopComponent implements OnInit {
     this.router.navigate(['../sicard-game-home'], {relativeTo: this.route});
   }
 
-  buySnack(): void{
+  buyFood(): void{
+    var food = this.foodCharactors.get(this.foodCards[this.selectedFoodIndex].cardId);
     this.gameService
-      .buySiSnacks(this.snackCards[this.selectedSnackIndex].cardId, this.selectedSnackCount, this.gameProfile)
+      .buySiFoods(this.foodCards[this.selectedFoodIndex].cardId, this.gameProfile)
       .subscribe( e => {
         this.gameProfile.money = e[0].money;
+        window.sessionStorage.setItem('foods', JSON.stringify(food));
         window.sessionStorage.setItem('gameProfile', JSON.stringify(this.gameProfile));
-        window.alert("購買成功");
-        this.selectedSnackCount = 1;
-        this.selectedSnackIndex = -1;
+        window.alert("點餐成功, 進食完畢, 效果將於下一次戰鬥時發揮。");
+        this.selectedFoodIndex = -1;
     });
   }
 
-  selectSnack(idx: number): void{
-    this.selectedSnackIndex = idx;
-    this.selectedSnackCount = 1;
+  selectFood(idx: number): void{
+    this.selectedFoodIndex = idx;
+  }
+
+  selectRestaurant(idx: number): void{
+    this.gameMode = 'foodList';
+    this.selectedRestaurantIdx = idx;
+    this.loadFoodCards();
   }
 
   ngOnInit(): void {
-    this.loadSnackCards();
+    this.loadRestaurantCards();
   }
 
-  loadSnackCards(): void{
+  loadRestaurantCards(): void{
     this.isLoading = true;
-    this.snackCards.length = 0;
-    this.gameService.getSiSnackCards(1).subscribe(
+    this.foodCards.length = 0;
+    this.gameService.getSiRestaurantCards(1).subscribe(
       e => {
         for(var i=0; i<e.length; i++){
           var e2: SiCard = {
@@ -125,7 +137,35 @@ export class SicardSnackShopComponent implements OnInit {
             status: e[i].status,
             skills: []
           };
-          this.snackCards.push(e2);
+          this.restaurantCards.push(e2);
+        }
+        this.isLoading = false;
+    });
+  }
+
+  loadFoodCards(): void{
+    this.isLoading = true;
+    this.foodCards.length = 0;
+    this.gameService.getSiFoodCards(this.restaurantCards[this.selectedRestaurantIdx].cardId).subscribe(
+      e => {
+        for(var i=0; i<e.length; i++){
+          var e2: SiCard = {
+            cardId: e[i].cardId,
+            cardName: e[i].cardName,
+            cardDescription: e[i].cardDescription,
+            cardType: e[i].cardType,
+            cardRare: e[i].cardRare,
+            fileContent: e[i].fileContent,
+            fileName: e[i].fileName,
+            filePath: e[i].filePath,
+            fileType: e[i].fileType,
+            idolId: e[i].idolId,
+            createDate: e[i].createDate,
+            createBy: e[i].createBy,
+            status: e[i].status,
+            skills: []
+          };
+          this.foodCards.push(e2);
           this.loadSiCharactor(e2.cardId);
         }
         this.isLoading = false;
@@ -146,7 +186,7 @@ export class SicardSnackShopComponent implements OnInit {
             charactorId: e[0].charactorId,
             effect: e[0].effect
           };
-          this.snackCharactors.set(cardId, sichar);
+          this.foodCharactors.set(cardId, sichar);
         };
         this.isLoading = false;
       }

@@ -1,5 +1,6 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SiCharactor } from '../game-creation/sicharactor';
 import { GameService } from '../game.service';
 import { GameProfile } from '../sicard-game-start/game-profile';
 import { Sichapter } from './sichapter';
@@ -29,6 +30,10 @@ export class SicardGameHomeComponent implements OnInit {
 
   gotoSnackShop(): void{
     this.router.navigate(['../sicard-snack-shop'], {relativeTo: this.route});
+  }
+
+  gotoRestaurant(): void{
+    this.router.navigate(['../sicard-restaurant'], {relativeTo: this.route});
   }
 
   constructor(

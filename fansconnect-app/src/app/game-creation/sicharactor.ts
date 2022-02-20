@@ -5,4 +5,5 @@ export interface SiCharactor {
   sp: number;
   att: number;
   def: number;
+  effect: string;
 }

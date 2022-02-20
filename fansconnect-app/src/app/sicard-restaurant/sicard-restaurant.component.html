@@ -40,48 +40,48 @@
 <div class="main" style="background-image: url('../../assets/icons/three mo_02.gif');">
   <div class="world-box"
     style="background-image: url('../../assets/icons/brick.png'); padding-top: 5px;">
-    <h2 class="world-title">【零食店】</h2>
+    <h2 class="world-title">
+      【餐廳】
+      <span style="font-size: 12pt; color: darkblue; text-decoration: underline;" *ngIf="selectedRestaurantIdx>=0">{{restaurantCards[selectedRestaurantIdx].cardName}}</span>
+      <span style="font-size: 12pt; color: darkblue; text-decoration: underline;" *ngIf="selectedRestaurantIdx<0">歡迎餐廳加盟</span>
+    </h2>
 
-    <!-- snack list -->
-    <div style="width: 50%; float: left;">
-      <button *ngFor="let snackCard of snackCards; let snackIdx = index" type="button"
+    <!-- restaurant list -->
+    <div style="width: 100%;" *ngIf="gameMode=='restaurantList'">
+      <button *ngFor="let restaurantCard of restaurantCards; let rIdx=index" type="button"
+              class="btn btn-light"
+              (click)="selectRestaurant(rIdx)">
+        <img  class="card-image"
+              [src]="'https://fansconnect-game.azurewebsites.net/api/sicardimage/'+restaurantCard.cardId+'?code=miMufIBJZhw3ByaH16D5Dc/8bBGv2RAPDzWnfEyuimnzW9sz5av7OA=='">
+        <br />
+        {{restaurantCard.cardName}}
+      </button>
+    </div>
+
+    <!-- food list -->
+    <div style="width: 50%; float: left;" *ngIf="gameMode=='foodList'">
+      <button *ngFor="let foodCard of foodCards; let foodIdx = index" type="button"
               class="btn btn-light btn-shop"
               [ngClass]="{
-                'btn-primary':(snackIdx==selectedSnackIndex),
-                'btn-light':(snackIdx!=selectedSnackIndex)}"
-              (click)="selectSnack(snackIdx)">
-        {{snackCard.cardName}}
+                'btn-primary':(foodIdx==selectedFoodIndex),
+                'btn-light':(foodIdx!=selectedFoodIndex)}"
+              (click)="selectFood(foodIdx)">
+        {{foodCard.cardName}}
       </button>
     </div>
 
     <!-- info window-->
-    <div style="width: 50%; border: 2px solid white; background: none;  float: right;">
-      <div class="card" *ngIf="selectedSnackIndex>=0" style="background: rgba(255,255,255,0.8)">
+    <div style="width: 50%; border: 2px solid white; background: none;  float: right;" *ngIf="gameMode=='foodList'">
+      <div class="card" *ngIf="selectedFoodIndex>=0" style="background: rgba(255,255,255,0.8)">
         <div class="card-title" style="margin: auto;">
           <img class="card-image"
-            [src]="'https://fansconnect-game.azurewebsites.net/api/sicardimage/'+snackCards[selectedSnackIndex].cardId+'?code=miMufIBJZhw3ByaH16D5Dc/8bBGv2RAPDzWnfEyuimnzW9sz5av7OA=='">
+            [src]="'https://fansconnect-game.azurewebsites.net/api/sicardimage/'+foodCards[selectedFoodIndex].cardId+'?code=miMufIBJZhw3ByaH16D5Dc/8bBGv2RAPDzWnfEyuimnzW9sz5av7OA=='">
         </div>
-        <p class="card-text">{{snackCards[selectedSnackIndex].cardDescription}}</p>
-        <p class="card-text" style="text-align: center;">{{getSnackEffect(snackCards[selectedSnackIndex].cardId)}}</p>
+        <p class="card-text">{{foodCards[selectedFoodIndex].cardDescription}}</p>
+        <p class="card-text" style="text-align: center;">{{getFoodEffect(foodCards[selectedFoodIndex].cardId)}}</p>
       </div>
-      <div style="width: 90%; margin:5px; padding: 10px; text-align: center; font-size: 14pt; font-weight: bold; background-color: black; border-radius: 5px; color: white;">
-        <select [(ngModel)]="selectedSnackCount" class="form-control"
-                [disabled]="selectedSnackIndex==-1" style="width: 50px; display: inline;">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-        </select>
-        件
-      </div>
-      <button type="button" class="btn btn-primary" (click)="buySnack()"
-              style="width: 90%;" [disabled]="selectedSnackIndex==-1">購買</button>
+      <button type="button" class="btn btn-primary" (click)="buyFood()"
+              style="width: 90%;" [disabled]="selectedFoodIndex==-1">購買</button>
     </div>
   </div>
 </div>

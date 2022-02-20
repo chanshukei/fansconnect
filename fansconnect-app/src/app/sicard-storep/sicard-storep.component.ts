@@ -44,7 +44,8 @@ export class SicardStorepComponent implements OnInit {
       hp: 0,
       sp: 0,
       att: 0,
-      def: 0
+      def: 0,
+      effect: ''
     };
     return siChar;
   }
@@ -133,7 +134,8 @@ export class SicardStorepComponent implements OnInit {
             sp: e[0].sp,
             att: e[0].att,
             def: e[0].def,
-            charactorId: e[0].charactorId
+            charactorId: e[0].charactorId,
+            effect: e[0].effect
           };
           this.charactors.set(cardId, sichar);
         };
