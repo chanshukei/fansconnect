@@ -28,6 +28,10 @@ export class SicardGameHomeComponent implements OnInit {
     expFull: 0, staFull: 0, rank: 0
   }
 
+  gotoCardStore(): void{
+    this.router.navigate(['../sicard-cardstore'], {relativeTo: this.route});
+  }
+
   gotoSnackShop(): void{
     this.router.navigate(['../sicard-snack-shop'], {relativeTo: this.route});
   }

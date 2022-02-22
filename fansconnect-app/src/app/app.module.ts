@@ -47,6 +47,7 @@ import { SicardSnackShopComponent } from './sicard-snack-shop/sicard-snack-shop.
 import { SitaskFilter } from './sicard-game-home/sitaskfilter';
 import { SichapterFilter } from './sicard-game-home/sichapterfilter';
 import { SicardRestaurantComponent } from './sicard-restaurant/sicard-restaurant.component';
+import { SicardCardstoreComponent } from './sicard-cardstore/sicard-cardstore.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,8 @@ import { SicardRestaurantComponent } from './sicard-restaurant/sicard-restaurant
     SicardStorepComponent,
     SicardCreationComponent,
     SicardSnackShopComponent,
-    SicardRestaurantComponent
+    SicardRestaurantComponent,
+    SicardCardstoreComponent
   ],
   imports: [
     BrowserModule,

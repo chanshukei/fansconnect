@@ -7,6 +7,7 @@ import { Snack } from './game-battle/snack';
 import { Stage } from './game-battle/stage';
 import { StageMonster } from './game-battle/stage-monster';
 import { SiCard } from './game-creation/sicard';
+import { SiCardInst } from './game-creation/sicard-inst';
 import { SiCharactor } from './game-creation/sicharactor';
 import { SiSkill } from './game-creation/siskill';
 import { Sichapter } from './sicard-game-home/sichapter';
@@ -231,6 +232,17 @@ export class GameService  {
       "?code=2evkpoN40G0fBa71zOaaJz/ixaS8I7xfE47fP53YsX7zvbYmMCO5dg==");
     return this.http.get<SiCard[]>(apiUrl).pipe(
       catchError(this.handleError<SiCard[]>("Get SiCard", []))
+    );
+  }
+
+  getSiCardInsts(idolId: number, p: GameProfile): Observable<SiCardInst[]>{
+    console.log(p);
+    var apiUrl = this.eventApi.concat(
+      "/sicardinst/", idolId.toString(),
+      "?code=qtKJyUQhZSmIr1xGaIz52UfHxAnZqHBNPAnEH0RKhDlDJOvUyPrN3g==");
+    return this.http.post<SiCardInst[]>(
+      apiUrl,
+      p
     );
   }
 

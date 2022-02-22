@@ -94,8 +94,9 @@
           [ngClass]="{'btn btn-primary':(mode=='story'), 'btn btn-light':(mode!='story')}"
           >故事</button>
   <button type="button"
+          (click)="gotoCardStore()"
           [ngClass]="{'btn btn-primary':(mode=='charactor'), 'btn btn-light':(mode!='charactor')}"
-          >角色</button>
+          >卡庫</button>
   <button type="button"
           (click)="gotoShop()"
           [ngClass]="{'btn btn-primary':(mode=='shop'), 'btn btn-light':(mode!='shop')}"

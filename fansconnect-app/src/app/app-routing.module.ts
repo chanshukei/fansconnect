@@ -37,6 +37,7 @@ import { SicardStorepComponent } from './sicard-storep/sicard-storep.component';
 import { SicardCreationComponent } from './sicard-creation/sicard-creation.component';
 import { SicardSnackShopComponent } from './sicard-snack-shop/sicard-snack-shop.component';
 import { SicardRestaurantComponent } from './sicard-restaurant/sicard-restaurant.component';
+import { SicardCardstoreComponent } from './sicard-cardstore/sicard-cardstore.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -58,6 +59,7 @@ const routes: Routes = [
   { path: 'myorderReview', component: MyorderReviewComponent },
   { path: 'orderReview', component: OrderReviewComponent },
   { path: 'game-battle', component: GameBattleComponent },
+  { path: 'sicard-cardstore', component: SicardCardstoreComponent },
   { path: 'sicard-game-start', component: SicardGameStartComponent },
   { path: 'sicard-game-home', component: SicardGameHomeComponent },
   { path: 'sicard-snack-shop', component: SicardSnackShopComponent },
