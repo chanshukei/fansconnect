@@ -278,6 +278,7 @@ export class GameBattleComponent implements OnInit {
     this.scripts[0].push(monster.monsterUname+' 使用了 '+skill.skillName+'。');
 
     //effect
+    var damageAdd = 0;
     var powerup = 1;
     if(skill.effect.startsWith('dizzy')){
       var pt = skill.effect.split(':');
@@ -320,9 +321,16 @@ export class GameBattleComponent implements OnInit {
         this.snacks[snackIdx].count -= 1;
         this.scripts[0].push(player.card[0].cardName+'被偷了'+itemStolen+'件'+this.snacks[snackIdx].card[0].cardName+'。');
       }
+    }else if(skill.effect.startsWith('bomb')){
+      var pt = skill.effect.split(':');
+      var pc = Number.parseInt(pt[1].substring(0, pt[1].indexOf('%')));
+      damageAdd = (monster.hp * pc / 100);
+      monster.hp = 0;
+      monster.status = 'dead';
+      this.scripts[0].push(monster.card[0].cardName+'自爆。');
     }
 
-    var damage:number = Math.floor(skill.power * powerup * (monster.att / player.def));
+    var damage:number = Math.floor(skill.power * powerup * (monster.att / player.def)) + damageAdd;
     if(damage>0){
       this.scripts[0].push(player.card[0].cardName+" 受到傷害, HP扣減 " + damage+" 點。");
     }else{
