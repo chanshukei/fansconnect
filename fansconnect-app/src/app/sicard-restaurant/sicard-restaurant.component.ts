@@ -61,7 +61,8 @@ export class SicardRestaurantComponent implements OnInit {
         sp: 0,
         att: 0,
         def: 0,
-        effect: ''
+        effect: '',
+        hpLv: 0, spLv:0 ,attLv: 0, defLv: 0
       };
       if(siChar.hp>0){
         effect += (' HP+'+siChar.hp);
@@ -184,7 +185,8 @@ export class SicardRestaurantComponent implements OnInit {
             att: e[0].att,
             def: e[0].def,
             charactorId: e[0].charactorId,
-            effect: e[0].effect
+            effect: e[0].effect,
+            hpLv: 0, spLv:0 ,attLv: 0, defLv: 0
           };
           this.foodCharactors.set(cardId, sichar);
         };

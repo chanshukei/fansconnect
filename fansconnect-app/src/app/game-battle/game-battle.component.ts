@@ -1,4 +1,3 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SiCard } from '../game-creation/sicard';
@@ -134,7 +133,8 @@ export class GameBattleComponent implements OnInit {
             var sm: StageMonster = {
               cardId: e[i].cardId,
               monsterCount: e[i].monsterCount,
-              stageUid: e[i].stageUid
+              stageUid: e[i].stageUid,
+              rank: e[i].rank
             };
             this.stageMonsters.push(sm);
           }
@@ -179,19 +179,30 @@ export class GameBattleComponent implements OnInit {
   }
 
   createPlayers(cardId: string): void{
+    var playerIdx = -1;
+    for(var i=0; i<this.playersInTeam.length; i++){
+      if(this.playersInTeam[i].cardId==cardId){
+        playerIdx = i;
+      }
+    }
+
     var card = this.playerCards.get(cardId);
     var charactor = this.playerCharactors.get(cardId);
     if(card!=null && charactor!=null){
       var player: Player = {
         card: [card],
         charactor: [charactor],
-        hp: charactor.hp,
-        sp: charactor.sp,
-        att: charactor.att,
-        def: charactor.def,
+        hp: charactor.hp + charactor.hpLv*(this.playersInTeam[playerIdx].rank-1),
+        sp: charactor.sp + charactor.spLv*(this.playersInTeam[playerIdx].rank-1),
+        att: charactor.att + charactor.attLv*(this.playersInTeam[playerIdx].rank-1),
+        def: charactor.def + charactor.defLv*(this.playersInTeam[playerIdx].rank-1),
         cardId: cardId,
         status: '',
-        dizzy: 0
+        dizzy: 0,
+        rank: this.playersInTeam[playerIdx].rank,
+        cardUid: this.playersInTeam[playerIdx].cardUid,
+        exp: this.playersInTeam[playerIdx].exp,
+        expFull: this.playersInTeam[playerIdx].expFull
       };
 
       //food
@@ -328,12 +339,22 @@ export class GameBattleComponent implements OnInit {
       monster.hp = 0;
       monster.status = 'dead';
       this.scripts[0].push(monster.card[0].cardName+'自爆。');
+    }else if(skill.effect.startsWith('hp')){
+      var pt = skill.effect.split(':');
+      var pc = Number.parseInt(pt[1]);
+      monster.hp += pc;
+      this.scripts[0].push(monster.card[0].cardName+'回復HP'+pc+'點。');
+    }else if(skill.effect.startsWith('hide')){
+      var pt = skill.effect.split(':');
+      var pc = Number.parseInt(pt[1].substring(0, pt[1].indexOf('%')));
+      monster.hide = pc;
+      this.scripts[0].push(monster.card[0].cardName+'隱藏了。');
     }
 
-    var damage:number = Math.floor(skill.power * powerup * (monster.att / player.def)) + damageAdd;
+    var damage:number = Math.floor(skill.power * powerup * (monster.att / player.def) + damageAdd);
     if(damage>0){
       this.scripts[0].push(player.card[0].cardName+" 受到傷害, HP扣減 " + damage+" 點。");
-    }else{
+    }else if(skill.power>0){
       this.scripts[0].push(player.card[0].cardName+" 沒有受到傷害。");
     }
 
@@ -366,12 +387,20 @@ export class GameBattleComponent implements OnInit {
 
     if(skill.power>0){
       //animation
-      var damage = (skill.power * Math.floor(this.players[this.activePlayer].att)/monster.def);
+      var damage = Math.floor(skill.power * this.players[this.activePlayer].att/monster.def);
       this.activeScript = 0;
+
       this.scripts = [[
-        this.players[this.activePlayer].card[0].cardName+' 使用了 '+skill.skillName+'。',
-        monster.monsterUname+" 受到傷害, HP扣減 " + damage+" 點。"
+        this.players[this.activePlayer].card[0].cardName+' 使用了 '+skill.skillName+'。'
       ]];
+
+      var hit:number = Math.ceil(100 * Math.random());
+      if(hit > monster.hide){
+        this.scripts[0].push(monster.monsterUname+" 受到傷害, HP扣減 " + damage+" 點。");
+      }else{
+        this.scripts[0].push(monster.monsterUname+" 回避了。");
+      }
+
       var hp = monster.hp - damage;
       if(hp<0){
         monster.hp = 0;
@@ -477,18 +506,25 @@ export class GameBattleComponent implements OnInit {
     var card = this.monsterCards.get(cardId);
     var charactor = this.monsterCharactors.get(cardId);
     if(card!=null && charactor!=null){
+      var smIdx = -1;
+      for(var i=0; i<this.stageMonsters.length; i++){
+        if(this.stageMonsters[i].cardId == cardId){
+          smIdx = i;
+        }
+      }
+
       var monsterCount = this.getMonsterCount(cardId);
       for(var i=0; i<monsterCount; i++){
         var monster: Monster = {
           card: [card],
           charactor: [charactor],
-          hp: charactor.hp,
-          sp: charactor.sp,
-          att: charactor.att,
-          def: charactor.def,
+          hp: charactor.hp + (this.stageMonsters[smIdx].rank-1)*charactor.hpLv,
+          sp: charactor.sp + (this.stageMonsters[smIdx].rank-1)*charactor.spLv,
+          att: charactor.att + (this.stageMonsters[smIdx].rank-1)*charactor.attLv,
+          def: charactor.def + (this.stageMonsters[smIdx].rank-1)*charactor.defLv,
           cardId: cardId,
           monsterUname: monsterCount==1?card.cardName:card.cardName+(i+1),
-          status: ''
+          status: '', hide: 0
         };
         this.monsters.push(monster);
       }
@@ -548,7 +584,11 @@ export class GameBattleComponent implements OnInit {
             att: e[0].att,
             def: e[0].def,
             charactorId: e[0].charactorId,
-            effect: e[0].effect
+            effect: e[0].effect,
+            hpLv: e[0].hpLv,
+            spLv: e[0].spLv,
+            attLv: e[0].attLv,
+            defLv: e[0].defLv
           };
           if(ctype == 'M'){
             this.monsterCharactors.set(cardId, sichar);
@@ -597,7 +637,11 @@ export class GameBattleComponent implements OnInit {
           att: 0,
           def: 0,
           status: '',
-          dizzy: 0
+          dizzy: 0,
+          rank: e[i].rank,
+          exp: e[i].exp,
+          expFull: e[i].expFull,
+          cardUid: e[i].cardUid
         };
         this.playersInTeam.push(p);
       }
@@ -624,7 +668,8 @@ export class GameBattleComponent implements OnInit {
               var sm: StageMonster = {
                 cardId: e2[j].cardId,
                 stageUid: e2[j].stageUid,
-                monsterCount: e2[j].monsterCount
+                monsterCount: e2[j].monsterCount,
+                rank: e2[j].rank
               }
               this.stageMonsters.push(sm);
             }

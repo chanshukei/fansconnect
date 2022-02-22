@@ -37,7 +37,8 @@ export class GameCreationComponent implements OnInit {
     att: 0,
     def: 0,
     charactorId: 0,
-    effect: ''
+    effect: '',
+    hpLv: 0, spLv: 0, attLv: 0, defLv: 0
   };
 
   editSkills: SiSkill[] = [];
@@ -142,7 +143,11 @@ export class GameCreationComponent implements OnInit {
             att: e[0].att,
             def: e[0].def,
             charactorId: e[0].charactorId,
-            effect: e[0].effect
+            effect: e[0].effect,
+            hpLv: e[0].hpLv,
+            spLv: e[0].spLv,
+            attLv: e[0].attLv,
+            defLv: e[0].defLv
           };
         };
         this.isLoading = false;

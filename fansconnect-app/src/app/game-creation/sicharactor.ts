@@ -6,4 +6,8 @@ export interface SiCharactor {
   att: number;
   def: number;
   effect: string;
+  hpLv: number;
+  spLv: number;
+  attLv: number;
+  defLv: number;
 }

@@ -10,5 +10,6 @@ export interface Monster {
   def: number,
   card: SiCard[],
   charactor: SiCharactor[],
-  status: string
+  status: string,
+  hide: number
 }

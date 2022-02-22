@@ -1,5 +1,6 @@
 export interface StageMonster {
   stageUid: number,
   cardId: string,
-  monsterCount: number
+  monsterCount: number,
+  rank: number
 }

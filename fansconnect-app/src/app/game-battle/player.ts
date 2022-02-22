@@ -1,9 +1,9 @@
 import { SiCard } from "../game-creation/sicard";
 import { SiCharactor } from "../game-creation/sicharactor";
-import { SiSkill } from "../game-creation/siskill";
 
 export interface Player {
   cardId: string,
+  cardUid: string,
   hp: number,
   sp: number,
   att: number,
@@ -11,5 +11,8 @@ export interface Player {
   card: SiCard[],
   charactor: SiCharactor[],
   status: string,
-  dizzy: number
+  dizzy: number,
+  exp: number,
+  expFull: number,
+  rank: number
 }
