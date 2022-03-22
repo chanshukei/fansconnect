@@ -147,6 +147,14 @@ export class ShopComponent implements OnInit {
       this.pagemode = 'payment';
     }
 
+    getTotalAmountText():string{
+      var t = this.getTotalAmount();
+      if(t==0){
+        return "不定價(隨心)";
+      }
+      return t.toString();
+    }
+
     getTotalAmount():number{
       var total = 0;
       for(var i=0; i<this.orderlines.length; i++){

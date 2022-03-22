@@ -43,7 +43,8 @@
                 src='{{ "https://fansconnect-idol.azurewebsites.net/api/shopimage/" + item.itemId + "?code=NYMr/MS73CVCycagYJmwTYYSGwo864LGSgCo0dlcJ3TdWqQLmp18sQ=="}}'>
         </p>
         <p style="font-size: 12pt;" [innerText]="item.itemDescription"></p>
-        <p class='card-text'>${{item.price}}</p>
+        <p class='card-text' *ngIf="item.price==0">不定價 (隨心)</p>
+        <p class='card-text' *ngIf="item.price>0">${{item.price}}</p>
         <p class='card-text' style="float: right;">
           <button class="btn btn-dark" type="button" (click)="changeOrder(item.itemId, -1)">-</button>
           {{getOrderLineCount(item.itemId)}}
@@ -54,7 +55,7 @@
 
     <button type="button" class="btn btn-primary" style="width: 95%; text-align: center;"
             (click)="pay()"
-            i18n>付款 ${{getTotalAmount()}}</button>
+            i18n>付款 ${{getTotalAmountText()}}</button>
   </div>
 
   <div *ngIf="pagemode=='payment'">
@@ -71,7 +72,7 @@
         </p>
         <br><br>
 
-        <h3 class="card-title">總數: ${{getTotalAmount()}}</h3>
+        <h3 class="card-title">總數: ${{getTotalAmountText()}}</h3>
         <div class="container">
           <div class="row">
             <div class='col col-md-4'><label class="form-label">圖片證明</label></div>
