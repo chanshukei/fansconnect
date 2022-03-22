@@ -43,7 +43,7 @@
                 src='{{ "https://fansconnect-idol.azurewebsites.net/api/shopimage/" + item.itemId + "?code=NYMr/MS73CVCycagYJmwTYYSGwo864LGSgCo0dlcJ3TdWqQLmp18sQ=="}}'>
         </p>
         <p style="font-size: 12pt;" [innerText]="item.itemDescription"></p>
-        <p class='card-text' *ngIf="item.price==0">不定價 (隨心)</p>
+        <p class='card-text' *ngIf="item.price==0">多多益Si</p>
         <p class='card-text' *ngIf="item.price>0">${{item.price}}</p>
         <p class='card-text' style="float: right;">
           <button class="btn btn-dark" type="button" (click)="changeOrder(item.itemId, -1)">-</button>
