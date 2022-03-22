@@ -150,7 +150,7 @@ export class ShopComponent implements OnInit {
     getTotalAmountText():string{
       var t = this.getTotalAmount();
       if(t==0){
-        return "不定價(隨心)";
+        return "多多益Si";
       }
       return t.toString();
     }
