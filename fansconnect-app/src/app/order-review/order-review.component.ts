@@ -17,10 +17,21 @@ export class OrderReviewComponent implements OnInit {
     itemName: ''
   };
 
+  editingOrderline: Orderline = {
+    lineId: -1,
+    itemId: -1,
+    price: 0,
+    totalAmount: 0,
+    itemCount: 0,
+    itemName: ''
+  };
+  newItemCount: number = 0;
+  newTotalAmount: number = 0;
   isShowImage: boolean = false;
   isLoading: boolean = false;
   orders: Order[] = [];
   orderlineSummary: Map<string, Orderline> = new Map();
+
 
   getSummaryArray(): Orderline[]{
     return Array.from(this.orderlineSummary.values());
@@ -28,6 +39,8 @@ export class OrderReviewComponent implements OnInit {
 
   listOrders(): void{
     this.isLoading = true;
+    this.orders = [];
+    this.orderlineSummary = new Map();
     this.itemService.getOrders(1).subscribe(
       e => {
         for(var i=0; i<e.length; i++){
@@ -115,6 +128,49 @@ export class OrderReviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.listOrders();
+  }
+
+  cancelEditOrderline():void{
+    this.editingOrderline = {
+      lineId: -1,
+      itemId: -1,
+      price: 0,
+      totalAmount: 0,
+      itemCount: 0,
+      itemName: ''
+    };
+  }
+
+  editOrderline(line: Orderline):void{
+    this.editingOrderline = line;
+    this.newItemCount = line.itemCount;
+    this.newTotalAmount = line.totalAmount;
+  }
+
+  updateOrderline(): void{
+    var newOrderline: Orderline = {
+      lineId: this.editingOrderline.lineId,
+      itemId: this.editingOrderline.itemId,
+      itemName: this.editingOrderline.itemName,
+      price: this.editingOrderline.price,
+      itemCount: this.newItemCount,
+      totalAmount: this.newTotalAmount
+    }
+    this.itemService.updateOrderline(newOrderline).subscribe(
+      data => {
+        window.alert("儲存成功");
+        window.scrollTo(0, 0);
+        this.editingOrderline = {
+          lineId: -1,
+          itemId: -1,
+          price: 0,
+          totalAmount: 0,
+          itemCount: 0,
+          itemName: ''
+        };
+        this.listOrders();
+      }
+    );
   }
 
   backToMenu(): void{

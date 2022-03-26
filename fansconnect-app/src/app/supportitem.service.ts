@@ -18,6 +18,15 @@ export class SupportitemService {
 
   constructor(private http: HttpClient) {}
 
+  updateOrderline(line: Orderline): Observable<Orderline>{
+    var apiUrl = this.eventApi.concat("/orderline/", line.lineId.toString(), "?");
+    console.log(line);
+    return this.http.post<Orderline>(
+      apiUrl,
+      line
+    );
+  }
+
   addOrder(order: Order): Observable<Order>{
     var apiUrl = this.eventApi.concat("/order/", order.idolId.toString(), "?");
     console.log(order);
