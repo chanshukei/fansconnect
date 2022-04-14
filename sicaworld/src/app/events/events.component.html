@@ -1,0 +1,35 @@
+<h2 style="display: inline-block;" i18n>事件簿</h2>
+
+<div class="loadingDiv" *ngIf="isLoading" style="background-image: url('../assets/icons/three mo_02.gif')">
+  &nbsp;
+</div>
+
+<!-- div style="text-align: right;">
+  <button type="button" (click)="goToMaterial()" class="btn btn-light">回憶閣</button>
+  <button type="button" class="btn btn-light" (click)="goToEventFans()" i18n>車力巨人之野史</button>
+</div -->
+
+<form>
+  <div>
+      <select class="form-input" name="selectedYearmonth" [(ngModel)]="selectedYearmonth">
+        <option value="all">所有月份</option>
+        <option *ngFor="let ym of yearmonths">{{ym}}</option>
+      </select>
+  </div>
+
+  <div  *ngFor="let event of events | eventfilter:selectedYearmonth"
+        class='card' style="width: 90%; min-width: 300px; margin-bottom: 5px;">
+    <div class='card-body'>
+      <p class='card-title'>{{event.eventDate | date}} {{event.eventTime}}</p>
+      <p class='card-title'>{{event.eventName}}</p>
+      <p class='card-text'>{{event.eventDescription}}</p>
+      <div *ngFor="let videoName of event.videoNamesList; let videoIndex=index;" style="display: inline-block;">
+        <a target="_blank" *ngIf="videoName!=''" [href]="event.videoUrlsList[videoIndex]" class="btn btn-dark">{{videoName}}</a>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-light" style="float: right;"
+          (click)="backToMenu()" i18n>返回主頁</button>
+</form>
+

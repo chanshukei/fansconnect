@@ -1,0 +1,108 @@
+<h2 i18n>設計SI</h2>
+<h3>好人卡設計大賽</h3>
+
+<!-- div style="margin: 5px; text-align: right;" *ngIf="this.pagemode=='list'">
+  <button type="button" class="btn btn-primary" (click)="gotoVote()">投票</button>
+  <button type="button" class="btn btn-secondary" (click)="gotoUpload()">上載你的作品</button>
+</div -->
+
+<div class="loadingDiv" *ngIf="isLoading" style="background-image: url('../assets/icons/three mo_02.gif')">
+  &nbsp;
+</div>
+
+<form>
+
+<div class="container">
+  <div class="row" *ngFor="let msg of alertMessages; let msgIndex=index;">
+    <div class="col col-md-10">
+      <div class="alert alert-danger" role="alert">
+        {{msg}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngFor="let msg of infoMessages; let msgIndex=index;">
+    <div class="col col-md-10">
+      <div class="alert alert-info" role="alert">
+        {{msg}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="pagemode=='list'">
+  <div *ngFor="let item of items; let itemIndex=index;" class='card'>
+    <div class='card-body'>
+      <h3 class="card-title">作品 {{item.itemId}}</h3>
+      <img style="max-width: 800px; width: 95%; border-radius: 10px;"
+          src='{{ "https://fansconnect-video.azurewebsites.net/api/designitem/" + item.itemId + "?code=Z8mrbNy/XMQaMW1awDQ9LS7SY7PjdIYig54zyXeAY3Etd9frQo/mGA=="}}' />
+      <p class="card-text">By {{item.uploadBy}}</p>
+      <p class="card-text">{{item.fileDescription}}</p>
+      <a  *ngIf="adminRight"
+          target="_blank"
+          [href]="'https://fansconnect-video.azurewebsites.net/api/designitem/' + item.itemId + '?code=Z8mrbNy/XMQaMW1awDQ9LS7SY7PjdIYig54zyXeAY3Etd9frQo/mGA=='">原圖</a>
+    </div>
+  </div>
+  <br />
+  <button type="button" class="btn btn-light" style="float: right;"
+  (click)="backToMenu()" i18n>返回主頁</button>
+
+</div>
+
+<div class='card' style="width: 90%; min-width: 300px; margin-bottom: 5px;" *ngIf="this.pagemode=='upload'">
+  <div class='card-body'>
+    <h3 class="card-title">上載你的作品</h3>
+    <div class="container">
+      <div class="row">
+        <div class='col col-md-4'><label class="form-label">作品 <span class="required">*</span></label></div>
+        <div class="col col-md-6">
+          <div class="photo-container">
+            <input accept="image/*" type="file" id="image_input" (change)="onFileSelected($event)">
+        </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class='col col-md-4'><label class="form-label">感言</label></div>
+        <div class="col col-md-6">
+          <input  type="text" maxlength="500" name="fileDescription"
+                  class="form-control" [(ngModel)]="editItem.fileDescription"/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col col-md-12">
+          <button type="button" class="btn btn-dark" style="float: left;" (click)="cancelEdit()" i18n>取消</button>
+          <button [disabled]="isUploading" type="button" class="btn btn-dark" style="float: right;" (click)="completeEdit()">完成</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class='card' style="width: 90%; min-width: 300px; margin-bottom: 5px;" *ngIf="this.pagemode=='vote'">
+  <div class='card-body'>
+    <h3 class="card-title">投票</h3>
+    <div class="container">
+
+      <div class="row">
+        <div class='col col-md-4'><label class="form-label">作品</label></div>
+        <div class="col col-md-6">
+          <select name="voteItem" class="form-control" [(ngModel)]="voteItem">
+            <option value="-1"></option>
+            <option *ngFor="let item of items" [value]="item.itemId">{{item.itemId}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col col-md-12">
+          <button type="button" class="btn btn-dark" style="float: left;" (click)="cancelEdit()" i18n>取消</button>
+          <button [disabled]="isUploading" type="button" class="btn btn-dark" style="float: right;" (click)="vote()">完成</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</form>
