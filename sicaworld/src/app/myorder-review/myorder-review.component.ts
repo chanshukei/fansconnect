@@ -17,6 +17,7 @@ export class MyorderReviewComponent implements OnInit {
     itemName: ''
   };
 
+  usernameEmail: string = '';
   isChanging: boolean = false;
   isLoading: boolean = false;
   orders: Order[] = [];
@@ -139,6 +140,7 @@ export class MyorderReviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.usernameEmail = window.sessionStorage.getItem("usernameEmail")??'';
     this.listOrders();
   }
 
