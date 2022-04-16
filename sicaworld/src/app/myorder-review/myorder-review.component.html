@@ -15,6 +15,7 @@
         </th>
         <th scope="col">總金額</th>
         <th scope="col">圖片證明</th>
+        <th scope="col">QR碼</th>
         <!-- th scope="col" style="width: 150px;">更改款式</th -->
       </tr>
     </thead>
@@ -36,6 +37,7 @@
           <a  target="_blank"
           href='{{ "https://fansconnect-idol.azurewebsites.net/api/orderimage/" + order.orderId + "?code=shj0Rkq93vQ0jHmV8Z8alfUCcQrHdysOaZBw0od/8yD4/chO3LwAyg=="}}'>下載</a>
         </td>
+        <td><button type="button" class="btn btn-primary" (click)="generateQrCode(order)">+</button></td>
         <!-- td>
           <button *ngIf="canChange(order)" type="button" class="btn btn-dark"
                   style="font-size: 10pt;"

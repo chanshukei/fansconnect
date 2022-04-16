@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { OrderFilterArgs } from '../filter/orderfilterargs';
 import { Order } from '../model/order';
 import { Orderline } from '../model/orderline';
+import { OrderQrCode } from '../model/orderQrCode';
 import { SupportitemService } from '../service/supportitem.service';
 
 @Component({
@@ -50,6 +51,19 @@ export class MyorderReviewComponent implements OnInit {
       }
     }
     return false;
+  }
+
+  generateQrCode(order: Order):void{
+    var sessionId = window.sessionStorage.getItem("sessionId")??'';
+    var qrcode: OrderQrCode = {
+      orderId: order.orderId,
+      sessionId: sessionId,
+      createBy: this.usernameEmail,
+      idolId: 1
+    };
+    this.itemService.generateQrCode(qrcode).subscribe(data => {
+      console.log('qrcode:'+data);
+    });
   }
 
   completeChange():void{

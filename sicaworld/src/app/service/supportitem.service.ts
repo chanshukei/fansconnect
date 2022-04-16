@@ -7,6 +7,7 @@ import { Shopitem } from '../model/shopitem';
 import { Order } from '../model/order';
 import { UserModel } from '../model/usermodel';
 import { Orderline } from '../model/orderline';
+import { OrderQrCode } from '../model/orderQrCode';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ import { Orderline } from '../model/orderline';
 export class SupportitemService {
 
   private eventApi: string = "https://fansconnect-idol.azurewebsites.net/api";
+  private shopApi: string = "https://sicaworld-shop20220415230146.azurewebsites.net";
 
   constructor(private http: HttpClient) {}
 
@@ -32,6 +34,15 @@ export class SupportitemService {
     return this.http.post<Order>(
       apiUrl,
       order
+    );
+  }
+
+  generateQrCode(qrcode: OrderQrCode): Observable<string>{
+    var apiUrl = this.shopApi.concat("/qrcode/", qrcode.idolId.toString());
+    console.log(qrcode);
+    return this.http.post<string>(
+      apiUrl,
+      qrcode
     );
   }
 
