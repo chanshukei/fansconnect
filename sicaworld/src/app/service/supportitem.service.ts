@@ -83,6 +83,13 @@ export class SupportitemService {
     );
   }
 
+  getOrdersByQrCode(qrCode: string): Observable<Order[]>{
+    var apiUrl = this.shopApi.concat("/ordersByQrCode/", qrCode,"?");
+    return this.http.get<Order[]>(apiUrl).pipe(
+      catchError(this.handleError<Order[]>("Get Orders", []))
+    );
+  }
+
   getOrders(idolId: number): Observable<Order[]>{
     var apiUrl = this.eventApi.concat(
       "/orders/", idolId.toString(),

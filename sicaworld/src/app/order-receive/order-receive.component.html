@@ -1,4 +1,4 @@
-<h2 i18n>應援市集 - 銷售紀錄</h2>
+<h2 i18n>應援市集 - 交收應援物</h2>
 
 <div class="loadingDiv" *ngIf="isLoading" style="background-image: url('../assets/icons/three mo_02.gif')">
   &nbsp;
@@ -45,22 +45,15 @@
   </div>
 </div>
 
-<div style="text-align: right;">
-  <button *ngIf="filterargs.pageNo>1" class="btn btn-light" style="margin: 10px;" (click)="previousPage()">上一頁</button>
-  <span>第{{filterargs.pageNo}}頁</span>
-  <button *ngIf="filterargs.pageNo<maxPage" class="btn btn-light" style="margin: 10px;" (click)="nextPage()">下一頁</button>
-</div>
 <table class="table table-striped">
   <thead>
     <tr>
       <th scope="col">日期</th>
       <th scope="col">
-        會員<br>
-        <input class="search-filter" type="text" name="filterCreateBy" [(ngModel)]="filterargs.createBy">
+        會員
       </th>
       <th scope="col">
-        應援物<br>
-        <input class="search-filter" type="text" name="filterItemName" [(ngModel)]="filterargs.itemName">
+        應援物
       </th>
       <th scope="col">總金額</th>
       <th scope="col">
@@ -75,7 +68,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let order of orders | orderfilter:filterargs">
+    <tr *ngFor="let order of orders">
       <td>{{order.createDate | date:'yyyy-MM-dd hh:mm'}}</td>
       <td>{{order.createBy}}</td>
       <td>
@@ -102,24 +95,6 @@
             target="_blank"
             href='{{ "https://fansconnect-idol.azurewebsites.net/api/orderimage/" + order.orderId + "?code=shj0Rkq93vQ0jHmV8Z8alfUCcQrHdysOaZBw0od/8yD4/chO3LwAyg=="}}'>下載</a>
       </td>
-    </tr>
-  </tbody>
-</table>
-
-<h3>統計表</h3>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">應援物</th>
-      <th scope="col">總數</th>
-      <th scope="col">總金額</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let summary of getSummaryArray()">
-      <td>{{summary.itemName}}</td>
-      <td>{{summary.itemCount}}</td>
-      <td>${{summary.totalAmount}}</td>
     </tr>
   </tbody>
 </table>

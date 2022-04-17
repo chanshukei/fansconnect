@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { LuckydrawComponent } from './luckydraw/luckydraw.component';
 import { MapComponent } from './map/map.component';
 import { MyorderReviewComponent } from './myorder-review/myorder-review.component';
+import { OrderReceiveComponent } from './order-receive/order-receive.component';
 import { OrderReviewComponent } from './order-review/order-review.component';
 import { ProfileComponent } from './profile/profile.component';
 import { QuestionsKingHomeComponent } from './questions-king-home/questions-king-home.component';
@@ -38,7 +39,8 @@ const routes: Routes = [
   { path: 'donation', component: DonationComponent },
   { path: 'donation-review', component: DonationReviewComponent },
   { path: 'luckydraw', component: LuckydrawComponent },
-  { path: 'design-comp', component: DesignCompComponent }
+  { path: 'design-comp', component: DesignCompComponent },
+  { path: 'order-receive', component: OrderReceiveComponent }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

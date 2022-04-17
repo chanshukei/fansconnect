@@ -27,6 +27,7 @@ import { SupportItemFormComponent } from './support-item-form/support-item-form.
 import { LuckydrawComponent } from './luckydraw/luckydraw.component';
 import { DesignCompComponent } from './design-comp/design-comp.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { OrderReceiveComponent } from './order-receive/order-receive.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     DonationReviewComponent,
     SupportItemFormComponent,
     LuckydrawComponent,
-    DesignCompComponent
+    DesignCompComponent,
+    OrderReceiveComponent
   ],
   imports: [
     BrowserModule,

@@ -8,17 +8,11 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { filter, max } from 'rxjs';
 
 @Component({
-  selector: 'app-order-review',
-  templateUrl: './order-review.component.html',
-  styleUrls: ['./order-review.component.sass']
+  selector: 'app-order-receive',
+  templateUrl: './order-receive.component.html',
+  styleUrls: ['./order-receive.component.sass']
 })
-export class OrderReviewComponent implements OnInit {
-
-  filterargs: OrderFilterArgs = {
-    createBy: '',
-    itemName: '',
-    pageNo: 1
-  };
+export class OrderReceiveComponent implements OnInit {
 
   editingOrderline: Orderline = {
     lineId: -1,
@@ -33,21 +27,9 @@ export class OrderReviewComponent implements OnInit {
   isShowImage: boolean = false;
   isLoading: boolean = false;
   orders: Order[] = [];
-  orderlineSummary: Map<string, Orderline> = new Map();
   isScan: boolean = false;
-  maxPage: number = 2;
-
-  previousPage(){
-    if(this.filterargs.pageNo>1){
-      this.filterargs.pageNo -= 1;
-    }
-  }
-  nextPage(){
-    this.maxPage = Math.floor((this.orders.length-1)/100)+1;
-    if(this.filterargs.pageNo<this.maxPage){
-      this.filterargs.pageNo += 1;
-    }
-  }
+  qrCode: string = '';
+  
 
   camerasNotFound(e: any){
     alert('Camera not found');
@@ -71,15 +53,10 @@ export class OrderReviewComponent implements OnInit {
     this.isScan = true;
   }
 
-  getSummaryArray(): Orderline[]{
-    return Array.from(this.orderlineSummary.values());
-  }
-
-  listOrders(): void{
+  listOrders(qrCode: string): void{
     this.isLoading = true;
     this.orders = [];
-    this.orderlineSummary = new Map();
-    this.itemService.getOrders(1).subscribe(
+    this.itemService.getOrdersByQrCode(this.qrCode).subscribe(
       e => {
         for(var i=0; i<e.length; i++){
           var e2: Order = {
@@ -117,23 +94,6 @@ export class OrderReviewComponent implements OnInit {
             itemName: e[i].itemName,
           };
           order.orderlines.push(e2);
-
-          //init summary
-          var summary:Orderline = this.orderlineSummary.get(e2.itemName)??{
-            lineId: 0,
-            price: 0,
-            totalAmount: 0,
-            itemId: e2.itemId,
-            itemName: e2.itemName,
-            itemCount: 0
-          };
-          //add new item
-          if(!this.orderlineSummary.has(e2.itemName)){
-            this.orderlineSummary.set(e2.itemName, summary);
-          }
-          //update count
-          summary.totalAmount += e2.totalAmount;
-          summary.itemCount += e2.itemCount;
         }
         this.isLoading = false;
       }
@@ -158,7 +118,8 @@ export class OrderReviewComponent implements OnInit {
       var usernameEmail = window.sessionStorage.getItem("usernameEmail");
       var sessionId = window.sessionStorage.getItem("sessionId");
       if(usernameEmail!='' && sessionId!='' && usernameEmail!=null && sessionId!=null){
-        this.router.navigate(['../orderReview'], {relativeTo: this.route});
+        this.qrCode = window.sessionStorage.getItem("qrCode")??"";
+        this.router.navigate(['../order-receive'], {relativeTo: this.route});
       }else{
         this.router.navigate(['../login'], {relativeTo: this.route});
       }
@@ -166,7 +127,7 @@ export class OrderReviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.listOrders();
+    this.listOrders(this.qrCode);
   }
 
   cancelEditOrderline():void{
@@ -207,7 +168,7 @@ export class OrderReviewComponent implements OnInit {
           itemCount: 0,
           itemName: ''
         };
-        this.listOrders();
+        this.listOrders(this.qrCode);
       }
     );
   }
