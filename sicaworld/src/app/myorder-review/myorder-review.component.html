@@ -4,6 +4,12 @@
   &nbsp;
 </div>
 
+<div class="loadingDiv" *ngIf="qrCode!=''" style="background-image: url('../assets/icons/three mo_02.gif'); text-align: center;">
+  <div>我的紀錄QR碼</div>
+  <img [src]="'data:image/jpeg;base64,'+qrCode" style="max-width:400px;text-align: center;"/><br/>
+  <button class="btn btn-primary" (click)="this.qrCode=''">關閉</button>
+</div>
+
 <div style="overflow: scroll;">
   <table class="table table-striped" style="min-width: 800px;">
     <thead>

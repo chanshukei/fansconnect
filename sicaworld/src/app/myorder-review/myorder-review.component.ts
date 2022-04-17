@@ -24,6 +24,7 @@ export class MyorderReviewComponent implements OnInit {
   orders: Order[] = [];
   editingOrders: Order[] = [];
   editingSize: number = 0;
+  qrCode: string = '';
 
   startChange(order:Order):void{
     if(confirm("你要更改訂單嗎?")){
@@ -59,10 +60,11 @@ export class MyorderReviewComponent implements OnInit {
       orderId: order.orderId,
       sessionId: sessionId,
       createBy: this.usernameEmail,
-      idolId: 1
+      idolId: 1,
+      qrCode: ''
     };
     this.itemService.generateQrCode(qrcode).subscribe(data => {
-      console.log('qrcode:'+data);
+      this.qrCode = data.qrCode;
     });
   }
 

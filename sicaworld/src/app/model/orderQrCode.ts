@@ -3,4 +3,5 @@ export interface OrderQrCode {
   sessionId: string;
   createBy: string;
   idolId: number;
+  qrCode: string;
 }

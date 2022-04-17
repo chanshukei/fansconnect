@@ -15,7 +15,7 @@ import { OrderQrCode } from '../model/orderQrCode';
 export class SupportitemService {
 
   private eventApi: string = "https://fansconnect-idol.azurewebsites.net/api";
-  private shopApi: string = "https://sicaworld-shop20220415230146.azurewebsites.net";
+  private shopApi: string = "https://sicaworld-shop20220415230146.azurewebsites.net/api";
 
   constructor(private http: HttpClient) {}
 
@@ -37,10 +37,10 @@ export class SupportitemService {
     );
   }
 
-  generateQrCode(qrcode: OrderQrCode): Observable<string>{
+  generateQrCode(qrcode: OrderQrCode): Observable<OrderQrCode>{
     var apiUrl = this.shopApi.concat("/qrcode/", qrcode.idolId.toString());
     console.log(qrcode);
-    return this.http.post<string>(
+    return this.http.post<OrderQrCode>(
       apiUrl,
       qrcode
     );
