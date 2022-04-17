@@ -34,8 +34,17 @@ export class OrderReviewComponent implements OnInit {
   orderlineSummary: Map<string, Orderline> = new Map();
   isScan: boolean = false;
 
-  scanSuccessHandler($event: any){
-    alert($event);
+  camerasNotFound(e: any){
+    alert('not found');
+    alert(e);
+  }
+
+  cameraFound(e: any){
+    alert('found');
+  }
+  
+  scanSuccessHandler(e: any){
+    alert(e);
   }
   cancelScan(){
     this.isScan = false;

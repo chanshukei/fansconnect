@@ -10,7 +10,11 @@
     <br />
     <h2 style="background-color: black;">掃瞄QR碼</h2>
     <div style="background-color: black; border-radius: 10px; padding: 10px;">
-      <zxing-scanner #scanner (scanSuccess)="scanSuccessHandler($event)">
+      <zxing-scanner 
+        #scanner 
+        (camerasFound)="cameraFound($event)"
+        (camerasNotFound)="camerasNotFound($event)"
+        (scanSuccess)="scanSuccessHandler($event)">
       </zxing-scanner>
     </div>
     <button style="margin: 10px;" class="btn btn-danger" (click)="cancelScan()">取消</button>
