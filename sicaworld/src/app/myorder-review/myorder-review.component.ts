@@ -126,6 +126,8 @@ export class MyorderReviewComponent implements OnInit {
             totalAmount: e[i].totalAmount,
             itemId: e[i].itemId,
             itemName: e[i].itemName,
+            receiveStatus: e[i].receiveStatus,
+            receiveStatusDate: e[i].receiveStatusDate
           };
           order.orderlines.push(e2);
         };

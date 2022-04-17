@@ -192,7 +192,9 @@ export class ShopComponent implements OnInit {
             price: item.price,
             totalAmount: 0,
             itemCount: amt,
-            itemName: ''
+            itemName: '',
+            receiveStatus: '',
+            receiveStatusDate: new Date()
           };
           ol.totalAmount = ol.price * ol.itemCount;
           this.orderlines.push(ol);

@@ -28,6 +28,15 @@ export class SupportitemService {
     );
   }
 
+  updateReceiveStatus(line: Orderline): Observable<Orderline>{
+    var apiUrl = this.shopApi.concat("/updateReceiveStatus?");
+    console.log(line);
+    return this.http.post<Orderline>(
+      apiUrl,
+      line
+    );
+  }
+
   addOrder(order: Order): Observable<Order>{
     var apiUrl = this.eventApi.concat("/order/", order.idolId.toString(), "?");
     console.log(order);
@@ -56,9 +65,7 @@ export class SupportitemService {
   }
 
   getOrderlines(orderId: string): Observable<Orderline[]>{
-    var apiUrl = this.eventApi.concat(
-      "/orderlines/", orderId.toString(),
-      "?code=zSlD7g/44S4LmrVdNQjTnunIrr3GCB5B3KaRZxFoWtnVp3hJWWPsLQ==");
+    var apiUrl = this.shopApi.concat("/orderlines/", orderId.toString(), "?");
       return this.http.get<Orderline[]>(apiUrl).pipe(
         catchError(this.handleError<Orderline[]>("Get Orderlines", []))
       );

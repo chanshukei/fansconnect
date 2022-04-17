@@ -5,4 +5,6 @@ export interface Orderline {
   totalAmount: number;
   itemCount: number;
   itemName: string;
+  receiveStatusDate: Date;
+  receiveStatus: string;
 }

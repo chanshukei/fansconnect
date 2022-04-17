@@ -26,7 +26,9 @@ export class OrderReviewComponent implements OnInit {
     price: 0,
     totalAmount: 0,
     itemCount: 0,
-    itemName: ''
+    itemName: '',
+    receiveStatus: '',
+    receiveStatusDate: new Date()
   };
   newItemCount: number = 0;
   newTotalAmount: number = 0;
@@ -115,6 +117,8 @@ export class OrderReviewComponent implements OnInit {
             totalAmount: e[i].totalAmount,
             itemId: e[i].itemId,
             itemName: e[i].itemName,
+            receiveStatus: e[i].receiveStatus,
+            receiveStatusDate: e[i].receiveStatusDate
           };
           order.orderlines.push(e2);
 
@@ -125,7 +129,9 @@ export class OrderReviewComponent implements OnInit {
             totalAmount: 0,
             itemId: e2.itemId,
             itemName: e2.itemName,
-            itemCount: 0
+            itemCount: 0,
+            receiveStatus: '',
+            receiveStatusDate: new Date()
           };
           //add new item
           if(!this.orderlineSummary.has(e2.itemName)){
@@ -176,7 +182,9 @@ export class OrderReviewComponent implements OnInit {
       price: 0,
       totalAmount: 0,
       itemCount: 0,
-      itemName: ''
+      itemName: '',
+      receiveStatus: '',
+      receiveStatusDate: new Date()
     };
   }
 
@@ -193,7 +201,9 @@ export class OrderReviewComponent implements OnInit {
       itemName: this.editingOrderline.itemName,
       price: this.editingOrderline.price,
       itemCount: this.newItemCount,
-      totalAmount: this.newTotalAmount
+      totalAmount: this.newTotalAmount,
+      receiveStatus: '',
+      receiveStatusDate: new Date()
     }
     this.itemService.updateOrderline(newOrderline).subscribe(
       data => {
@@ -205,7 +215,9 @@ export class OrderReviewComponent implements OnInit {
           price: 0,
           totalAmount: 0,
           itemCount: 0,
-          itemName: ''
+          itemName: '',
+          receiveStatus: '',
+          receiveStatusDate: new Date()
         };
         this.listOrders();
       }

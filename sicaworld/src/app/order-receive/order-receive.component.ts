@@ -14,22 +14,11 @@ import { filter, max } from 'rxjs';
 })
 export class OrderReceiveComponent implements OnInit {
 
-  editingOrderline: Orderline = {
-    lineId: -1,
-    itemId: -1,
-    price: 0,
-    totalAmount: 0,
-    itemCount: 0,
-    itemName: ''
-  };
-  newItemCount: number = 0;
-  newTotalAmount: number = 0;
   isShowImage: boolean = false;
   isLoading: boolean = false;
   orders: Order[] = [];
   isScan: boolean = false;
   qrCode: string = '';
-  
 
   camerasNotFound(e: any){
     alert('Camera not found');
@@ -39,8 +28,10 @@ export class OrderReceiveComponent implements OnInit {
   }
   
   scanSuccessHandler(e: any){
-    window.sessionStorage.setItem("qrCode", e);
-    this.router.navigate(['../order-receive'], {relativeTo: this.route});    
+    this.isScan = false;
+    this.isLoading = true;    
+    this.qrCode = e;
+    this.listOrders(this.qrCode);
   }
   cancelScan(){
     this.isScan = false;
@@ -51,6 +42,26 @@ export class OrderReceiveComponent implements OnInit {
 
   startToScan(){
     this.isScan = true;
+  }
+
+  updateReceive(lineId: number, status: string){
+    var newOrderline: Orderline = {
+      lineId: lineId,
+      itemId: 0,
+      itemName: '',
+      price: 0,
+      itemCount: 0,
+      totalAmount: 0,
+      receiveStatus: status,
+      receiveStatusDate: new Date()
+    }
+    this.itemService.updateReceiveStatus(newOrderline).subscribe(
+      data => {
+        window.alert("更新成功");
+        window.scrollTo(0, 0);
+        this.listOrders(this.qrCode);
+      }
+    );
   }
 
   listOrders(qrCode: string): void{
@@ -92,6 +103,8 @@ export class OrderReceiveComponent implements OnInit {
             totalAmount: e[i].totalAmount,
             itemId: e[i].itemId,
             itemName: e[i].itemName,
+            receiveStatus: e[i].receiveStatus,
+            receiveStatusDate: e[i].receiveStatusDate
           };
           order.orderlines.push(e2);
         }
@@ -128,49 +141,6 @@ export class OrderReceiveComponent implements OnInit {
 
   ngOnInit(): void {
     this.listOrders(this.qrCode);
-  }
-
-  cancelEditOrderline():void{
-    this.editingOrderline = {
-      lineId: -1,
-      itemId: -1,
-      price: 0,
-      totalAmount: 0,
-      itemCount: 0,
-      itemName: ''
-    };
-  }
-
-  editOrderline(line: Orderline):void{
-    this.editingOrderline = line;
-    this.newItemCount = line.itemCount;
-    this.newTotalAmount = line.totalAmount;
-  }
-
-  updateOrderline(): void{
-    var newOrderline: Orderline = {
-      lineId: this.editingOrderline.lineId,
-      itemId: this.editingOrderline.itemId,
-      itemName: this.editingOrderline.itemName,
-      price: this.editingOrderline.price,
-      itemCount: this.newItemCount,
-      totalAmount: this.newTotalAmount
-    }
-    this.itemService.updateOrderline(newOrderline).subscribe(
-      data => {
-        window.alert("儲存成功");
-        window.scrollTo(0, 0);
-        this.editingOrderline = {
-          lineId: -1,
-          itemId: -1,
-          price: 0,
-          totalAmount: 0,
-          itemCount: 0,
-          itemName: ''
-        };
-        this.listOrders(this.qrCode);
-      }
-    );
   }
 
   backToMenu(): void{

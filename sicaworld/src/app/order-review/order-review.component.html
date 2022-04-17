@@ -82,7 +82,10 @@
         <ul class="list-group" style="background: none;">
           <li class='list-group-item' style="background: none;" *ngFor="let line of order.orderlines">
             <button *ngIf="line.itemCount>0" type="button" class="btn btn-light"
-                    (click)="editOrderline(line)">{{line.itemName}} {{line.itemCount}}份 ${{line.totalAmount}}</button>
+                    (click)="editOrderline(line)">
+                    {{line.itemName}} {{line.itemCount}}份 ${{line.totalAmount}} 
+                    {{(line.receiveStatus=='received'?'已交收':(line.receiveStatus=='notReceived'?'未交收':''))}}
+            </button>
           </li>
           <li class='list-group-item' *ngIf="order.remarks!='' && order.remarks!=null">
             {{order.remarks}}
