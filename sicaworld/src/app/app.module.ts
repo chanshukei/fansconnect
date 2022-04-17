@@ -26,6 +26,7 @@ import { DonationReviewComponent } from './donation-review/donation-review.compo
 import { SupportItemFormComponent } from './support-item-form/support-item-form.component';
 import { LuckydrawComponent } from './luckydraw/luckydraw.component';
 import { DesignCompComponent } from './design-comp/design-comp.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { DesignCompComponent } from './design-comp/design-comp.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgChartsModule
+    NgChartsModule,
+    ZXingScannerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

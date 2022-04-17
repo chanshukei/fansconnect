@@ -4,6 +4,7 @@ import { Order } from '../model/order';
 import { Orderline } from '../model/orderline';
 import { SupportitemService } from '../service/supportitem.service';
 import { OrderFilterArgs } from '../filter/orderfilterargs';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @Component({
   selector: 'app-order-review',
@@ -31,7 +32,21 @@ export class OrderReviewComponent implements OnInit {
   isLoading: boolean = false;
   orders: Order[] = [];
   orderlineSummary: Map<string, Orderline> = new Map();
+  isScan: boolean = false;
 
+  scanSuccessHandler($event: any){
+    alert($event);
+  }
+  cancelScan(){
+    this.isScan = false;
+  }
+  scanComplete(){
+    this.isScan = false;
+  }
+
+  startToScan(){
+    this.isScan = true;
+  }
 
   getSummaryArray(): Orderline[]{
     return Array.from(this.orderlineSummary.values());

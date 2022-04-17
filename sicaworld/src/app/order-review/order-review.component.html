@@ -4,6 +4,20 @@
   &nbsp;
 </div>
 
+<div style="text-align: center; padding: 10px;">
+  <button class="btn btn-primary" (click)="startToScan()">掃瞄QR碼</button>
+  <div *ngIf="isScan" class="loadingDiv" style="background-image: url('../assets/icons/three mo_02.gif')">
+    <br />
+    <h2 style="background-color: black;">掃瞄QR碼</h2>
+    <div style="background-color: black; border-radius: 10px; padding: 10px;">
+      <zxing-scanner #scanner (scanSuccess)="scanSuccessHandler($event)">
+      </zxing-scanner>
+    </div>
+    <button style="margin: 10px;" class="btn btn-danger" (click)="cancelScan()">取消</button>
+    <button style="margin: 10px;" class="btn btn-success" (click)="scanComplete()">掃瞄</button>
+  </div>
+</div>
+
 <div *ngIf="editingOrderline.lineId>-1" class="orderlineEditBg">
   <div class="orderlineEditFloat">
     <form>
