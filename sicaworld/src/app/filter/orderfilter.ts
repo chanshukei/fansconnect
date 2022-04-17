@@ -11,11 +11,17 @@ export class OrderFilter implements PipeTransform {
         if (!items || !filter) {
             return items;
         }
-        return items.filter(item => (
-          item.createBy.indexOf(filter.createBy) !== -1
+        var idx = 0;
+        return items.filter(item => {
+          var startIdx = (filter.pageNo-1)*50;
+          var endIdx = (filter.pageNo)*50-1;
+          var isCurrentPage = (idx>=startIdx && idx<=endIdx);
+          idx += 1;
+          return (isCurrentPage 
+          && item.createBy.indexOf(filter.createBy) !== -1
           && item.orderlines.filter(line => (
             line.itemName.indexOf(filter.itemName) !== -1
-          )).length > 0
-        ));
+          )).length > 0);
+        });
     }
 }

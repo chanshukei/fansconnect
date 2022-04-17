@@ -5,6 +5,7 @@ import { Orderline } from '../model/orderline';
 import { SupportitemService } from '../service/supportitem.service';
 import { OrderFilterArgs } from '../filter/orderfilterargs';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { filter, max } from 'rxjs';
 
 @Component({
   selector: 'app-order-review',
@@ -15,7 +16,8 @@ export class OrderReviewComponent implements OnInit {
 
   filterargs: OrderFilterArgs = {
     createBy: '',
-    itemName: ''
+    itemName: '',
+    pageNo: 1
   };
 
   editingOrderline: Orderline = {
@@ -33,14 +35,25 @@ export class OrderReviewComponent implements OnInit {
   orders: Order[] = [];
   orderlineSummary: Map<string, Orderline> = new Map();
   isScan: boolean = false;
+  maxPage: number = 2;
 
-  camerasNotFound(e: any){
-    alert('not found');
-    alert(e);
+  previousPage(){
+    if(this.filterargs.pageNo>1){
+      this.filterargs.pageNo -= 1;
+    }
+  }
+  nextPage(){
+    this.maxPage = Math.floor((this.orders.length-1)/100)+1;
+    if(this.filterargs.pageNo<this.maxPage){
+      this.filterargs.pageNo += 1;
+    }
   }
 
-  cameraFound(e: any){
-    alert('found');
+  camerasNotFound(e: any){
+    alert('Camera not found');
+  }
+
+  cameraFound(e: any){    
   }
   
   scanSuccessHandler(e: any){
@@ -82,14 +95,14 @@ export class OrderReviewComponent implements OnInit {
           };
           this.listOrderlines(e2);
           this.orders.push(e2);
-        };
-
+        }
         this.isLoading = false;
       }
     );
   }
 
   listOrderlines(order: Order): void{
+    this.isLoading = true;
     order.orderlines = [];
     this.itemService.getOrderlines(order.orderId).subscribe(
       e => {
@@ -120,7 +133,8 @@ export class OrderReviewComponent implements OnInit {
           //update count
           summary.totalAmount += e2.totalAmount;
           summary.itemCount += e2.itemCount;
-        };
+        }
+        this.isLoading = false;
       }
     );
   }

@@ -46,6 +46,11 @@
   </div>
 </div>
 
+<div style="text-align: right;">
+  <button *ngIf="filterargs.pageNo>1" class="btn btn-light" style="margin: 10px;" (click)="previousPage()">上一頁</button>
+  <span>第{{filterargs.pageNo}}頁</span>
+  <button *ngIf="filterargs.pageNo<maxPage" class="btn btn-light" style="margin: 10px;" (click)="nextPage()">下一頁</button>
+</div>
 <table class="table table-striped">
   <thead>
     <tr>

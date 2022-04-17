@@ -15,7 +15,8 @@ export class MyorderReviewComponent implements OnInit {
 
   filterargs: OrderFilterArgs = {
     createBy: '',
-    itemName: ''
+    itemName: '',
+    pageNo: 1
   };
 
   usernameEmail: string = '';
@@ -55,6 +56,7 @@ export class MyorderReviewComponent implements OnInit {
   }
 
   generateQrCode(order: Order):void{
+    this.isLoading = true;
     var sessionId = window.sessionStorage.getItem("sessionId")??'';
     var qrcode: OrderQrCode = {
       orderId: order.orderId,
@@ -65,6 +67,7 @@ export class MyorderReviewComponent implements OnInit {
     };
     this.itemService.generateQrCode(qrcode).subscribe(data => {
       this.qrCode = data.qrCode;
+      this.isLoading = false;
     });
   }
 
