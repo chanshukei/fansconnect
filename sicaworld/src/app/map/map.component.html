@@ -1,8 +1,9 @@
 <h2 i18n>
   應援表
-  <span style="font-size: 12pt">
-    [<a href="javascript: return false;" (click)="gotoList()">轉為列表</a>]
+  <span style="font-size: 12pt; color: white;">
+    (<a href="javascript: return false;" (click)="gotoList()">轉為列表</a>)
   </span>
+  &nbsp;
   <select style="font-size: 12pt;" name="stype" [(ngModel)]="stype" class="form-input" (change)="initMap()">
     <option value="all">所有應援</option>
     <option value="YOLICA">YOLICA</option>
@@ -13,15 +14,38 @@
     <option value="應援音樂店">應援音樂店</option>
     <option value="海外應援店">海外應援店</option>
   </select>
+  &nbsp;
+  <button class="btn btn-light" (click)="initMap()">更新現在位置</button>
 </h2>
-
 
 <div id="map"></div>
 
-<div style="background-color: white; border-radius: 20px; color: black; padding: 10px; margin: 5px;">
-  <p>圖示</p>
-  <ul>
-    <li><img src="../../assets/icons/yolica.png" />&nbsp;YOLICA</li>
+<div style="background-color: white; margin: 10px; border-radius: 20px; width: 95%; padding: 10px;">
+  <p style="color: black; font-size: 14pt; font-weight: bold;">附近的應援店 (5公里)</p>
+  <table class="table" style="font-size: 10pt;">
+    <thead>
+      <tr>
+        <th scope="col">應援項目</th>
+        <th scope="col">應援地點</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of supportItems | locationfilter:selfMarker">
+        <td>{{item.itemName}} [{{item.supportType}}]</td>
+        <td>
+            <a *ngIf="item.coord!=''" target="blank" [href]="'http://www.google.com/maps/place/' + item.coord">{{item.releaseLocation}}</a>
+            <span *ngIf="item.coord==''">{{item.releaseLocation}}</span>
+            <p>(直線距離為 {{ (item.distance*1000) | number:'1.0-0' }} 米)</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div style="position: fixed; top: 10px; right: 10px; color: black; background-color: rgba(255,255,255,0.8); border-radius: 10px; padding: 5px; width: 150px; z-index: 99;">
+  <ul style="font-size: 10pt;">
+    <li><img src="../../assets/icons/leaf.png" />&nbsp;現在位置</li>
+    <li><img style="width: 24px;" src="../../assets/icons/yolica.png" />&nbsp;YOLICA</li>
     <li><img src="../../assets/icons/drink.png" />&nbsp;應援茶飲店</li>
     <li><img src="../../assets/icons/food.png" />&nbsp;應援店</li>
     <li><img src="../../assets/icons/book.png" />&nbsp;應援書店</li>

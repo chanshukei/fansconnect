@@ -16,4 +16,5 @@ export interface SupportItem {
   itemDescription:string;
   fansCount: number;
   coord: string;
+  distance: number;
 }

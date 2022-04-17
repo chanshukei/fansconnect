@@ -14,6 +14,11 @@ export class MapComponent implements OnInit {
   stype: string = "all";
   supportItems: SupportItem[] = [];
   markers: Shopmarker[] = [];
+  selfMarker: Shopmarker = {
+    lat: 0,
+    lng: 0,
+    type: 'self'
+  };
 
   constructor(
     private itemService: SupportitemService,
@@ -60,7 +65,8 @@ export class MapComponent implements OnInit {
             itemCount: e[i].itemCount,
             imageContent: '',
             supportType: e[i].supportType,
-            coord: e[i].coord
+            coord: e[i].coord,
+            distance: 0
           };
           this.supportItems.push(e2);
         }
@@ -70,7 +76,26 @@ export class MapComponent implements OnInit {
     );
   }
 
+  updateCurrentLocation(): void{
+    console.log('update current location');
+    this.initMap();
+  }
+
   initMap():void{
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        this.selfMarker.lat = position.coords.latitude;
+        this.selfMarker.lng = position.coords.longitude;
+        this.initMap2();
+      });
+    }
+    else {
+      alert("Geolocation is not supported by this browser.");
+      this.initMap2();
+    }
+  }
+
+  initMap2():void{
     this.supportItems.forEach(i => {
       if(i.coord!=''){
         var c = i.coord.split(',');
@@ -103,14 +128,22 @@ export class MapComponent implements OnInit {
       },
       'YOLICA': {
         icon: "../../assets/icons/yolica.png",
+      },
+      'self': {
+        icon: "../../assets/icons/leaf.png",
       }
     };
 
     var map: google.maps.Map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
-      center: this.markers[0],
-      zoom: 12,
+      center: this.selfMarker,
+      zoom: 15,
     });
 
+    new google.maps.Marker({
+      position: this.selfMarker,
+      map: map,
+      icon: icons[this.selfMarker.type].icon
+    });
     this.markers.forEach( marker => {
       if(marker.type==this.stype || this.stype=='all'){
         new google.maps.Marker({
@@ -125,6 +158,7 @@ export class MapComponent implements OnInit {
 
   ngOnInit(): void {
     this.listResult();
+    setInterval(() => {this.updateCurrentLocation();}, 1000*60*3);
   }
 
 }

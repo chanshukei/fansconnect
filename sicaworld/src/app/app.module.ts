@@ -28,6 +28,7 @@ import { LuckydrawComponent } from './luckydraw/luckydraw.component';
 import { DesignCompComponent } from './design-comp/design-comp.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { OrderReceiveComponent } from './order-receive/order-receive.component';
+import { LocationFilter } from './filter/locationfilter';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { OrderReceiveComponent } from './order-receive/order-receive.component';
     MyorderReviewComponent,
     OrderFilter,
     EventFilter,
+    LocationFilter,
     ProfileComponent,
     OrderReviewComponent,
     EventsComponent,
