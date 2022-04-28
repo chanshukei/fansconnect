@@ -29,6 +29,7 @@ import { DesignCompComponent } from './design-comp/design-comp.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { OrderReceiveComponent } from './order-receive/order-receive.component';
 import { LocationFilter } from './filter/locationfilter';
+import { TodayTaskComponent } from './today-task/today-task.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { LocationFilter } from './filter/locationfilter';
     SupportItemFormComponent,
     LuckydrawComponent,
     DesignCompComponent,
-    OrderReceiveComponent
+    OrderReceiveComponent,
+    TodayTaskComponent
   ],
   imports: [
     BrowserModule,

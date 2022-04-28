@@ -19,6 +19,7 @@ import { QuestionsKingComponent } from './questions-king/questions-king.componen
 import { ShopComponent } from './shop/shop.component';
 import { SupportItemFormComponent } from './support-item-form/support-item-form.component';
 import { SupportitemComponent } from './supportitem/supportitem.component';
+import { TodayTaskComponent } from './today-task/today-task.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -40,7 +41,8 @@ const routes: Routes = [
   { path: 'donation-review', component: DonationReviewComponent },
   { path: 'luckydraw', component: LuckydrawComponent },
   { path: 'design-comp', component: DesignCompComponent },
-  { path: 'order-receive', component: OrderReceiveComponent }
+  { path: 'order-receive', component: OrderReceiveComponent },
+  { path: 'today-task', component: TodayTaskComponent }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

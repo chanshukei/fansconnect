@@ -1,0 +1,32 @@
+<h2 style="display: inline-block;" i18n>今日任務</h2>
+
+<div class="loadingDiv" *ngIf="isLoading" style="background-image: url('../assets/icons/three mo_02.gif')">
+  &nbsp;
+</div>
+
+<form>
+  <div *ngIf="isRedirectToLogin" style="background-image: url('../assets/icons/three mo_02.gif')">
+    <p>請先登入才可使用此功能。</p>
+    <button type="button" class="btn btn-light" (click)="gotoLogin()">登入</button>
+  </div>
+
+  <div *ngIf="!isRedirectToLogin">
+    <div style="float: right;">現有點數: {{currentPoints}}</div>
+    <div  *ngFor="let task of tasks"
+          class='card' style="width: 90%; min-width: 300px; margin-bottom: 5px;">
+      <div class='card-body'>
+        <div style="float: right;">
+          <button type="button" class="btn btn-dark" (click)="doTask(task)">{{task.videoName}}</button>
+          <p class='card-text'>可獲{{task.point}}點</p>
+        </div>
+        <p class='card-title'>任務期限: {{task.startDate | date}} 至 {{task.endDate | date}}</p>
+        <p class='card-title'>{{task.taskName}}</p>
+        <p class='card-text'>{{task.taskDescription}}</p>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-light" style="float: right;"
+          (click)="backToMenu()" i18n>返回主頁</button>
+</form>
+

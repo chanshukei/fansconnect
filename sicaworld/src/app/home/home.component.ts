@@ -36,6 +36,10 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  gotoTodayTask():void{
+    this.router.navigate(['../today-task'], {relativeTo: this.route});
+  }
+  
   gotoSurvey():void{
     this.router.navigate(['../survey'], {relativeTo: this.route});
   }

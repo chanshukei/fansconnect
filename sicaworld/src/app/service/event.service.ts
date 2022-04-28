@@ -12,6 +12,7 @@ import { ProfileForm } from '../model/profile-form';
 import { UserModel } from '../model/usermodel';
 import { Survey } from '../model/survey';
 import { Donation } from '../model/donation';
+import { TaskModel } from '../model/taskmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ import { Donation } from '../model/donation';
 export class EventService {
 
   private eventApi: string = "https://fansconnect-event.azurewebsites.net/api";
+  private eventApi2: string = "https://sicaworld-event20220426135520.azurewebsites.net/api";
 
   constructor(private http: HttpClient) {}
 
@@ -144,6 +146,57 @@ export class EventService {
     console.log(apiUrl);
     return this.http.get<EventFans[]>(apiUrl).pipe(
       catchError(this.handleError<EventFans[]>("Get Event Fans", []))
+    );
+  }
+
+  getTasksPoint(idolId: number): Observable<TaskModel>{
+    var apiUrl = this.eventApi2.concat("/taskspoint/", idolId.toString(), "?");
+    var usernameEmail = window.sessionStorage.getItem("usernameEmail");
+    var sessionId = window.sessionStorage.getItem("sessionId");
+    var user: UserModel = {
+      usernameEmail: usernameEmail??'',
+      sessionId: sessionId??'',
+      seessionExpireDatetime: new Date(),
+      roleId: ''
+    };
+    console.log(user);
+    return this.http.post<TaskModel>(
+      apiUrl,
+      user
+    );
+  }
+
+  getTasks(idolId: number): Observable<TaskModel[]>{
+    var apiUrl = this.eventApi2.concat("/tasks/", idolId.toString(), "?");
+    var usernameEmail = window.sessionStorage.getItem("usernameEmail");
+    var sessionId = window.sessionStorage.getItem("sessionId");
+    var user: UserModel = {
+      usernameEmail: usernameEmail??'',
+      sessionId: sessionId??'',
+      seessionExpireDatetime: new Date(),
+      roleId: ''
+    };
+    console.log(user);
+    return this.http.post<TaskModel[]>(
+      apiUrl,
+      user
+    );
+  }
+
+  doTask(taskId: number): Observable<TaskModel[]>{
+    var apiUrl = this.eventApi2.concat("/dotask/", taskId.toString(), "?");
+    var usernameEmail = window.sessionStorage.getItem("usernameEmail");
+    var sessionId = window.sessionStorage.getItem("sessionId");
+    var user: UserModel = {
+      usernameEmail: usernameEmail??'',
+      sessionId: sessionId??'',
+      seessionExpireDatetime: new Date(),
+      roleId: ''
+    };
+    console.log(user);
+    return this.http.post<TaskModel[]>(
+      apiUrl,
+      user
     );
   }
 
