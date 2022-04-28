@@ -36,7 +36,6 @@ export class TodayTaskComponent implements OnInit {
 
   doTask(item: TaskModel): void{
     this.eventService.doTask(item.taskId).subscribe(e =>{
-      window.open(item.videoUrl, '_blank');
       this.loadTodayTasks();
       this.loadTasksPoint();
     });    

@@ -16,7 +16,7 @@
           class='card' style="width: 90%; min-width: 300px; margin-bottom: 5px;">
       <div class='card-body'>
         <div style="float: right;">
-          <button type="button" class="btn btn-dark" (click)="doTask(task)">{{task.videoName}}</button>
+          <a target="_blank" [href]="task.videoUrl" class="btn btn-dark" (click)="doTask(task)">{{task.videoName}}</a>
           <p class='card-text'>可獲{{task.point}}點</p>
         </div>
         <p class='card-title'>任務期限: {{task.startDate | date}} 至 {{task.endDate | date}}</p>
