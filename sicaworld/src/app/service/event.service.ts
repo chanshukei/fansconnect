@@ -21,6 +21,7 @@ export class EventService {
 
   private eventApi: string = "https://fansconnect-event.azurewebsites.net/api";
   private eventApi2: string = "https://sicaworld-event20220426135520.azurewebsites.net/api";
+  private shopApi: string = "https://sicaworld-shop20220415230146.azurewebsites.net/api";
 
   constructor(private http: HttpClient) {}
 
@@ -44,7 +45,9 @@ export class EventService {
   }
 
   addSurvey(sform: Survey): Observable<Survey>{
-    var apiUrl = this.eventApi.concat("/addsurvey/", sform.idolId.toString(), "?");
+    var usernameEmail = window.sessionStorage.getItem("usernameEmail")??'';
+    var apiUrl = this.shopApi.concat("/addsurvey/", sform.idolId.toString(), "?");
+    sform.createBy = usernameEmail;
     return this.http.post<Survey>(
       apiUrl,
       sform

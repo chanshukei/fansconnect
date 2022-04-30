@@ -5,4 +5,5 @@ export interface Survey {
   answer2: string;
   answer3: string;
   answer4: string;
+  createBy: string;
 }

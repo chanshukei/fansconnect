@@ -10,6 +10,7 @@ import { Survey } from '../model/survey';
 })
 export class SurveyComponent implements OnInit {
 
+  usernameEmail: string ='';
   isRedirectToLogin: boolean = true;
   isLoading: boolean = false;
   total: number = 0;
@@ -20,7 +21,8 @@ export class SurveyComponent implements OnInit {
     answer1: '',
     answer2: '',
     answer3: '',
-    answer4: ''
+    answer4: '',
+    createBy: ''
   };
 
   constructor(
@@ -34,6 +36,7 @@ export class SurveyComponent implements OnInit {
       var sessionId = window.sessionStorage.getItem("sessionId");
       if(usernameEmail!='' && sessionId!='' && usernameEmail!=null && sessionId!=null){
         this.isRedirectToLogin = false;
+        this.usernameEmail = usernameEmail;
       }
       this.router.navigate(['../survey'], {relativeTo: this.route});
     });
@@ -49,8 +52,8 @@ export class SurveyComponent implements OnInit {
       data => {
         console.log(data);
         this.isComplete = true;
-        alert("This survey is submitted successfully. Thanks for your application.");
-        this.router.navigate(['../survey'], {relativeTo: this.route});
+        alert("已成功提交。");
+        this.router.navigate(['../home'], {relativeTo: this.route});
       }
     );
   }
@@ -66,7 +69,8 @@ export class SurveyComponent implements OnInit {
       answer1: '',
       answer2: '',
       answer3: '',
-      answer4: ''
+      answer4: '',
+      createBy: ''
     };
   }
 
