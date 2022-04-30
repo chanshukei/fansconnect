@@ -30,6 +30,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { OrderReceiveComponent } from './order-receive/order-receive.component';
 import { LocationFilter } from './filter/locationfilter';
 import { TodayTaskComponent } from './today-task/today-task.component';
+import { SurveyComponent } from './survey/survey.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { TodayTaskComponent } from './today-task/today-task.component';
     LuckydrawComponent,
     DesignCompComponent,
     OrderReceiveComponent,
-    TodayTaskComponent
+    TodayTaskComponent,
+    SurveyComponent
   ],
   imports: [
     BrowserModule,

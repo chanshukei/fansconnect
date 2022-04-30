@@ -19,6 +19,7 @@ import { QuestionsKingComponent } from './questions-king/questions-king.componen
 import { ShopComponent } from './shop/shop.component';
 import { SupportItemFormComponent } from './support-item-form/support-item-form.component';
 import { SupportitemComponent } from './supportitem/supportitem.component';
+import { SurveyComponent } from './survey/survey.component';
 import { TodayTaskComponent } from './today-task/today-task.component';
 
 const routes: Routes = [
@@ -42,7 +43,8 @@ const routes: Routes = [
   { path: 'luckydraw', component: LuckydrawComponent },
   { path: 'design-comp', component: DesignCompComponent },
   { path: 'order-receive', component: OrderReceiveComponent },
-  { path: 'today-task', component: TodayTaskComponent }
+  { path: 'today-task', component: TodayTaskComponent },
+  { path: 'survey', component: SurveyComponent }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

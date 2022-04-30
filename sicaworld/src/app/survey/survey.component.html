@@ -1,0 +1,52 @@
+<div *ngIf="isRedirectToLogin" class="blockingDiv">
+  <div class="loginForm">
+    <h3 class="card-title">
+      有關主席誕神秘禮物的問卷
+    </h3>
+    <p>請先登入才可使用此功能。</p>
+    <button type="button" class="btn btn-dark" (click)="gotoLogin()">登入</button>
+  </div>
+</div>
+
+<div >
+  <form>
+    <div class='card' style="width: 90%; min-width: 350px; margin-bottom: 5px;">
+      <div class='card-body'>
+        <h3 class="card-title">
+          有關主席誕神秘禮物的問卷
+        </h3>
+
+        <div class="card-text">
+          <label class="form-label">請選擇你主席誕的T恤尺寸?</label>
+          <div style="padding: 10px;">
+            <select name="answer1" class="form-control" [(ngModel)]="editForm.answer1">
+              <option value="XS">XS</option>
+              <option value="S">S</option>
+              <option value="M">M</option>
+              <option value="L">L</option>
+              <option value="XL">XL</option>
+              <option value="2XL">2XL</option>
+              <option value="3XL">3XL</option>            
+              <option value="4XL">4XL</option>
+              <option value="5XL">5XL</option>
+            </select>
+          </div>
+          <div>
+            <img style="width: 90%; max-width: 200px; display: inline-block;" src="../../assets/images/survey1_1.jpg" />
+            <img style="width: 90%; max-width: 200px; display: inline-block" src="../../assets/images/survey1_2.jpg" />
+            <img style="width: 90%; max-width: 200px; display: inline-block" src="../../assets/images/survey1_3.jpg" />
+            <img style="width: 90%; max-width: 200px; display: inline-block" src="../../assets/images/survey1_4.jpg" />
+          </div>
+        </div>
+
+        <div class="card-text">
+          <button type="button" class="btn btn-dark" style="float: left;" (click)="cancelEdit()" i18n>重設</button>
+          <button type="button" class="btn btn-dark" style="float: right;" (click)="completeEdit()">提交</button>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="btn btn-light" style="float: right;"
+            (click)="backToMenu()" i18n>返回主頁</button>
+  </form>
+</div>
