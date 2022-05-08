@@ -31,6 +31,7 @@ import { OrderReceiveComponent } from './order-receive/order-receive.component';
 import { LocationFilter } from './filter/locationfilter';
 import { TodayTaskComponent } from './today-task/today-task.component';
 import { SurveyComponent } from './survey/survey.component';
+import { Survey524Component } from './survey524/survey524.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { SurveyComponent } from './survey/survey.component';
     DesignCompComponent,
     OrderReceiveComponent,
     TodayTaskComponent,
-    SurveyComponent
+    SurveyComponent,
+    Survey524Component
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,71 @@
+<div *ngIf="isRedirectToLogin || !isOver524" class="blockingDiv">
+    <div class="loginForm">
+      <h3 class="card-title">
+        有關主席誕神秘活動的問卷
+      </h3>
+      <div *ngIf="isRedirectToLogin">
+        <p>請先登入才可使用此功能。</p>
+        <button type="button" class="btn btn-dark" (click)="gotoLogin()">登入</button>
+      </div>
+      <div *ngIf="!isOver524">
+        <p>主席誕能量達$524的葉子才可使用此功能。</p>
+      </div>
+    </div>
+  </div>
+  
+  <div >
+    <form>
+      <div class='card' style="width: 90%; min-width: 350px; margin-bottom: 5px;">
+        <div class='card-body'>
+          <h3 class="card-title">
+            有關主席誕神秘活動的問卷 [{{usernameEmail}}]
+          </h3>
+<p>
+各位金主爸爸大家好！🤓<br />
+為咗感激大家嘅無私付出，係嚟緊嘅5月22日將會有一個神秘活動，所以想問返大家會否出席！🙊<br />            
+大家請係5月12日23:59前完成此表格🤓<br />            
+活動日期：5月22日 <br />
+時間：待定<br />            
+*如人數過多，將會以抽籤形式確定出席人數。<br />          
+*由於場地關係，到時可能要比返&lt;$100入場費，另外入場人士需已打兩針疫苗或擁有醫學豁免。<br />            
+再一次多謝大家🥰
+</p>
+        <div class="card-text">
+          <label class="form-label">你的TG id? (以便之後聯絡)</label>
+          <div style="padding: 10px;">
+            <input type="text" name="answer3" class="form-control" [(ngModel)]="editForm.answer3" />
+          </div>
+        </div>
+
+          <div class="card-text">
+            <label class="form-label">你會否出席5月22日活動?</label>
+            <div style="padding: 10px;">
+              <select name="answer1" class="form-control" [(ngModel)]="editForm.answer1">
+                <option value="yes">會</option>
+                <option value="no">不會</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="card-text">
+            <label class="form-label">你是否已打兩針疫苗或擁有醫學豁免?</label>
+            <div style="padding: 10px;">
+              <select name="answer2" class="form-control" [(ngModel)]="editForm.answer2">
+                <option value="yes">是</option>
+                <option value="no">不是</option>
+              </select>
+            </div>
+          </div>
+  
+          <div class="card-text">
+            <button type="button" class="btn btn-dark" style="float: left;" (click)="cancelEdit()" i18n>重設</button>
+            <button type="button" class="btn btn-dark" style="float: right;" (click)="completeEdit()"
+                    [disabled]="(editForm.answer1=='' || editForm.answer2=='' || editForm.answer3=='')">提交</button>
+          </div>
+        </div>
+      </div>
+  
+      <button type="button" class="btn btn-light" style="float: right;"
+              (click)="backToMenu()" i18n>返回主頁</button>
+    </form>
+  </div>
