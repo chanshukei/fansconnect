@@ -30,7 +30,6 @@ export class SupportitemService {
 
   updateReceiveStatus(line: Orderline): Observable<Orderline>{
     var apiUrl = this.shopApi.concat("/updateReceiveStatus?");
-    console.log(line);
     return this.http.post<Orderline>(
       apiUrl,
       line

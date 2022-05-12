@@ -38,6 +38,7 @@ export class OrderReviewComponent implements OnInit {
   orderlineSummary: Map<string, Orderline> = new Map();
   isScan: boolean = false;
   maxPage: number = 2;
+  infoMessage: string = "";
 
   previousPage(){
     if(this.filterargs.pageNo>1){
@@ -106,6 +107,7 @@ export class OrderReviewComponent implements OnInit {
 
   updateOrderlineStatus(status: string): void{
     this.isLoading = true;
+    this.infoMessage = "更新中...請稍侯片刻";
     var newOrderline: Orderline = {
       lineId: this.editingOrderline.lineId,
       itemId: 0,
@@ -129,17 +131,8 @@ export class OrderReviewComponent implements OnInit {
     this.itemService.updateReceiveStatus(newOrderline).subscribe(
       data => {
         window.alert("更新成功");
+        this.infoMessage = "";
         window.scrollTo(0, 0);
-        this.editingOrderline = {
-          lineId: -1,
-          itemId: -1,
-          price: 0,
-          totalAmount: 0,
-          itemCount: 0,
-          itemName: '',
-          receiveStatus: '',
-          receiveStatusDate: new Date()
-        };
         this.listOrders();
       }
     );
