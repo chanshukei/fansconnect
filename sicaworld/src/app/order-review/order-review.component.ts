@@ -104,6 +104,47 @@ export class OrderReviewComponent implements OnInit {
     );
   }
 
+  updateOrderlineStatus(status: string): void{
+    this.isLoading = true;
+    var newOrderline: Orderline = {
+      lineId: this.editingOrderline.lineId,
+      itemId: 0,
+      itemName: '',
+      price: 0,
+      itemCount: 0,
+      totalAmount: 0,
+      receiveStatus: status,
+      receiveStatusDate: new Date()
+    }
+    this.editingOrderline = {
+      lineId: -1,
+      itemId: -1,
+      price: 0,
+      totalAmount: 0,
+      itemCount: 0,
+      itemName: '',
+      receiveStatus: '',
+      receiveStatusDate: new Date()
+    };
+    this.itemService.updateReceiveStatus(newOrderline).subscribe(
+      data => {
+        window.alert("更新成功");
+        window.scrollTo(0, 0);
+        this.editingOrderline = {
+          lineId: -1,
+          itemId: -1,
+          price: 0,
+          totalAmount: 0,
+          itemCount: 0,
+          itemName: '',
+          receiveStatus: '',
+          receiveStatusDate: new Date()
+        };
+        this.listOrders();
+      }
+    );
+  }
+
   listOrderlines(order: Order): void{
     this.isLoading = true;
     order.orderlines = [];
