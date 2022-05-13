@@ -155,6 +155,7 @@ export class MyorderReviewComponent implements OnInit {
       if(usernameEmail!='' && sessionId!='' && usernameEmail!=null && sessionId!=null){
         this.router.navigate(['../myorderReview'], {relativeTo: this.route});
       }else{
+        window.sessionStorage.setItem("redirectTo", "../myorderReview");
         this.router.navigate(['../login'], {relativeTo: this.route});
       }
     });
