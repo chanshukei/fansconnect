@@ -1,0 +1,53 @@
+<div class="loadingDiv" *ngIf="isLoading" style="background-image: url('../assets/icons/three mo_02.gif')">
+&nbsp;
+</div>
+
+<h2 i18n>新增提醒</h2>
+
+<form>
+    <div class='card' style="width: 90%; min-width: 300px; margin:auto">
+        <div class='card-body'>
+        <h3 class="card-title">
+            提醒事項
+        </h3>
+
+        <div class="container">
+            <div class="row">
+                <div class="col col-md-12">
+                    <button type="button" class="btn btn-primary" (click)="startIgLive()">Sica開咗IG Live</button>
+                    <button type="button" class="btn btn-secondary" (click)="startTgLive()">Sica開咗TG Live</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class='col col-md-12'>
+                    <label class="form-label">主題<span class="required">*</span></label><br>
+                    <input  type="text" maxlength="200" name="question" class="form-control"
+                            [(ngModel)]="editQuestion.question"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class='col col-md-4'>
+                    <label class="form-label">描述<span class="required">*</span></label>
+                </div>
+                <div class="col col-md-8">
+                    <input  type="text" maxlength="50" name="option1" class="form-control"
+                            [(ngModel)]="editQuestion.option1"/>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col col-md-12">
+                    <button type="button" class="btn btn-dark" style="float: left;" (click)="cancelEdit()" i18n>取消</button>
+                    <button type="button" class="btn btn-dark" style="float: right;" (click)="completeEdit()">完成</button>
+                </div>
+            </div>
+        </div>
+
+        </div>
+    </div>
+
+    <br/>
+    <button type="button" class="btn btn-light" style="float: right;"
+            (click)="backToMenu()" i18n>返回主頁</button>
+</form>
