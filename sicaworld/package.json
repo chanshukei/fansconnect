@@ -22,6 +22,7 @@
     "@zxing/ngx-scanner": "^3.5.0",
     "chart.js": "^3.7.1",
     "google-maps": "^4.3.3",
+    "moment": "^2.29.3",
     "ng2-charts": "^3.0.9",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

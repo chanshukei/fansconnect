@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { LuckydrawComponent } from './luckydraw/luckydraw.component';
 import { MapComponent } from './map/map.component';
 import { MyorderReviewComponent } from './myorder-review/myorder-review.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 import { OrderReceiveComponent } from './order-receive/order-receive.component';
 import { OrderReviewComponent } from './order-review/order-review.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -45,7 +46,8 @@ const routes: Routes = [
   { path: 'design-comp', component: DesignCompComponent },
   { path: 'order-receive', component: OrderReceiveComponent },
   { path: 'today-task', component: TodayTaskComponent },
-  { path: 'survey', component: SurveyComponent },
+  { path: 'survey', component: SurveyComponent },  
+  { path: 'notifications', component: NotificationsComponent },
   { path: 'survey524', component: Survey524Component }
 ];
 @NgModule({

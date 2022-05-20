@@ -13,6 +13,7 @@ import { UserModel } from '../model/usermodel';
 import { Survey } from '../model/survey';
 import { Donation } from '../model/donation';
 import { TaskModel } from '../model/taskmodel';
+import { Snotification } from '../model/snotification';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,14 @@ export class EventService {
       data => {
       }
     )
+  }
+
+  addNotification(notification: Snotification):Observable<Snotification>{
+    var apiUrl = this.eventApi2.concat("/addnotification/", notification.idolId.toString(), "?");
+    return this.http.post<Snotification>(
+      apiUrl,
+      notification
+    );
   }
 
   addForm(sform: Sform): Observable<Sform>{

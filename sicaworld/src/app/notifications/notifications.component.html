@@ -15,15 +15,18 @@
             <div class="row">
                 <div class="col col-md-12">
                     <button type="button" class="btn btn-primary" (click)="startIgLive()">Sica開咗IG Live</button>
-                    <button type="button" class="btn btn-secondary" (click)="startTgLive()">Sica開咗TG Live</button>
+                    <button type="button" class="btn btn-primary" (click)="startTgLive()">Sica開咗TG Live</button>
+                    <button type="button" class="btn btn-primary" (click)="startSicaProgramme()">Sica節目</button>
                 </div>
             </div>
+        </div>
 
+        <div class="container" *ngIf="hasPage2">
             <div class="row">
                 <div class='col col-md-12'>
                     <label class="form-label">主題<span class="required">*</span></label><br>
                     <input  type="text" maxlength="200" name="question" class="form-control"
-                            [(ngModel)]="editQuestion.question"/>
+                            [(ngModel)]="editNotification.title"/>
                 </div>
             </div>
             <div class="row">
@@ -32,7 +35,7 @@
                 </div>
                 <div class="col col-md-8">
                     <input  type="text" maxlength="50" name="option1" class="form-control"
-                            [(ngModel)]="editQuestion.option1"/>
+                            [(ngModel)]="editNotification.body"/>
                 </div>
             </div>
 

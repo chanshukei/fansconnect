@@ -1,8 +1,10 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { QuestionService } from '../service/question.service';
+import * as moment from 'moment';
 import { Question } from '../model/question';
+import { Snotification } from '../model/snotification';
 import { EventService } from '../service/event.service';
+import { Moment } from 'moment';
 
 @Component({
   selector: 'app-notifications',
@@ -11,23 +13,21 @@ import { EventService } from '../service/event.service';
 })
 export class NotificationsComponent implements OnInit {
 
+  hasPage2: boolean = false;
+  hasAccessRight: boolean = false;  
   isLoading: boolean = false;
   isComplete: boolean = false;
   infoMessages: string[] = [];
   alertMessages: string[] = [];
-  editQuestion: Question = {
-    questionId: 0,
-    question: '',
-    questionType: '',
-    option1: '',
-    option2: '',
-    option3: '',
-    option4: '',
-    answer: 0,
-    selectedOption: 0,
-    explain: '',
-    idolId: 1,
-    createBy: ''
+  editNotification: Snotification = {
+    notificationId: 0,
+    notificationType: '',
+    title: '',
+    body: '',
+    idolId: 1,    
+    status: 'created',
+    notificationDatetimeObj: new Date(),
+    notificationDatetime: ""
   };
 
   constructor(
@@ -40,11 +40,39 @@ export class NotificationsComponent implements OnInit {
       var usernameEmail = window.sessionStorage.getItem("usernameEmail");
       var sessionId = window.sessionStorage.getItem("sessionId");
       if(usernameEmail!='' && sessionId!='' && usernameEmail!=null && sessionId!=null){
-        this.router.navigate(['../notifications'], {relativeTo: this.route});
-      }else{
-        this.router.navigate(['../login'], {relativeTo: this.route});
-      }
+        this.hasAccessRight = true;
+      }      
+      this.router.navigate(['../notifications'], {relativeTo: this.route});      
     });
+  }
+
+  startIgLive(): void{    
+    this.hasPage2 = false;
+    if(confirm("要現在通知所有葉子主席開咗IG Live?")){
+      this.isLoading = true;
+      this.editNotification.notificationType = "igLive";
+      this.editNotification.notificationDatetimeObj = new Date();
+      this.editNotification.notificationDatetime = moment(this.editNotification.notificationDatetimeObj).utc().format('YYYY-MM-DD HH:mm');
+      this.editNotification.title = "突發: 主席開咗IG Live";
+      this.editNotification.body = "突發: 主席開咗IG Live";
+      console.log(this.editNotification);
+      this.eventService.addNotification(this.editNotification).subscribe(
+        data => {
+          this.isLoading = false;
+          console.log(data);
+          alert("成功。");
+          this.reset();
+        }
+      );
+    }
+  }
+
+  startTgLive(): void{    
+    this.hasPage2 = false;
+  }
+
+  startSicaProgramme(): void{
+    this.hasPage2 = true;
   }
 
   backToMenu(): void{
@@ -56,9 +84,7 @@ export class NotificationsComponent implements OnInit {
     this.alertMessages.length = 0;
 
     if(
-      this.editQuestion.question=='' || this.editQuestion.option1=='' || this.editQuestion.option2==''
-      || this.editQuestion.option3=='' || this.editQuestion.option4==''
-      || this.editQuestion.answer<=0 || this.editQuestion.explain==''
+      this.editNotification.title=='' || this.editNotification.body==''
     ){
       this.alertMessages.push("請輸入所有資料。");
     }
@@ -67,14 +93,11 @@ export class NotificationsComponent implements OnInit {
       this.isLoading = false;
       return;
     }
-    this.editQuestion.createBy = window.sessionStorage.getItem("usernameEmail")??'';
-
-    this.questionService.addQuestion(this.editQuestion).subscribe(
+    this.eventService.addNotification(this.editNotification).subscribe(
       data => {
         console.log(data);
-        this.isComplete = true;
-        alert("成功提交問題, 多謝。");
-        this.router.navigate(['../questions-king-home'], {relativeTo: this.route});
+        alert("成功。");
+        this.reset();
       }
     );
   }
@@ -84,19 +107,15 @@ export class NotificationsComponent implements OnInit {
   }
 
   reset(): void{
-    this.editQuestion = {
-      questionId: 0,
-      question: '',
-      questionType: '',
-      option1: '',
-      option2: '',
-      option3: '',
-      option4: '',
-      answer: 0,
-      selectedOption: 0,
-      explain: '',
+    this.editNotification = {
+      notificationId: 0,
+      notificationType: '',
+      title: '',
+      body: '',
       idolId: 1,
-      createBy: ''
+      status: 'created',
+      notificationDatetimeObj: new Date(),
+      notificationDatetime: ''
     };
   }
 

@@ -4,4 +4,7 @@ export interface Snotification {
   title: string;
   body: string;
   notificationType: string;
+  status: string;
+  notificationDatetimeObj: Date;
+  notificationDatetime: string;
 }
