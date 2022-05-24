@@ -20,6 +20,7 @@ export class OrderReviewComponent implements OnInit {
     pageNo: 1
   };
 
+  editingOrderId: string = '';
   editingOrderline: Orderline = {
     lineId: -1,
     itemId: -1,
@@ -105,7 +106,7 @@ export class OrderReviewComponent implements OnInit {
     );
   }
 
-  updateOrderlineStatus(status: string): void{
+  updateOrderlineStatus(status: string): void{    
     this.isLoading = true;
     this.infoMessage = "更新中...請稍侯片刻";
     var newOrderline: Orderline = {
@@ -118,22 +119,29 @@ export class OrderReviewComponent implements OnInit {
       receiveStatus: status,
       receiveStatusDate: new Date()
     }
-    this.editingOrderline = {
-      lineId: -1,
-      itemId: -1,
-      price: 0,
-      totalAmount: 0,
-      itemCount: 0,
-      itemName: '',
-      receiveStatus: '',
-      receiveStatusDate: new Date()
+
+    for(var i=this.orders.length-1; i>=0; i--){
+      var o = this.orders[i];
+      if(o.orderId!=this.editingOrderId){
+        continue;
+      }
+      for(var j=o.orderlines.length-1; j>=0; j--){
+        var l = o.orderlines[j];
+        if(l.lineId==newOrderline.lineId){
+          l.receiveStatus = newOrderline.receiveStatus;
+          l.receiveStatusDate = newOrderline.receiveStatusDate;
+          break;
+        }
+      }
+      break;
     };
+
+    this.resetEditingOrderline();
+    this.isLoading = false;
+
     this.itemService.updateReceiveStatus(newOrderline).subscribe(
       data => {
-        window.alert("更新成功");
-        this.infoMessage = "";
-        window.scrollTo(0, 0);
-        this.listOrders();
+        this.infoMessage = "更新成功";
       }
     );
   }
@@ -210,6 +218,11 @@ export class OrderReviewComponent implements OnInit {
   }
 
   cancelEditOrderline():void{
+    this.resetEditingOrderline();
+  }
+
+  resetEditingOrderline(): void{
+    this.editingOrderId = '';
     this.editingOrderline = {
       lineId: -1,
       itemId: -1,
@@ -219,10 +232,11 @@ export class OrderReviewComponent implements OnInit {
       itemName: '',
       receiveStatus: '',
       receiveStatusDate: new Date()
-    };
+    };    
   }
 
-  editOrderline(line: Orderline):void{
+  editOrderline(orderId: string, line: Orderline):void{
+    this.editingOrderId = orderId;
     this.editingOrderline = line;
     this.newItemCount = line.itemCount;
     this.newTotalAmount = line.totalAmount;
@@ -243,16 +257,7 @@ export class OrderReviewComponent implements OnInit {
       data => {
         window.alert("儲存成功");
         window.scrollTo(0, 0);
-        this.editingOrderline = {
-          lineId: -1,
-          itemId: -1,
-          price: 0,
-          totalAmount: 0,
-          itemCount: 0,
-          itemName: '',
-          receiveStatus: '',
-          receiveStatusDate: new Date()
-        };
+        this.resetEditingOrderline();
         this.listOrders();
       }
     );
