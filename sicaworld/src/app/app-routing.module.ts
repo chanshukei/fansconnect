@@ -48,7 +48,7 @@ const routes: Routes = [
   { path: 'order-receive', component: OrderReceiveComponent },
   { path: 'today-task', component: TodayTaskComponent },
   { path: 'notifications', component: NotificationsComponent },
-  { path: 'income', component: IncomeComponent },
+  { path: 'support-fc', component: IncomeComponent },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
