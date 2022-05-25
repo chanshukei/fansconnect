@@ -32,20 +32,20 @@
         </div>
 
         <div class="row">
-          <div class='col col-md-4'><label class="form-label">Email</label></div>
+          <div class='col col-md-4'><label class="form-label">Email (可省略)</label></div>
           <div class="col col-md-6">
             <input type="text" maxlength="100" name="payeeName" class="form-control" [(ngModel)]="editIncome.payeeName"/>
           </div>
         </div>
         <div class="row">
-          <div class='col col-md-4'><label class="form-label">TG ID</label></div>
+          <div class='col col-md-4'><label class="form-label">TG ID (可省略)</label></div>
           <div class="col col-md-6">
             <input  type="text" name="tgId" class="form-control" maxlength="100"
                     [(ngModel)]="editIncome.tgId"/>
           </div>
         </div>
         <div class="row" style="color: black">
-          * 如沒有提供 Email 或者 TG ID, 會當作匿名應援。
+          * 如沒有提供以上任何聯絡方法, 將會當作匿名應援處理。
           <br /><br />
         </div>
 
@@ -60,51 +60,10 @@
         </div>
 
         <div class="row">
-          <div class='col col-md-4'><label class="form-label">你認為廣告剩餘金額應該如何處理？</label></div>
+          <div class='col col-md-4'><label class="form-label">你希望這金額的用途？ (可省略)</label></div>
           <div class="col col-md-6">
-            <ul class='list-group'>
-              <li class='list-group-item'>
-                <div class="form-check">
-                  <input  class="form-check-input" type="checkbox" value="#1"
-                  [checked]="isChecked('#1')" (change)="onSelectionChange('#1')"/>
-                  <label class='form-check-label'>公益 （e.g. 以sica名義救貓貓仔）</label>
-                </div>
-              </li>
-              <li class='list-group-item'>
-                <div class="form-check">
-                  <input  class="form-check-input" type="checkbox" value="#2"
-                  [checked]="isChecked('#2')" (change)="onSelectionChange('#2')"/>
-                  <label class='form-check-label'>媒體廣告（e.g. 旺角成街廣告牌）</label>
-                </div>
-              </li>
-              <li class='list-group-item'>
-                <div class="form-check">
-
-                  <input  class="form-check-input" type="checkbox" value="#3"
-                  [checked]="isChecked('#3')" (change)="onSelectionChange('#3')"/>
-                  <label class='form-check-label'>線下活動 （e.g. 100人九展做勢）</label>
-                </div>
-              </li>
-              <li class='list-group-item'>
-                <div class="form-check">
-                  <input  class="form-check-input" type="checkbox" value="#4"
-                  [checked]="isChecked('#4')" (change)="onSelectionChange('#4')"/>
-                  <label class='form-check-label'>印其他應援物</label>
-                </div>
-              </li>
-              <li class='list-group-item'>
-                <div class="form-check">
-                  <input  class="form-check-input" type="checkbox" value="#5"
-                  [checked]="isChecked('#5')" (change)="onSelectionChange('#5')"/>
-                  <label class='form-check-label'>
-                    其他：
-                    <input  type="text" name="answer2" class="form-control" maxlength="100"
-                            [disabled]="!isChecked('#5')"
-                            [(ngModel)]="editIncome.answer2"/>
-                  </label>
-                </div>
-              </li>
-            </ul>
+            <input  type="text" name="answer2" class="form-control" maxlength="100"
+                    [(ngModel)]="editIncome.answer2"/>
           </div>
         </div>
 
