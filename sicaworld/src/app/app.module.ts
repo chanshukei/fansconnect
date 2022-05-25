@@ -33,6 +33,7 @@ import { TodayTaskComponent } from './today-task/today-task.component';
 import { SurveyComponent } from './survey/survey.component';
 import { Survey524Component } from './survey524/survey524.component';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { IncomeComponent } from './income/income.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { NotificationsComponent } from './notifications/notifications.component'
     TodayTaskComponent,
     SurveyComponent,
     Survey524Component,
-    NotificationsComponent
+    NotificationsComponent,
+    IncomeComponent
   ],
   imports: [
     BrowserModule,
