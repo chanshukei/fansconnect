@@ -1,12 +1,27 @@
-<h2 i18n>眾籌</h2>
+<div *ngIf="isRedirectToLogin" class="blockingDiv">
+  <div class="loginForm">
+    <h3 class="card-title">
+      今日流會眾籌
+    </h3>
+    <button type="button" class="btn btn-success" (click)="gotoLogin()">如有Google戶口請先登入</button>
+    <br /><br />
+    <button type="button" class="btn btn-danger" (click)="skipLogin()">否則以訪客身份進入</button>
+  </div>
+</div>
+
+<div class="loadingDiv" *ngIf="isLoading" style="background-image: url('../assets/icons/three mo_02.gif')">
+  &nbsp;
+</div>
+
+<h2 i18n>今日流會眾籌</h2>
 <p>
   過數資料:<br />
-  FPS ID: 5001789<br />
-  銀行轉帳Hang Seng Bank: 234-309060-882<br />
-  WONG Yxxx Fxxx<br />
+  FPS ID: 5218982<br />
+  銀行編號: 389 - Mox Bank Limited<br />
+  分行-戶口號碼: 749-80385871<br />
+  Leung H** K* C****<br />
   <br />
   過咗數之後cap圖🙇🏻‍♀️<br />
-  之後會出返個財務比大家🙇🏻‍♀️<br />
   #sica世一
 </p>
 <form>

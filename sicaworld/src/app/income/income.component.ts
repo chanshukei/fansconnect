@@ -10,6 +10,8 @@ import { EventService } from '../service/event.service';
 })
 export class IncomeComponent implements OnInit {
 
+  isRedirectToLogin: boolean = true;
+  isLoading: boolean = false;
   isLogon: boolean = false;
   infoMessages: string[] = [];
   alertMessages: string[] = [];
@@ -31,6 +33,15 @@ export class IncomeComponent implements OnInit {
   };
   logonUsernameEmail: string = "";
 
+  gotoLogin(){
+    window.sessionStorage.setItem("redirectTo", "../support-fc");
+    this.router.navigate(['../login'], {relativeTo: this.route});
+  }
+
+  skipLogin(){
+    this.isRedirectToLogin = false;
+  }
+
   backToMenu(): void{
     this.router.navigate(['../home'], {relativeTo: this.route});
   }
@@ -41,8 +52,13 @@ export class IncomeComponent implements OnInit {
       var file:File = fileList[0];
       var reader = new FileReader();
       reader.onload = () => {
+        console.log('load');
+        this.isLoading = true;
         this.filePath = reader.result as string;
-        console.log(this.filePath);
+      }
+      reader.onloadend = () => {
+        this.isLoading = false;
+        console.log('loadend');
       }
       reader.readAsDataURL(file)
     }
@@ -74,6 +90,7 @@ export class IncomeComponent implements OnInit {
         var usernameEmail = window.sessionStorage.getItem("usernameEmail");
         var sessionId = window.sessionStorage.getItem("sessionId");
         if(usernameEmail!='' && sessionId!='' && usernameEmail!=null && sessionId!=null){
+          this.isRedirectToLogin = false;
           this.isLogon = true;
           this.logonUsernameEmail = usernameEmail;
           this.router.navigate(['../support-fc'], {relativeTo: this.route});
@@ -108,13 +125,8 @@ export class IncomeComponent implements OnInit {
   }
 
   completeEdit(): void{
+    this.isLoading = true;
     this.alertMessages.length = 0;
-    if(this.editIncome.tgId==''){
-      this.alertMessages.push("請輸入TG Id");
-    }
-    if(this.editIncome.amount==0){
-      this.alertMessages.push("請輸入金額");
-    }
     if(this.filePath==''){
       this.alertMessages.push("請提供圖片證明");
     }
@@ -123,13 +135,15 @@ export class IncomeComponent implements OnInit {
       return;
     }
 
+    if(this.editIncome.payeeName==''){
+      this.editIncome.payeeName = this.logonUsernameEmail;
+    }
     this.editIncome.answer1 = this.answer1s.join();
     this.editIncome.imageContent = this.filePath;
     this.eventService.addIncome(this.editIncome).subscribe(
       data => {
-        this.reset();
-        this.infoMessages = ["上載成功"]
-        window.scrollTo(0, 0);
+        window.alert("上載成功");
+        this.router.navigate(['../home'], {relativeTo: this.route});
       }
     );
   }
