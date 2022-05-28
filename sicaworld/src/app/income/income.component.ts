@@ -10,6 +10,7 @@ import { EventService } from '../service/event.service';
 })
 export class IncomeComponent implements OnInit {
 
+  isLogon: boolean = false;
   infoMessages: string[] = [];
   alertMessages: string[] = [];
   filePath: string = '';
@@ -27,7 +28,8 @@ export class IncomeComponent implements OnInit {
     imageContent: '',
     idolId: 0,
     createDate: new Date()
-  }
+  };
+  logonUsernameEmail: string = "";
 
   backToMenu(): void{
     this.router.navigate(['../home'], {relativeTo: this.route});
@@ -69,9 +71,15 @@ export class IncomeComponent implements OnInit {
     private route: ActivatedRoute,
     private ngZone: NgZone) {
       this.ngZone.run(()=>{
-        this.router.navigate(['../income'], {relativeTo: this.route});
+        var usernameEmail = window.sessionStorage.getItem("usernameEmail");
+        var sessionId = window.sessionStorage.getItem("sessionId");
+        if(usernameEmail!='' && sessionId!='' && usernameEmail!=null && sessionId!=null){
+          this.isLogon = true;
+          this.logonUsernameEmail = usernameEmail;
+          this.router.navigate(['../support-fc'], {relativeTo: this.route});
+        }
       });
-    }
+  }
 
   ngOnInit(): void {
   }

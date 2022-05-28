@@ -31,21 +31,28 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="row" *ngIf="isLogon">
+          <div class='col col-md-10'><label class="form-label">[{{logonUsernameEmail}} 已登入]</label></div>
+        </div>
+
+        <div class="row" *ngIf="!isLogon">
           <div class='col col-md-4'><label class="form-label">Email (可省略)</label></div>
           <div class="col col-md-6">
             <input type="text" maxlength="100" name="payeeName" class="form-control" [(ngModel)]="editIncome.payeeName"/>
           </div>
         </div>
-        <div class="row">
+
+        <div class="row" *ngIf="!isLogon">
           <div class='col col-md-4'><label class="form-label">TG ID (可省略)</label></div>
           <div class="col col-md-6">
             <input  type="text" name="tgId" class="form-control" maxlength="100"
                     [(ngModel)]="editIncome.tgId"/>
           </div>
         </div>
-        <div class="row" style="color: black">
-          * 如沒有提供以上任何聯絡方法, 將會當作匿名應援處理。
+        <div class="row" *ngIf="!isLogon">
+          <div class='col col-md-10'><label class="form-label">
+            * 如沒有提供以上任何聯絡方法, 將會當作匿名應援處理。
+          </label></div>
           <br /><br />
         </div>
 
