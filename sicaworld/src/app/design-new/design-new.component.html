@@ -1,0 +1,111 @@
+<h2 i18n>設計SI投犒</h2>
+
+<div *ngIf="isRedirectToLogin" class="blockingDiv">
+    <div class="loginForm">
+      <h3 class="card-title">
+        設計SI投犒
+      </h3>
+      <button type="button" class="btn btn-success" (click)="gotoLogin()">以Google帳戶登入</button>
+      <br /><br />
+      <button type="button" class="btn btn-danger" (click)="skipLogin()">以匿名身份進入</button>
+    </div>
+</div>
+
+<div class="loadingDiv" *ngIf="isLoading" style="background-image: url('../assets/icons/three mo_02.gif')">
+  &nbsp;
+</div>
+
+<form>
+
+<div class="container">
+  <div class="row" *ngFor="let msg of alertMessages; let msgIndex=index;">
+    <div class="col col-md-10">
+      <div class="alert alert-danger" role="alert">
+        {{msg}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngFor="let msg of infoMessages; let msgIndex=index;">
+    <div class="col col-md-10">
+      <div class="alert alert-info" role="alert">
+        {{msg}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="adminAccessRight">
+    <h3>作品列表</h3>
+    <div *ngFor="let item of items; let itemIndex=index;" class='card'>
+        <div class='card-body'>            
+            <h3 class="card-title">作品 {{item.itemId}}</h3>
+            <img style="max-width: 800px; width: 95%; border-radius: 10px;"
+                src='{{ "https://fansconnect-video.azurewebsites.net/api/designitem/" + item.itemId + "?code=Z8mrbNy/XMQaMW1awDQ9LS7SY7PjdIYig54zyXeAY3Etd9frQo/mGA=="}}' />
+            <p class="card-text">By {{item.uploadBy}}</p>
+            <p class="card-text">{{item.fileDescription}}</p>
+            <a  target="_blank"
+                [href]="'https://fansconnect-video.azurewebsites.net/api/designitem/' + item.itemId + '?code=Z8mrbNy/XMQaMW1awDQ9LS7SY7PjdIYig54zyXeAY3Etd9frQo/mGA=='">原圖</a>
+        </div>
+    </div>
+    <br />
+    <button type="button" class="btn btn-light" style="float: right;"
+            (click)="backToMenu()" i18n>返回主頁</button>
+</div>
+
+<div    class='card' style="width: 90%; min-width: 300px; margin-bottom: 5px; background-color: black;" 
+        *ngIf="!adminAccessRight">
+  <div class='card-body'>
+    <h3 class="card-title">上載你的作品</h3>
+    <div class="container">
+        <div class="row" *ngIf="!isLogon">
+            <div class='col col-md-4'><label class="form-label">Email (可省略)</label></div>
+            <div class="col col-md-6">
+                <input type="text" maxlength="100" name="email" class="form-control" [(ngModel)]="email"/>
+            </div>
+        </div>
+        <div class="row" *ngIf="!isLogon">
+            <div class='col col-md-4'><label class="form-label">TG ID (可省略)</label></div>
+            <div class="col col-md-6">
+                <input  type="text" name="tgId" class="form-control" maxlength="100"
+                        [(ngModel)]="tgId"/>
+            </div>
+        </div>
+        <div class="row" *ngIf="!isLogon">
+            <div class='col col-md-10'><label class="form-label">
+                * 如沒有提供以上任何聯絡方法, 將會當作匿名投犒處理。
+            </label></div>
+            <br /><br />
+        </div>
+        <div class="row">
+            <div class='col col-md-4'><label class="form-label">作品 <span class="required">*</span></label></div>
+            <div class="col col-md-6">
+            <div class="photo-container">
+                <input accept="image/*" type="file" id="image_input" (change)="onFileSelected($event)">
+            </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col col-md-4'><label class="form-label">下載連結</label></div>
+            <div class="col col-md-6">
+            <input  type="text" maxlength="500" name="fileDescription"
+                    class="form-control" [(ngModel)]="editItem.fileDescription"/>
+            </div>            
+        </div>
+        <div class="row">
+            <div class='col col-md-10'><label class="form-label">
+                * 如作品超過30Mb, 請提供下載連結。
+            </label></div>
+            <br /><br />
+        </div>
+        <div class="row">
+            <div class="col col-md-12">
+            <button   [disabled]="isUploading" type="button" class="btn btn-light" 
+                        style="float: right;" (click)="completeEdit()">完成</button>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+</form>

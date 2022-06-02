@@ -119,8 +119,8 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['../supportitem'], {relativeTo: this.route});
   }
 
-  goToPhotoBattle(): void{
-    this.router.navigate(['../design-comp'], {relativeTo: this.route});
+  gotoDesigner(): void{
+    this.router.navigate(['../design-new'], {relativeTo: this.route});
   }
 
   goToQuestions(): void{

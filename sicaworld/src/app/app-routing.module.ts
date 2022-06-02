@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddQuestionComponent } from './add-question/add-question.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DesignCompComponent } from './design-comp/design-comp.component';
+import { DesignNewComponent } from './design-new/design-new.component';
 import { DonationReviewComponent } from './donation-review/donation-review.component';
 import { DonationComponent } from './donation/donation.component';
 import { EventsComponent } from './events/events.component';
@@ -45,7 +46,7 @@ const routes: Routes = [
   { path: 'donation', component: DonationComponent },
   { path: 'donation-review', component: DonationReviewComponent },
   { path: 'luckydraw', component: LuckydrawComponent },
-  { path: 'design-comp', component: DesignCompComponent },
+  { path: 'design-new', component: DesignNewComponent },
   { path: 'order-receive', component: OrderReceiveComponent },
   { path: 'today-task', component: TodayTaskComponent },
   { path: 'notifications', component: NotificationsComponent },
