@@ -34,6 +34,7 @@ import { SurveyComponent } from './survey/survey.component';
 import { Survey524Component } from './survey524/survey524.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { IncomeComponent } from './income/income.component';
+import { IncomeReviewComponent } from './income-review/income-review.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { IncomeComponent } from './income/income.component';
     SurveyComponent,
     Survey524Component,
     NotificationsComponent,
-    IncomeComponent
+    IncomeComponent,
+    IncomeReviewComponent
   ],
   imports: [
     BrowserModule,

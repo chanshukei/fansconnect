@@ -103,6 +103,24 @@ export class EventService {
     );
   }
 
+  getNewIncomes(): Observable<Income[]>{
+    var apiUrl = this.eventApi2.concat(
+      "/incomes",
+      "?code=4uf6mJvXia17PoHw8aNUlDC1iT1G8RqkFIPB5LC2bsgrVihwmKTpVA==");
+    var usernameEmail = window.sessionStorage.getItem("usernameEmail");
+    var sessionId = window.sessionStorage.getItem("sessionId");
+    var user: UserModel = {
+      usernameEmail: usernameEmail??'',
+      sessionId: sessionId??'',
+      seessionExpireDatetime: new Date(),
+      roleId: ''
+    };
+    return this.http.post<Income[]>(
+      apiUrl,
+      user
+    );
+  }
+
   getDonations(idolId: number): Observable<Donation[]>{
     var apiUrl = this.eventApi.concat(
       "/donations/", idolId.toString(),
