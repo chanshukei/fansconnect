@@ -103,10 +103,9 @@ export class EventService {
     );
   }
 
-  getNewIncomes(): Observable<Income[]>{
+  getNewIncomes(idolId: number): Observable<Income[]>{
     var apiUrl = this.eventApi2.concat(
-      "/incomes",
-      "?code=4uf6mJvXia17PoHw8aNUlDC1iT1G8RqkFIPB5LC2bsgrVihwmKTpVA==");
+      "/incomes/", idolId.toString(), "?");
     var usernameEmail = window.sessionStorage.getItem("usernameEmail");
     var sessionId = window.sessionStorage.getItem("sessionId");
     var user: UserModel = {
@@ -115,6 +114,7 @@ export class EventService {
       seessionExpireDatetime: new Date(),
       roleId: ''
     };
+    console.log(user);
     return this.http.post<Income[]>(
       apiUrl,
       user

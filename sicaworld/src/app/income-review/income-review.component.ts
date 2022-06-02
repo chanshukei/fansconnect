@@ -1,6 +1,5 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Donation } from '../model/donation';
 import { Income } from '../model/income';
 import { EventService } from '../service/event.service';
 
@@ -17,7 +16,7 @@ export class IncomeReviewComponent implements OnInit {
   listOrders(): void{
     this.isLoading = true;
     this.incomes = [];
-    this.eventService.getNewIncomes().subscribe(
+    this.eventService.getNewIncomes(1).subscribe(
       e => {
         for(var i=0; i<e.length; i++){
           var e2: Income = {
@@ -51,7 +50,7 @@ export class IncomeReviewComponent implements OnInit {
       var usernameEmail = window.sessionStorage.getItem("usernameEmail");
       var sessionId = window.sessionStorage.getItem("sessionId");
       if(usernameEmail!='' && sessionId!='' && usernameEmail!=null && sessionId!=null){
-        this.router.navigate(['../donationReview'], {relativeTo: this.route});
+        this.router.navigate(['../support-fc-admin'], {relativeTo: this.route});
       }else{
         this.router.navigate(['../login'], {relativeTo: this.route});
       }

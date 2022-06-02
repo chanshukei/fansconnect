@@ -18,7 +18,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let income of donations">
+    <tr *ngFor="let income of incomes">
       <td>{{income.createDate | date:'yyyy-MM-dd hh:mm'}}</td>
       <td>{{income.payeeName}}</td>
       <td>${{income.amount}}</td>

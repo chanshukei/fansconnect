@@ -7,6 +7,7 @@ import { DonationReviewComponent } from './donation-review/donation-review.compo
 import { DonationComponent } from './donation/donation.component';
 import { EventsComponent } from './events/events.component';
 import {HomeComponent} from './home/home.component'
+import { IncomeReviewComponent } from './income-review/income-review.component';
 import { IncomeComponent } from './income/income.component';
 import { LoginComponent } from './login/login.component';
 import { LuckydrawComponent } from './luckydraw/luckydraw.component';
@@ -49,6 +50,7 @@ const routes: Routes = [
   { path: 'today-task', component: TodayTaskComponent },
   { path: 'notifications', component: NotificationsComponent },
   { path: 'support-fc', component: IncomeComponent },
+  { path: 'support-fc-admin', component: IncomeReviewComponent },  
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

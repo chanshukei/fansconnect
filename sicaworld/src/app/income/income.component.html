@@ -13,6 +13,13 @@
   &nbsp;
 </div>
 
+
+<div style="position: absolute; top: 0; right: 0;">
+  <button type="button" class="btn btn-light"
+          *ngIf="adminAccessRight"
+          (click)="goToReview()" i18n>查閱眾籌紀錄</button>
+</div>
+
 <h2 i18n>今日流會眾籌</h2>
 <p>
   過數資料:<br />

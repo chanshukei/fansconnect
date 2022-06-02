@@ -52,6 +52,10 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['../luckydraw'], {relativeTo: this.route});
   }
 
+  gotoIncomes():void{
+    this.router.navigate(['../support-fc'], {relativeTo: this.route});
+  }
+
   gotoMyRecords():void{
     this.router.navigate(['../myorderReview'], {relativeTo: this.route});
   }

@@ -1,5 +1,6 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IdolService } from '../idol.service';
 import { Income } from '../model/income';
 import { EventService } from '../service/event.service';
 
@@ -10,6 +11,7 @@ import { EventService } from '../service/event.service';
 })
 export class IncomeComponent implements OnInit {
 
+  adminAccessRight: boolean = false;
   isRedirectToLogin: boolean = true;
   isLoading: boolean = false;
   isLogon: boolean = false;
@@ -28,10 +30,14 @@ export class IncomeComponent implements OnInit {
     answer4: '',
     answer5: '',
     imageContent: '',
-    idolId: 0,
+    idolId: 1,
     createDate: new Date()
   };
   logonUsernameEmail: string = "";
+
+  goToReview(): void{
+    this.router.navigate(['../support-fc-admin'], {relativeTo: this.route});
+  }
 
   gotoLogin(){
     window.sessionStorage.setItem("redirectTo", "../support-fc");
@@ -83,10 +89,19 @@ export class IncomeComponent implements OnInit {
 
   constructor(
     private eventService: EventService,
+    private idolService: IdolService,
     private router: Router,
     private route: ActivatedRoute,
     private ngZone: NgZone) {
       this.ngZone.run(()=>{
+        //admin right
+        this.idolService.checkAccessRight(1, 'admin').subscribe(
+          e => {
+            this.adminAccessRight = e.length>0;
+          }
+        );
+        
+        //user
         var usernameEmail = window.sessionStorage.getItem("usernameEmail");
         var sessionId = window.sessionStorage.getItem("sessionId");
         if(usernameEmail!='' && sessionId!='' && usernameEmail!=null && sessionId!=null){
@@ -119,7 +134,7 @@ export class IncomeComponent implements OnInit {
       answer4: '',
       answer5: '',
       imageContent: '',
-      idolId: 0,
+      idolId: 1,
       createDate: new Date()
     }
   }
