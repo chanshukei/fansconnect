@@ -113,6 +113,7 @@ export class DesignNewComponent implements OnInit {
         this.idolService.checkAccessRight(1, 'admin').subscribe(
           e => {
             this.adminAccessRight = e.length>0;
+            this.listResult();
           }
         );
 
